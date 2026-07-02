@@ -44,23 +44,29 @@
 }
 
 .wood-texture {
-  background-color: #1a0804;
+  background-color: #3b1c10;
   background-image: 
-    linear-gradient(45deg, rgba(255,255,255,0.03) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.03) 75%, transparent 75%, transparent),
-    linear-gradient(to bottom, #2b130a, #0a0301);
-  background-size: 6px 6px, 100% 100%;
+    linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 4%, rgba(0,0,0,0) 96%, rgba(0,0,0,0.8) 100%),
+    linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 4%, rgba(0,0,0,0) 96%, rgba(0,0,0,0.8) 100%),
+    linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 10%, transparent 90%, rgba(0,0,0,0.3) 100%),
+    repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(0,0,0,0.08) 4px, rgba(0,0,0,0.08) 8px),
+    url("data:image/svg+xml,%3Csvg width='800' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='wood'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.01 0.1' numOctaves='3' result='noise'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.15 0' in='noise'/%3E%3C/filter%3E%3Crect width='800' height='400' filter='url(%23wood)'/%3E%3C/svg%3E"),
+    linear-gradient(to bottom, #4a2110, #1f0b04);
   box-shadow: 
-    inset 0 2px 4px rgba(255,255,255,0.1),
-    inset 0 -4px 15px rgba(0,0,0,0.9),
-    0 30px 60px rgba(0,0,0,0.9);
+    inset 0 0 20px rgba(0,0,0,0.9),
+    inset 0 0 4px rgba(255,255,255,0.2),
+    0 50px 100px rgba(0,0,0,0.95);
 }
 
 .red-felt {
-  background-color: #2e0909;
+  background-color: #5A0F16;
   background-image: 
-    radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.7) 100%),
-    url("data:image/svg+xml,%3Csvg width='150' height='150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='150' height='150' fill='transparent'/%3E%3Crect width='150' height='150' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
-  box-shadow: inset 0 0 60px rgba(0,0,0,0.9);
+    radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.6) 100%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0px, transparent 1px, transparent 4px),
+    linear-gradient(90deg, transparent 45%, rgba(0,0,0,0.15) 48%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.15) 52%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.3' mix-blend-mode='multiply'/%3E%3C/svg%3E");
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.7);
 }
 
 /* Custom Scrollbar */

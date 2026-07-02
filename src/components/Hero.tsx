@@ -160,7 +160,7 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
           transition={{ duration: 2, ease: "easeOut" }}
         >
           {/* Table Outer Wood */}
-          <div className="w-full h-full wood-texture rounded-[2rem] md:rounded-[3rem] shadow-[0_40px_80px_rgba(0,0,0,0.9)] relative ring-[1px] ring-[#3d1212] border-[16px] md:border-[24px] border-[#2b130a] flex items-center justify-center overflow-hidden">
+          <div className="w-full h-full wood-texture rounded-[2rem] md:rounded-[3rem] shadow-[0_40px_80px_rgba(0,0,0,0.9)] relative ring-[1px] ring-[#3d1212] border-[16px] md:border-[24px] border-[#2b130a] flex items-center justify-center">
             
             {/* Corner metallic plates (optional, for realism) */}
             <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-[#333] to-[#111] rounded-tl-[1.5rem] md:rounded-tl-[2.5rem] opacity-50 pointer-events-none" />
@@ -181,32 +181,40 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
             {/* Right Cushion */}
             <div className="absolute right-2 md:right-4 top-16 bottom-16 w-8 md:w-12 bg-gradient-to-l from-[#1c0404] via-[#3a0a0a] to-[#110202] z-10 shadow-[-15px_0_25px_rgba(0,0,0,0.9)] border-l border-[#5c1313]/40 rounded-l-sm" />
 
-            {/* Pockets (SVG) Over Rails */}
+            {/* Pockets (SVG) Over Rails - Enhanced Sharpness */}
             <div className="absolute inset-4 md:inset-6 z-20 pointer-events-none">
               <svg viewBox={`0 0 ${width} ${height}`} className="absolute inset-0 w-full h-full overflow-visible" preserveAspectRatio="none">
                 <defs>
-                  <radialGradient id="pocketShadow">
-                    <stop offset="60%" stopColor="rgba(0,0,0,1)" />
-                    <stop offset="100%" stopColor="rgba(0,0,0,0)" />
+                  <radialGradient id="pocketDepth">
+                    <stop offset="75%" stopColor="#020101" />
+                    <stop offset="95%" stopColor="#111" />
+                    <stop offset="100%" stopColor="#333" />
                   </radialGradient>
                   <linearGradient id="bracketGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#888" />
-                    <stop offset="30%" stopColor="#ccc" />
-                    <stop offset="50%" stopColor="#444" />
-                    <stop offset="70%" stopColor="#aaa" />
-                    <stop offset="100%" stopColor="#222" />
+                    <stop offset="0%" stopColor="#1a1a1a" />
+                    <stop offset="50%" stopColor="#4a4a4a" />
+                    <stop offset="100%" stopColor="#0a0a0a" />
                   </linearGradient>
+                  <filter id="pocketShadow">
+                    <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#000" floodOpacity="0.8" />
+                  </filter>
                 </defs>
                 {pockets.map((p, i) => (
                   <g key={i}>
-                    {/* Dark drop shadow for the hole */}
-                    <circle cx={p.cx} cy={p.cy} r={28} fill="url(#pocketShadow)" />
-                    {/* Metallic bracket wrapping the pocket */}
+                    {/* Sharp leather pocket surround */}
+                    <circle cx={p.cx} cy={p.cy} r={26} fill="#0a0a0a" filter="url(#pocketShadow)" />
+                    {/* Inner lip */}
+                    <circle cx={p.cx} cy={p.cy} r={22} fill="#111" />
+                    {/* The sharp deep hole */}
+                    <circle cx={p.cx} cy={p.cy} r={20} fill="url(#pocketDepth)" />
+                    
+                    {/* Sharp Metallic bracket wrapping the pocket */}
                     <path 
-                      d={`M ${p.cx - 24} ${p.cy - 10} C ${p.cx - 24} ${p.cy - 24}, ${p.cx + 24} ${p.cy - 24}, ${p.cx + 24} ${p.cy - 10}`} 
+                      d={`M ${p.cx - 26} ${p.cy - 8} C ${p.cx - 26} ${p.cy - 28}, ${p.cx + 26} ${p.cy - 28}, ${p.cx + 26} ${p.cy - 8}`} 
                       fill="none" 
                       stroke="url(#bracketGrad)" 
-                      strokeWidth="6" 
+                      strokeWidth="5" 
+                      filter="url(#pocketShadow)"
                       transform={
                         i === 0 ? `rotate(-45 ${p.cx} ${p.cy})` :
                         i === 1 ? `rotate(0 ${p.cx} ${p.cy})` :
@@ -217,9 +225,6 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
                       }
                       strokeLinecap="round"
                     />
-                    {/* The actual hole */}
-                    <circle cx={p.cx} cy={p.cy} r={20} fill="#050101" />
-                    <circle cx={p.cx} cy={p.cy} r={20} fill="url(#pocketShadow)" opacity="0.8" />
                   </g>
                 ))}
               </svg>
