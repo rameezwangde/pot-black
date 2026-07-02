@@ -44,24 +44,23 @@
 }
 
 .wood-texture {
-  background-color: #3d2314;
+  background-color: #1a0804;
   background-image: 
-    repeating-linear-gradient(
-      11deg,
-      rgba(0, 0, 0, 0.1),
-      rgba(0, 0, 0, 0.1) 1px,
-      transparent 1px,
-      transparent 3px
-    ),
-    linear-gradient(to right, #4a2c1a, #3d2314, #2b180d, #3d2314, #4a2c1a);
-  background-size: 100% 100%, 200% 100%;
+    linear-gradient(45deg, rgba(255,255,255,0.03) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0.03) 75%, transparent 75%, transparent),
+    linear-gradient(to bottom, #2b130a, #0a0301);
+  background-size: 6px 6px, 100% 100%;
+  box-shadow: 
+    inset 0 2px 4px rgba(255,255,255,0.1),
+    inset 0 -4px 15px rgba(0,0,0,0.9),
+    0 30px 60px rgba(0,0,0,0.9);
 }
 
-.green-felt {
-  background-color: #451414;
+.red-felt {
+  background-color: #2e0909;
   background-image: 
-    radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.4) 100%),
-    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' fill='transparent'/%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+    radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.7) 100%),
+    url("data:image/svg+xml,%3Csvg width='150' height='150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='150' height='150' fill='transparent'/%3E%3Crect width='150' height='150' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.9);
 }
 
 /* Custom Scrollbar */

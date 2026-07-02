@@ -160,44 +160,82 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
           transition={{ duration: 2, ease: "easeOut" }}
         >
           {/* Table Outer Wood */}
-          <div className="w-full h-full wood-texture rounded-2xl md:rounded-[2.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.8)] relative ring-[8px] ring-[#1a0f0a] border-[12px] border-[#3d2314] flex items-center justify-center overflow-hidden">
+          <div className="w-full h-full wood-texture rounded-[2rem] md:rounded-[3rem] shadow-[0_40px_80px_rgba(0,0,0,0.9)] relative ring-[1px] ring-[#3d1212] border-[16px] md:border-[24px] border-[#2b130a] flex items-center justify-center overflow-hidden">
+            
+            {/* Corner metallic plates (optional, for realism) */}
+            <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-[#333] to-[#111] rounded-tl-[1.5rem] md:rounded-tl-[2.5rem] opacity-50 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-[#333] to-[#111] rounded-tr-[1.5rem] md:rounded-tr-[2.5rem] opacity-50 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-[#333] to-[#111] rounded-bl-[1.5rem] md:rounded-bl-[2.5rem] opacity-50 pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-[#333] to-[#111] rounded-br-[1.5rem] md:rounded-br-[2.5rem] opacity-50 pointer-events-none" />
 
-            {/* Table inner rails/bumpers */}
-            <div className="absolute inset-0 md:inset-2 border-[24px] md:border-[40px] border-[#18442c] rounded-xl shadow-[inset_0_0_40px_rgba(0,0,0,0.9),0_10px_20px_rgba(0,0,0,0.5)] pointer-events-none z-10" />
+            {/* Inner frame base */}
+            <div className="absolute inset-2 md:inset-4 bg-[#0a0202] rounded-xl z-0" />
+
+            {/* 3D Cushions (Rails) */}
+            {/* Top Cushion */}
+            <div className="absolute top-2 md:top-4 left-16 right-16 h-8 md:h-12 bg-gradient-to-b from-[#1c0404] via-[#3a0a0a] to-[#110202] z-10 shadow-[0_15px_25px_rgba(0,0,0,0.9)] border-b border-[#5c1313]/40 rounded-b-sm" />
+            {/* Bottom Cushion */}
+            <div className="absolute bottom-2 md:bottom-4 left-16 right-16 h-8 md:h-12 bg-gradient-to-t from-[#1c0404] via-[#3a0a0a] to-[#110202] z-10 shadow-[0_-15px_25px_rgba(0,0,0,0.9)] border-t border-[#5c1313]/40 rounded-t-sm" />
+            {/* Left Cushion */}
+            <div className="absolute left-2 md:left-4 top-16 bottom-16 w-8 md:w-12 bg-gradient-to-r from-[#1c0404] via-[#3a0a0a] to-[#110202] z-10 shadow-[15px_0_25px_rgba(0,0,0,0.9)] border-r border-[#5c1313]/40 rounded-r-sm" />
+            {/* Right Cushion */}
+            <div className="absolute right-2 md:right-4 top-16 bottom-16 w-8 md:w-12 bg-gradient-to-l from-[#1c0404] via-[#3a0a0a] to-[#110202] z-10 shadow-[-15px_0_25px_rgba(0,0,0,0.9)] border-l border-[#5c1313]/40 rounded-l-sm" />
 
             {/* Pockets (SVG) Over Rails */}
-            <div className="absolute inset-5 md:inset-10 z-20 pointer-events-none">
+            <div className="absolute inset-4 md:inset-6 z-20 pointer-events-none">
               <svg viewBox={`0 0 ${width} ${height}`} className="absolute inset-0 w-full h-full overflow-visible" preserveAspectRatio="none">
                 <defs>
                   <radialGradient id="pocketShadow">
-                    <stop offset="50%" stopColor="rgba(0,0,0,0)" />
-                    <stop offset="100%" stopColor="rgba(0,0,0,1)" />
+                    <stop offset="60%" stopColor="rgba(0,0,0,1)" />
+                    <stop offset="100%" stopColor="rgba(0,0,0,0)" />
                   </radialGradient>
                   <linearGradient id="bracketGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#555" />
-                    <stop offset="50%" stopColor="#222" />
-                    <stop offset="100%" stopColor="#241616" />
+                    <stop offset="0%" stopColor="#888" />
+                    <stop offset="30%" stopColor="#ccc" />
+                    <stop offset="50%" stopColor="#444" />
+                    <stop offset="70%" stopColor="#aaa" />
+                    <stop offset="100%" stopColor="#222" />
                   </linearGradient>
                 </defs>
                 {pockets.map((p, i) => (
                   <g key={i}>
-                    <circle cx={p.cx} cy={p.cy} r={46} fill="url(#bracketGrad)" />
-                    <circle cx={p.cx} cy={p.cy} r={34} fill="#1A0E0E" />
-                    <circle cx={p.cx} cy={p.cy} r={32} fill="#000" />
-                    <circle cx={p.cx} cy={p.cy} r={34} fill="url(#pocketShadow)" />
+                    {/* Dark drop shadow for the hole */}
+                    <circle cx={p.cx} cy={p.cy} r={28} fill="url(#pocketShadow)" />
+                    {/* Metallic bracket wrapping the pocket */}
+                    <path 
+                      d={`M ${p.cx - 24} ${p.cy - 10} C ${p.cx - 24} ${p.cy - 24}, ${p.cx + 24} ${p.cy - 24}, ${p.cx + 24} ${p.cy - 10}`} 
+                      fill="none" 
+                      stroke="url(#bracketGrad)" 
+                      strokeWidth="6" 
+                      transform={
+                        i === 0 ? `rotate(-45 ${p.cx} ${p.cy})` :
+                        i === 1 ? `rotate(0 ${p.cx} ${p.cy})` :
+                        i === 2 ? `rotate(45 ${p.cx} ${p.cy})` :
+                        i === 3 ? `rotate(-135 ${p.cx} ${p.cy})` :
+                        i === 4 ? `rotate(180 ${p.cx} ${p.cy})` :
+                        `rotate(135 ${p.cx} ${p.cy})`
+                      }
+                      strokeLinecap="round"
+                    />
+                    {/* The actual hole */}
+                    <circle cx={p.cx} cy={p.cy} r={20} fill="#050101" />
+                    <circle cx={p.cx} cy={p.cy} r={20} fill="url(#pocketShadow)" opacity="0.8" />
                   </g>
                 ))}
               </svg>
             </div>
 
-            {/* Table Inner Green Felt */}
-            <div className="absolute inset-5 md:inset-10 green-felt rounded-sm shadow-[inset_0_0_100px_rgba(0,0,0,0.9)] z-0">
+            {/* Table Inner Felt */}
+            <div className="absolute inset-10 md:inset-16 red-felt shadow-[inset_0_0_80px_rgba(0,0,0,1)] z-0 overflow-hidden">
+              {/* Center Spotlight */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#ffffff] opacity-[0.03] blur-[60px] rounded-full pointer-events-none z-0" />
+
               <div className="absolute inset-0 w-full h-full z-10">
                 {/* Initial Cue Stick */}
                 <motion.div
                   className="absolute top-1/2 h-3 md:h-5 rounded-full origin-right z-20"
                   style={{
-                    left: 'calc(25% - 40% - 15px)',
+                    left: 'calc(25% - 40%)',
                     width: '40%',
                     background: 'linear-gradient(to bottom, #7c4c2a 0%, #d9a05b 20%, #e8ba7d 40%, #8B5A2B 80%, #3a2210 100%)',
                     y: '-50%',
@@ -330,7 +368,7 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
           </motion.div>
 
           <motion.h1
-            className="text-6xl md:text-8xl lg:text-[7.5rem] font-serif leading-[1.05] mb-2 drop-shadow-2xl uppercase tracking-tight text-[#EAE0C8]"
+            className="text-5xl md:text-8xl lg:text-[7.5rem] font-serif leading-[1.05] mb-2 drop-shadow-2xl uppercase tracking-tight text-[#EAE0C8]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: stage >= 9 ? 1 : 0, y: stage >= 9 ? 0 : 30 }}
             transition={{ duration: 1, delay: 0.4 }}
