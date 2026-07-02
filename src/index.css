@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  --color-billiards-dark: #040906;
+  --color-billiards-green: #3A0A0A;
+  --color-billiards-emerald: #5C0D0D;
+  --color-billiards-wood: #2A130A;
+  --color-billiards-gold: #D4AF37;
+  --color-billiards-gold-light: #F3E5AB;
+  --color-billiards-light: #F4F6F6;
+}
+
+@layer base {
+  body {
+    @apply bg-billiards-dark text-billiards-light font-sans antialiased selection:bg-billiards-gold selection:text-billiards-dark;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight;
+  }
+}
+
+/* Premium Textures & Gradients */
+.bg-premium-gradient {
+  background: radial-gradient(circle at 50% 0%, #3A0A0A 0%, #040906 70%);
+}
+
+.glass-card {
+  background: rgba(58, 10, 10, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.gold-text-gradient {
+  background: linear-gradient(to right, #D4AF37, #F3E5AB, #D4AF37);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.wood-texture {
+  background-color: #3d2314;
+  background-image: 
+    repeating-linear-gradient(
+      11deg,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    linear-gradient(to right, #4a2c1a, #3d2314, #2b180d, #3d2314, #4a2c1a);
+  background-size: 100% 100%, 200% 100%;
+}
+
+.green-felt {
+  background-color: #451414;
+  background-image: 
+    radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.4) 100%),
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' fill='transparent'/%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #040906; 
+}
+::-webkit-scrollbar-thumb {
+  background: #3A0A0A; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37; 
+}
