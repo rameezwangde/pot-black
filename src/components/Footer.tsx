@@ -10,8 +10,8 @@ export default function Footer() {
           {/* Col 1 */}
           <div className="flex flex-col gap-6">
             <a href="#" className="flex items-center gap-4">
-              <div className="w-12 h-12 flex items-center justify-center relative">
-                <span className="font-serif text-3xl text-[#D4AF37] leading-none tracking-tighter">PB</span>
+              <div className="w-16 h-16 flex items-center justify-center relative shrink-0">
+                <img src="/logo.png" alt="Pot Black Logo" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="font-serif text-2xl tracking-[0.15em] uppercase text-white leading-none">Pot Black</span>
