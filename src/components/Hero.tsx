@@ -230,8 +230,9 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
               <div className="absolute inset-10 md:inset-16 red-felt shadow-[inset_0_0_80px_rgba(0,0,0,1)] z-0 overflow-hidden">
                 {/* Center Spotlight */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#ffffff] opacity-[0.03] blur-[60px] rounded-full pointer-events-none z-0" />
+              </div>
 
-                <div className="absolute inset-0 w-full h-full z-10">
+              <div className="absolute inset-4 md:inset-6 z-10 pointer-events-none">
                   {/* Initial Cue Stick */}
                   <motion.div
                     className="absolute top-1/2 h-3 md:h-5 rounded-full origin-right z-20"
@@ -270,27 +271,25 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
                     }}
                     initial={{ left: '25%', top: '50%' }}
                     animate={{
-                      left: stage >= 4 ? '50%' : stage >= 3 ? '75%' : '25%',
-                      top: stage >= 4 ? '-1%' : '50%',
-                      scale: stage >= 5 ? 0 : 1,
-                      opacity: stage >= 5 ? 0 : 1
+                      left: stage >= 4 ? '45%' : stage >= 3 ? '70%' : '25%',
+                      top: stage >= 4 ? '35%' : '50%',
+                      scale: 1,
+                      opacity: 1
                     }}
                     transition={{
                       left: { duration: stage >= 4 ? 2 : stage >= 3 ? 0.25 : 0, ease: stage >= 4 ? "easeOut" : "linear" },
-                      top: { duration: stage >= 4 ? 2 : stage >= 3 ? 0.25 : 0, ease: stage >= 4 ? "easeOut" : "linear" },
-                      scale: { duration: 0.3 },
-                      opacity: { duration: 0.3 }
+                      top: { duration: stage >= 4 ? 2 : stage >= 3 ? 0.25 : 0, ease: stage >= 4 ? "easeOut" : "linear" }
                     }}
                   />
 
                   {/* Target Balls */}
                   {[
-                    { id: 1, color: '#F1C40F', initX: '75%', initY: '50%', endX: '100%', endY: '0%' },
-                    { id: 2, color: '#2980B9', initX: 'calc(75% + 34px)', initY: 'calc(50% - 20px)', endX: '0%', endY: '0%' },
-                    { id: 3, color: '#E74C3C', initX: 'calc(75% + 34px)', initY: 'calc(50% + 20px)', endX: '100%', endY: '100%' },
-                    { id: 4, color: '#8E44AD', initX: 'calc(75% + 68px)', initY: 'calc(50% - 40px)', endX: '50%', endY: '-1%' },
-                    { id: 5, color: '#E67E22', initX: 'calc(75% + 68px)', initY: '50%', endX: '0%', endY: '100%' },
-                    { id: 8, color: '#111111', initX: 'calc(75% + 68px)', initY: 'calc(50% + 40px)', endX: '50%', endY: '101%' },
+                    { id: 1, color: '#F1C40F', initX: '70%', initY: '50%', endX: '100%', endY: '0%' },
+                    { id: 2, color: '#2980B9', initX: 'calc(70% + 34px)', initY: 'calc(50% - 20px)', endX: '0%', endY: '0%' },
+                    { id: 3, color: '#E74C3C', initX: 'calc(70% + 34px)', initY: 'calc(50% + 20px)', endX: '100%', endY: '100%' },
+                    { id: 4, color: '#8E44AD', initX: 'calc(70% + 68px)', initY: 'calc(50% - 40px)', endX: '50%', endY: '-2.5%' },
+                    { id: 5, color: '#E67E22', initX: 'calc(70% + 68px)', initY: '50%', endX: '0%', endY: '100%' },
+                    { id: 8, color: '#111111', initX: 'calc(70% + 68px)', initY: 'calc(50% + 40px)', endX: '50%', endY: '102.5%' },
                   ].map((ball) => (
                     <motion.div
                       key={ball.id}
@@ -326,7 +325,6 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
                   ))}
                 </div>
               </div>
-            </div>
           </motion.div>
         </motion.div>
 
