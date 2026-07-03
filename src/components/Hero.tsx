@@ -307,7 +307,20 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
         <div className="absolute inset-0 max-w-[1600px] mx-auto px-8 z-40 w-full pointer-events-none flex justify-center items-start pt-8 md:pt-12 lg:pt-16 h-full text-center">
           <div className="max-w-5xl pointer-events-auto flex flex-col items-center">
             <motion.div
-              className="mb-0 mt-6 md:mt-8"
+              className="flex flex-wrap justify-center items-center gap-2 md:gap-4 text-[9px] md:text-[10px] tracking-[0.25em] uppercase text-[#D4AF37] mb-6 drop-shadow-lg mt-4 md:mt-8"
+              style={{ opacity: textOpacity, y: textY }}
+            >
+              <span>PREMIUM BILLIARDS</span>
+              <span className="w-1 h-1 rounded-full bg-[#D4AF37]/50"></span>
+              <span>TOURNAMENTS</span>
+              <span className="w-1 h-1 rounded-full bg-[#D4AF37]/50"></span>
+              <span>LOUNGE</span>
+              <span className="w-1 h-1 rounded-full bg-[#D4AF37]/50"></span>
+              <span>PRIVATE BOOKINGS</span>
+            </motion.div>
+
+            <motion.div
+              className="mb-0"
               style={{ opacity: textOpacity, y: textY }}
             >
               <span className="text-gray-300 uppercase tracking-[0.4em] font-medium text-[10px] md:text-xs drop-shadow-lg">
@@ -323,18 +336,7 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
               <span className="block">IN STYLE</span>
             </motion.h1>
 
-            <motion.div
-              className="flex flex-wrap justify-center items-center gap-2 md:gap-4 text-[9px] md:text-[10px] tracking-[0.25em] uppercase text-gray-300 mb-16 drop-shadow-lg"
-              style={{ opacity: textOpacity, y: textY }}
-            >
-              <span>PREMIUM BILLIARDS</span>
-              <span className="w-1 h-1 rounded-full bg-gray-500"></span>
-              <span>TOURNAMENTS</span>
-              <span className="w-1 h-1 rounded-full bg-gray-500"></span>
-              <span>LOUNGE</span>
-              <span className="w-1 h-1 rounded-full bg-gray-500"></span>
-              <span>PRIVATE BOOKINGS</span>
-            </motion.div>
+
 
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md"
