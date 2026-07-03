@@ -8,20 +8,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
           
           {/* Col 1 */}
-          <div className="flex flex-col gap-6">
-            <a href="#" className="flex items-center gap-4">
-              <div className="w-16 h-16 flex items-center justify-center relative shrink-0">
-                <img src="/logo.png" alt="Pot Black Logo" className="w-full h-full object-contain" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-2xl tracking-[0.15em] uppercase text-white leading-none">Pot Black</span>
-                <span className="text-[9px] tracking-[0.3em] uppercase text-gray-400 mt-1">Billiards Club</span>
+          <div className="flex flex-col gap-6 items-start">
+            <a href="#" className="inline-block">
+              <div className="w-32 h-32 md:w-40 md:h-40 relative">
+                <img src="/logo.png" alt="Pot Black Logo" className="w-full h-full object-contain object-left" />
               </div>
             </a>
-            <p className="text-gray-400 text-sm font-light mt-2 max-w-xs">
+            <p className="text-gray-400 text-sm font-light max-w-xs">
               Good times. Great shots.<br/>Unforgettable moments.
             </p>
-            <div className="flex items-center gap-4 mt-2">
+            <div className="flex items-center gap-4">
               <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
                 <Instagram size={18} />
               </a>
@@ -67,7 +63,7 @@ export default function Footer() {
               <ul className="flex flex-col gap-4 text-sm text-gray-400">
                 <li className="flex gap-3">
                   <Phone size={16} className="text-[#D4AF37] shrink-0" />
-                  <span>+91 98765 43210</span>
+                  <span>+971 4 397 5737</span>
                 </li>
                 <li className="flex gap-3">
                   <Mail size={16} className="text-[#D4AF37] shrink-0" />
