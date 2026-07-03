@@ -60,7 +60,7 @@ const playSound = (type: 'strike' | 'pocket' | 'whoosh') => {
   }
 };
 
-const TargetBall = ({ ball, scrollYProgress }: { ball: any, scrollYProgress: any }) => {
+const TargetBall = ({ ball, scrollYProgress }: { key?: number | string; ball: any, scrollYProgress: any }) => {
   const left = useTransform(scrollYProgress, [0, 0.4, 0.65], [ball.initX, ball.initX, ball.endX]);
   const top = useTransform(scrollYProgress, [0, 0.4, 0.65], [ball.initY, ball.initY, ball.endY]);
   const opacity = useTransform(scrollYProgress, [0.6, 0.65], [1, 0]);
