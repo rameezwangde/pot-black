@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
-export default function Navbar() {
+export default function Navbar({ show = true }: { show?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -26,15 +26,17 @@ export default function Navbar() {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-[#1A0E0E]/95 backdrop-blur-xl border-b border-white/5 py-3 shadow-2xl' : 'bg-transparent py-6'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+        show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
+      } ${
+        isScrolled ? 'bg-[#1A0E0E]/95 backdrop-blur-xl border-b border-white/5 py-2 shadow-2xl' : 'bg-transparent py-4'
       }`}
     >
       <div className="max-w-[1600px] mx-auto px-8 flex items-center justify-between">
         
         {/* Logo */}
         <a href="#" className="flex items-center gap-4 group">
-          <img src="/logo.png" alt="Pot Black Logo" className="h-20 md:h-24 w-auto object-contain transition-transform hover:scale-105" />
+          <img src="/logo.png" alt="Pot Black Logo" className="h-12 md:h-16 w-auto object-contain transition-transform hover:scale-105" />
         </a>
 
         {/* Desktop Nav */}
@@ -57,7 +59,7 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           <a 
             href="#booking"
-            className="hidden md:flex px-8 py-3 bg-gradient-to-r from-[#b38b4d] to-[#d4b075] text-black font-medium uppercase tracking-[0.15em] text-[11px] hover:scale-105 transition-transform duration-300"
+            className="hidden md:flex px-6 py-2.5 bg-gradient-to-r from-[#b38b4d] to-[#d4b075] text-black font-medium uppercase tracking-[0.15em] text-[10px] hover:scale-105 transition-transform duration-300"
           >
             Book A Table
           </a>

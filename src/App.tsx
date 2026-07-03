@@ -50,7 +50,7 @@ export default function App() {
       </div>
 
       <div className="relative z-10">
-        <Navbar />
+        <Navbar show={animationFinished} />
         <main>
           <Hero onAnimationComplete={() => setAnimationFinished(true)} />
           <About />
