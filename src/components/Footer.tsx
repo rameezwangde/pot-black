@@ -67,7 +67,7 @@ export default function Footer() {
                 </li>
                 <li className="flex gap-3">
                   <Mail size={16} className="text-[#D4AF37] shrink-0" />
-                  <span>hello@potblack.com</span>
+                  <span>potblackdxb@gmail.com</span>
                 </li>
                 <li className="flex gap-3">
                   <MapPin size={16} className="text-[#D4AF37] shrink-0 mt-1" />
