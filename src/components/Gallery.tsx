@@ -11,7 +11,7 @@ export default function Gallery() {
   ];
 
   return (
-    <section id="gallery" className="relative z-10 py-24 md:py-32 border-t border-white/5 bg-[#241616]/30">
+    <section id="gallery" className="relative z-10 py-24 md:py-32 border-t border-white/5 bg-[#0a0505]">
       <div className="max-w-[1600px] mx-auto px-8 mb-16 flex justify-center">
         <span className="text-[#D4AF37] uppercase tracking-[0.3em] text-sm font-semibold">GALLERY</span>
       </div>

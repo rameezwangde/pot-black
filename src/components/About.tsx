@@ -3,7 +3,7 @@ import { ArrowRight, Trophy, Users, Star, Martini, Lock, Crosshair } from 'lucid
 
 export default function About() {
   return (
-    <section id="about" className="relative z-10">
+    <section id="about" className="relative z-10 bg-[#0a0505]">
       
       {/* Stats Section */}
       <div className="max-w-[1200px] mx-auto px-8 py-16 border-b border-white/5">
@@ -85,7 +85,7 @@ export default function About() {
               of the game and the finer things in life.
             </p>
             <div>
-              <a href="#" className="inline-flex items-center gap-3 px-8 py-4 border border-[#8C7640]/40 bg-black/50 text-[#8C7640] font-medium text-[10px] uppercase tracking-[0.2em] hover:bg-[#8C7640]/10 hover:border-[#8C7640] transition-all rounded-[1px]">
+              <a href="#" className="inline-flex items-center justify-center gap-3 px-6 py-3.5 bg-[#CBA469] text-black font-semibold text-[10px] uppercase tracking-[0.15em] hover:scale-105 transition-transform duration-300 rounded-[1px]">
                 DISCOVER OUR STORY <ArrowRight className="w-4 h-4" />
               </a>
             </div>

@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Amenities from './components/Amenities';
 import Membership from './components/Membership';
-import Events from './components/Events';
 import Testimonials from './components/Testimonials';
 import Gallery from './components/Gallery';
 import Footer from './components/Footer';
@@ -57,7 +56,6 @@ export default function App() {
           <About />
           <Amenities />
           <Membership />
-          <Events />
           <Testimonials />
           <Gallery />
         </main>
