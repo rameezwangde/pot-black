@@ -6,8 +6,9 @@ import About from './components/About';
 import Amenities from './components/Amenities';
 import Membership from './components/Membership';
 import Testimonials from './components/Testimonials';
-import Gallery from './components/Gallery';
+
 import Footer from './components/Footer';
+import CTA from './components/CTA';
 
 export default function App() {
   const [animationFinished, setAnimationFinished] = useState(false);
@@ -57,7 +58,8 @@ export default function App() {
           <Amenities />
           <Membership />
           <Testimonials />
-          <Gallery />
+
+          <CTA />
         </main>
         <Footer />
       </div>

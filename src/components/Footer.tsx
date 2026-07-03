@@ -75,9 +75,10 @@ export default function Footer() {
                 </li>
                 <li className="flex gap-3">
                   <MapPin size={16} className="text-[#D4AF37] shrink-0 mt-1" />
-                  <span className="leading-relaxed text-xs">
-                    12, Billiards Street,<br/>
-                    Koramangala, Bangalore 560034
+                  <span className="leading-relaxed text-[11px] md:text-xs">
+                    102-103, first floor, Crystal Business Center,<br/>
+                    Near ADCB Metro Station, next to ADCB Bank.<br/>
+                    Al Karama, Dubai - United Arab Emirates
                   </span>
                 </li>
               </ul>
