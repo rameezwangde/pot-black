@@ -81,16 +81,12 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
   const tableOpacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // 0 to 1 progress mapped to stages 0 to 9. We start at stage 1 (cue stick pulled back) so it hits immediately on scroll
     let newStage = 1;
     if (latest > 0.05) newStage = 2; // strike
     if (latest > 0.1) newStage = 3; // cue ball moves
-    if (latest > 0.15) newStage = 4; // scatter
-    if (latest > 0.35) newStage = 5; // pockets
-    if (latest > 0.5) newStage = 6; // cinematic cue enters
-    if (latest > 0.6) newStage = 7; // cinematic cue pulls back
-    if (latest > 0.75) newStage = 8; // cinematic cue strikes
-    if (latest > 0.85) newStage = 9; // text reveal
+    if (latest > 0.2) newStage = 4; // scatter
+    if (latest > 0.4) newStage = 5; // pockets
+    if (latest > 0.6) newStage = 9; // text reveal
 
     setStage(prev => {
       if (newStage !== prev) {
@@ -127,7 +123,7 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
   ];
 
   return (
-    <div ref={containerRef} className="relative h-[300vh]">
+    <div ref={containerRef} className="relative h-[200vh]">
       <section className="sticky top-0 h-screen w-full flex items-center justify-center pt-20 overflow-hidden bg-billiards-dark">
 
       {/* Background Image */}
@@ -261,31 +257,7 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
                   </div>
                 </motion.div>
 
-                {/* Cinematic Transition Cue Stick */}
-                <motion.div
-                  className="absolute z-50 origin-top rounded-full pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(to right, #7c4c2a 0%, #d9a05b 20%, #e8ba7d 40%, #8B5A2B 80%, #3a2210 100%)',
-                    boxShadow: '10px 0 20px rgba(0,0,0,0.8), inset 2px 0 4px rgba(255,255,255,0.4)',
-                    height: '180vh',
-                    width: 'clamp(16px, 2vw, 28px)',
-                    left: '50%',
-                    x: '-50%'
-                  }}
-                  initial={{ bottom: '100%', opacity: 0 }}
-                  animate={{
-                    bottom: stage === 6 ? '10%' : stage === 7 ? '30%' : stage >= 8 ? '-200%' : '100%',
-                    opacity: stage >= 6 && stage < 9 ? 1 : 0,
-                  }}
-                  transition={{
-                    bottom: { duration: stage === 6 ? 1.2 : stage === 7 ? 0.8 : 0.15, ease: stage === 8 ? "easeIn" : "easeOut" },
-                    opacity: { duration: 0.3 }
-                  }}
-                >
-                  <div className="absolute bottom-0 left-0 right-0 h-10 md:h-12 bg-gradient-to-r from-gray-200 via-white to-gray-400 rounded-b-full border-t-[2px] border-black/30">
-                    <div className="absolute bottom-0 left-0 right-0 h-2 md:h-3 bg-blue-500 rounded-b-full" />
-                  </div>
-                </motion.div>
+
 
                 {/* Cue Ball */}
                 <motion.div
