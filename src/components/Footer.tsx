@@ -11,10 +11,10 @@ export default function Footer() {
           <div className="flex flex-col gap-6">
             <a href="#" className="flex items-center gap-4">
               <div className="w-12 h-12 flex items-center justify-center relative">
-                <span className="font-serif text-3xl text-[#D4AF37] leading-none tracking-tighter">CH</span>
+                <span className="font-serif text-3xl text-[#D4AF37] leading-none tracking-tighter">PB</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-serif text-2xl tracking-[0.15em] uppercase text-white leading-none">Cue Haven</span>
+                <span className="font-serif text-2xl tracking-[0.15em] uppercase text-white leading-none">Pot Black</span>
                 <span className="text-[9px] tracking-[0.3em] uppercase text-gray-400 mt-1">Billiards Club</span>
               </div>
             </a>
@@ -71,7 +71,7 @@ export default function Footer() {
                 </li>
                 <li className="flex gap-3">
                   <Mail size={16} className="text-[#D4AF37] shrink-0" />
-                  <span>hello@cuehaven.com</span>
+                  <span>hello@potblack.com</span>
                 </li>
                 <li className="flex gap-3">
                   <MapPin size={16} className="text-[#D4AF37] shrink-0 mt-1" />
@@ -105,7 +105,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-          <p>© 2025 Cue Haven Billiards Club. All rights reserved.</p>
+          <p>© 2026 Pot Black Billiards Club. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <span>|</span>
