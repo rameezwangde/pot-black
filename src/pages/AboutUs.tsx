@@ -236,7 +236,7 @@ export default function AboutUs() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="lg:row-span-2 group relative overflow-hidden rounded-sm border border-white/5 bg-[#1A0E0E]"
             >
-              <img src="/vip_room.png" alt="VIP Rooms" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-700" />
+              <img src="/gallery_5.png" alt="VIP Rooms" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
               <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
                 <div className="bg-[#D4AF37]/20 p-3 rounded-full inline-block mb-4 border border-[#D4AF37]/30 backdrop-blur-md">
