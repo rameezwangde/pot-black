@@ -1,10 +1,12 @@
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar({ show = true }: { show?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,14 +17,24 @@ export default function Navbar({ show = true }: { show?: boolean }) {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Tables', href: '#tables' },
-    { name: 'Membership', href: '#membership' },
-    { name: 'Events', href: '#events' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Tables', href: '/#tables' },
+    { name: 'Membership', href: '/#membership' },
+    { name: 'Events', href: '/#events' },
+    { name: 'Gallery', href: '/#gallery' },
+    { name: 'Contact', href: '/#contact' },
   ];
+
+  const checkIsActive = (href: string) => {
+    if (href.includes('#')) {
+      return location.hash === href.substring(1);
+    }
+    if (href === '/') {
+      return location.pathname === '/' && !location.hash;
+    }
+    return location.pathname.startsWith(href);
+  };
 
   return (
     <header 
@@ -35,24 +47,27 @@ export default function Navbar({ show = true }: { show?: boolean }) {
       <div className="max-w-[1600px] mx-auto px-8 flex items-center justify-between">
         
         {/* Logo */}
-        <a href="#" className="flex items-center gap-4 group">
+        <Link to="/" className="flex items-center gap-4 group">
           <img src="/logo.png" alt="Pot Black Logo" className="h-12 md:h-16 w-auto object-contain transition-transform hover:scale-105" />
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden xl:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href}
-              className={`text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 relative py-1 ${link.name === 'Home' ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
-            >
-              {link.name}
-              {link.name === 'Home' && (
-                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#D4AF37]" />
-              )}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = checkIsActive(link.href);
+            return (
+              <Link 
+                key={link.name} 
+                to={link.href}
+                className={`text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 relative py-1 ${isActive ? 'text-[#D4AF37]' : 'text-white hover:text-[#D4AF37]'}`}
+              >
+                {link.name}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#D4AF37]" />
+                )}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Right Actions */}
@@ -80,16 +95,19 @@ export default function Navbar({ show = true }: { show?: boolean }) {
         transition={{ duration: 0.3 }}
       >
         <div className="flex flex-col items-center py-8 gap-6 px-6">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href}
-              className="text-sm uppercase tracking-[0.2em] text-gray-200 hover:text-[#D4AF37] transition-colors duration-300 w-full text-center py-2 border-b border-white/5"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = checkIsActive(link.href);
+            return (
+              <Link 
+                key={link.name} 
+                to={link.href}
+                className={`text-sm uppercase tracking-[0.2em] transition-colors duration-300 w-full text-center py-2 border-b border-white/5 ${isActive ? 'text-[#D4AF37]' : 'text-gray-200 hover:text-[#D4AF37]'}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
           <a 
             href="#booking"
             className="w-full text-center py-4 bg-gradient-to-r from-[#b38b4d] to-[#d4b075] text-black font-semibold uppercase tracking-widest text-sm mt-4"
