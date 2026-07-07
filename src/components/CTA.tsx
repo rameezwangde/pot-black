@@ -7,13 +7,13 @@ export default function CTA() {
       {/* Background with overlay */}
       <div className="absolute inset-0">
         <img 
-          src="/about.png" 
-          alt="Billiards Experience" 
-          className="w-full h-full object-cover opacity-40 scale-105"
+          src="/cta_bg.png" 
+          alt="Ready to take your shot" 
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-        <div className="absolute inset-0 bg-[#D4AF37]/5 mix-blend-overlay" />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0505] via-transparent to-[#0a0505]" />
+        <div className="absolute inset-0 bg-[#D4AF37]/10 mix-blend-overlay" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-8 text-center">

@@ -7,10 +7,11 @@ export default function AboutUs() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0505]">
       {/* Page Header */}
-      <section className="relative pt-40 pb-20 px-8 overflow-hidden">
+      <section className="relative pt-40 pb-20 px-8 overflow-hidden min-h-[60vh] flex items-center">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1A0E0E] via-[#0a0505] to-[#0a0505] opacity-100" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#D4AF37]/5 rounded-full blur-[100px]" />
+          <img src="/about_hero_bg.png" alt="Pot Black Dubai Background" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0a0505]/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0505] via-transparent to-transparent" />
         </div>
         
         <div className="max-w-[1200px] mx-auto relative z-10 text-center">
@@ -138,8 +139,13 @@ export default function AboutUs() {
       </section>
 
       {/* Our Core Values */}
-      <section className="py-12 relative border-t border-white/5">
-        <div className="max-w-[1200px] mx-auto px-8">
+      <section className="py-20 relative border-t border-white/5 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img src="/values_bg.png" alt="Pot Black Core Values" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0a0505]/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0505] via-transparent to-[#0a0505]" />
+        </div>
+        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">Our Core Values</h2>
             <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto" />
@@ -165,17 +171,25 @@ export default function AboutUs() {
             ].map((value, index) => (
               <motion.div 
                 key={index}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center p-8 group"
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="relative bg-[#0d0707]/60 backdrop-blur-md p-10 border border-white/10 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37]/40 hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.15)] group rounded-sm"
               >
-                <div className="mx-auto w-20 h-20 rounded-full border border-[#D4AF37]/30 flex items-center justify-center mb-6 group-hover:bg-[#D4AF37]/10 transition-colors duration-300">
-                  <div className="text-[#D4AF37]">{value.icon}</div>
+                {/* Decorative gradient orb */}
+                <div className="absolute -right-20 -top-20 w-64 h-64 bg-[#D4AF37]/5 rounded-full blur-[80px] group-hover:bg-[#D4AF37]/20 transition-colors duration-700" />
+                
+                {/* Gold accent line */}
+                <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#D4AF37] to-[#968351] transition-all duration-700 ease-out group-hover:w-full" />
+
+                <div className="relative z-10 flex flex-col items-center text-center">
+                  <div className="w-20 h-20 rounded-full border border-[#D4AF37]/30 bg-[#1A0E0E]/80 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-[#D4AF37]/60 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                    <div className="text-[#D4AF37] scale-125">{value.icon}</div>
+                  </div>
+                  <h3 className="text-2xl font-serif text-[#E2D2A4] uppercase tracking-wider mb-4 group-hover:text-white transition-colors duration-300">{value.title}</h3>
+                  <p className="text-gray-300 font-light text-sm md:text-base leading-relaxed group-hover:text-gray-200 transition-colors duration-300">{value.desc}</p>
                 </div>
-                <h3 className="text-xl font-serif text-[#E2D2A4] uppercase tracking-wider mb-4">{value.title}</h3>
-                <p className="text-gray-400 font-light text-sm leading-relaxed">{value.desc}</p>
               </motion.div>
             ))}
           </div>
