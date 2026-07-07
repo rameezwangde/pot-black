@@ -229,55 +229,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Facilities */}
-      <section className="py-12 relative overflow-hidden border-t border-white/5">
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2" />
-        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
-          
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">Facilities</h2>
-            <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto mb-6" />
-            <p className="text-gray-400 font-light max-w-2xl mx-auto">
-              Experience the finest professional billiard tables in Dubai. Our layout is designed to offer ample space, perfect lighting, and an ambiance that respects the game.
-            </p>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="w-full h-64 lg:h-80 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-2xl relative group"
-            >
-              <img src="/gallery_4.png" alt="Professional Billiard Tables Dubai" className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
-                <h3 className="text-[#E2D2A4] font-serif text-xl uppercase">The Main Arena</h3>
-                <p className="text-gray-400 text-sm font-light">Over 20 premium match tables</p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full h-64 lg:h-80 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-2xl relative group"
-            >
-              <img src="/gallery_2.png" alt="Luxury Sports Lounge Dubai" className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
-                <h3 className="text-[#E2D2A4] font-serif text-xl uppercase">The Lounge</h3>
-                <p className="text-gray-400 text-sm font-light">Relaxation and refreshments</p>
-              </div>
-            </motion.div>
-          </div>
-          
-          <div className="mt-16">
-            <Stats />
-          </div>
-          
-        </div>
-      </section>
       
       <CTA />
     </div>
