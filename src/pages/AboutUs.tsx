@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
-import About from '../components/About';
-import { Target, Award, Coffee, Star } from 'lucide-react';
+import { Target, Award, Coffee, Star, ShieldCheck, Gem, Users, CheckCircle2 } from 'lucide-react';
+import Stats from '../components/Stats';
 
 export default function AboutUs() {
   return (
@@ -19,7 +19,7 @@ export default function AboutUs() {
             transition={{ duration: 0.6 }}
             className="text-[#968351] uppercase tracking-[0.3em] text-[10px] font-semibold mb-6 block"
           >
-            Our Heritage
+            About Us
           </motion.span>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -27,7 +27,7 @@ export default function AboutUs() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-5xl md:text-6xl lg:text-7xl font-serif text-[#E2D2A4] uppercase drop-shadow-md mb-8 tracking-wide"
           >
-            The Legacy of <br className="hidden md:block"/> Pot Black
+            Dubai's Premier <br className="hidden md:block"/> Billiards Destination
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -35,65 +35,14 @@ export default function AboutUs() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-gray-300 max-w-2xl mx-auto font-light leading-relaxed text-sm md:text-base"
           >
-            Established with a singular vision: to create the ultimate sanctuary for billiards enthusiasts. We blend world-class equipment with an atmosphere of refined luxury and sportsmanship.
+            Discover the ultimate luxury sports lounge in Dubai. Pot Black brings together a vibrant community of snooker and pool enthusiasts under one premium roof.
           </motion.p>
         </div>
       </section>
 
-      {/* Existing About Component */}
-      <About />
-
-      {/* Our Philosophy Section */}
-      <section className="py-24 bg-[#110909] border-t border-white/5 relative">
+      {/* 1. Company Story */}
+      <section className="py-20 bg-[#0a0505] relative border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">Our Philosophy</h2>
-            <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {[
-              {
-                icon: <Target className="w-8 h-8" />,
-                title: 'Precision & Excellence',
-                desc: 'Every table is meticulously leveled, and every cue perfectly weighted. We believe that true mastery requires flawless tools.'
-              },
-              {
-                icon: <Award className="w-8 h-8" />,
-                title: 'Unrivaled Ambiance',
-                desc: 'From our curated lighting that eliminates shadows on the cloth, to the bespoke interior design, every detail is crafted for your comfort.'
-              },
-              {
-                icon: <Coffee className="w-8 h-8" />,
-                title: 'A Community of Gentlemen',
-                desc: 'Pot Black is more than a club; it is a gathering of like-minded individuals who appreciate the etiquette and sportsmanship of the game.'
-              }
-            ].map((item, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="bg-[#1A0E0E] p-10 rounded-sm border border-white/5 hover:border-[#D4AF37]/30 transition-all duration-500 group"
-              >
-                <div className="text-[#D4AF37] mb-8 transform group-hover:scale-110 transition-transform duration-500">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl font-serif text-[#E2D2A4] uppercase tracking-wider mb-4">{item.title}</h3>
-                <p className="text-gray-400 font-light text-sm leading-relaxed">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The Craftsmen Section */}
-      <section className="py-24 bg-[#0a0505] relative overflow-hidden">
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2" />
-        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -101,54 +50,213 @@ export default function AboutUs() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <span className="text-[#968351] uppercase tracking-[0.2em] text-[10px] font-semibold mb-4 block">THE EQUIPMENT</span>
-              <h2 className="text-3xl md:text-5xl font-serif text-[#E2D2A4] uppercase mb-8 leading-tight">The Master's Setup</h2>
+              <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">1. Company Story</h2>
+              <div className="w-16 h-[1px] bg-[#D4AF37] mb-8" />
               <p className="text-gray-300 font-light leading-relaxed mb-6 text-sm md:text-base">
-                Our championship-grade tables feature Italian slate and premium match cloth, offering the fastest, most consistent playing surface in the city. The pockets are cut to professional tournament specifications, ensuring that every shot demands absolute precision.
+                Established as the best billiards club in Dubai, Pot Black was born out of a profound passion for cue sports. Our founders recognized a gap in the UAE market for a truly elite venue that combines professional-grade snooker and pool facilities with high-end hospitality.
               </p>
-              <p className="text-gray-300 font-light leading-relaxed mb-10 text-sm md:text-base">
-                Whether you're practicing for a tournament or enjoying a relaxed evening with friends, our dedicated staff ensures your experience is nothing short of exceptional.
+              <p className="text-gray-300 font-light leading-relaxed mb-6 text-sm md:text-base">
+                Over the years, we have grown from a modest pool hall into a cornerstone of the Dubai billiards community. We have hosted numerous local tournaments and provided a sanctuary for professionals and amateurs alike to hone their craft in the heart of the city.
               </p>
-              <div className="flex items-center gap-6">
-                <div className="flex -space-x-4">
-                  {[1,2,3,4].map((i) => (
-                    <div key={i} className="w-12 h-12 rounded-full border-2 border-[#0a0505] bg-[#1A0E0E] flex items-center justify-center overflow-hidden z-10 relative shadow-lg">
-                      <Star size={16} className="text-[#D4AF37]" fill="#D4AF37" />
-                    </div>
-                  ))}
-                </div>
-                <div className="text-sm font-light text-gray-400 uppercase tracking-widest">
-                  <span className="text-[#D4AF37] font-semibold block text-lg mb-1">500+</span> 
-                  Professional Reviews
-                </div>
-              </div>
             </motion.div>
-            
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="grid grid-cols-2 gap-4 md:gap-6"
             >
-              <div className="space-y-4 md:space-y-6 pt-12">
-                <div className="w-full h-48 md:h-64 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-2xl">
-                  <img src="/gallery_1.png" alt="Billiards detail" className="w-full h-full object-cover opacity-70 hover:opacity-100 hover:scale-105 transition-all duration-700" />
-                </div>
-                <div className="w-full h-40 md:h-48 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-2xl">
-                  <img src="/gallery_2.png" alt="Pub billiards table" className="w-full h-full object-cover opacity-70 hover:opacity-100 hover:scale-105 transition-all duration-700" />
-                </div>
-              </div>
-              <div className="space-y-4 md:space-y-6">
-                <div className="w-full h-40 md:h-48 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-2xl">
-                  <img src="/gallery_3.png" alt="Snooker balls" className="w-full h-full object-cover opacity-70 hover:opacity-100 hover:scale-105 transition-all duration-700" />
-                </div>
-                <div className="w-full h-48 md:h-64 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-2xl">
-                  <img src="/gallery_4.png" alt="Playing snooker" className="w-full h-full object-cover opacity-70 hover:opacity-100 hover:scale-105 transition-all duration-700" />
-                </div>
+              <div className="w-full h-[400px] bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-2xl relative">
+                <img src="/about.png" alt="Pot Black Dubai Snooker Lounge" className="w-full h-full object-cover opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0505] to-transparent opacity-60" />
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* 2. Vision & Mission */}
+      <section className="py-20 bg-[#110909] relative border-t border-white/5">
+        <div className="max-w-[1200px] mx-auto px-8">
+           <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">2. Vision & Mission</h2>
+            <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto" />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-[#1A0E0E] p-12 border border-white/5 hover:border-[#D4AF37]/30 transition-all duration-500"
+            >
+              <div className="w-14 h-14 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mb-8">
+                <Target className="w-6 h-6 text-[#D4AF37]" />
+              </div>
+              <h3 className="text-2xl font-serif text-[#E2D2A4] uppercase mb-4">Our Vision</h3>
+              <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
+                To be universally recognized as the top pool hall in Dubai and the most prestigious luxury sports lounge in the UAE. We envision a vibrant community where the sport of billiards is celebrated, respected, and elevated to its highest standard.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-[#1A0E0E] p-12 border border-white/5 hover:border-[#D4AF37]/30 transition-all duration-500"
+            >
+              <div className="w-14 h-14 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mb-8">
+                <Award className="w-6 h-6 text-[#D4AF37]" />
+              </div>
+              <h3 className="text-2xl font-serif text-[#E2D2A4] uppercase mb-4">Our Mission</h3>
+              <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
+                To provide an unparalleled billiards experience by offering professional billiard tables in Dubai, exceptional customer service, and an environment that fosters both competitive excellence and relaxed socialization.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Our Core Values */}
+      <section className="py-20 bg-[#0a0505] relative border-t border-white/5">
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">3. Our Core Values</h2>
+            <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Gem className="w-8 h-8" />,
+                title: 'Excellence',
+                desc: 'From our Italian slate tables to our meticulously maintained cues, we refuse to compromise on quality.'
+              },
+              {
+                icon: <ShieldCheck className="w-8 h-8" />,
+                title: 'Integrity',
+                desc: 'We promote a culture of fairness, respect, and sportsmanship across all our games and tournaments.'
+              },
+              {
+                icon: <Users className="w-8 h-8" />,
+                title: 'Community',
+                desc: 'We are more than just a venue; we are the heartbeat of the Dubai billiards and snooker community.'
+              }
+            ].map((value, index) => (
+              <motion.div 
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center p-8 group"
+              >
+                <div className="mx-auto w-20 h-20 rounded-full border border-[#D4AF37]/30 flex items-center justify-center mb-6 group-hover:bg-[#D4AF37]/10 transition-colors duration-300">
+                  <div className="text-[#D4AF37]">{value.icon}</div>
+                </div>
+                <h3 className="text-xl font-serif text-[#E2D2A4] uppercase tracking-wider mb-4">{value.title}</h3>
+                <p className="text-gray-400 font-light text-sm leading-relaxed">{value.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Why Choose Pot Black */}
+      <section className="py-20 bg-[#110909] relative border-t border-white/5">
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 items-center">
+             <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="order-2 lg:order-1 grid grid-cols-2 gap-4"
+            >
+               <div className="w-full h-48 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-xl mt-8">
+                  <img src="/gallery_3.png" alt="Premium Snooker Lounge Dubai" className="w-full h-full object-cover opacity-70" />
+               </div>
+               <div className="w-full h-56 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-xl">
+                  <img src="/gallery_1.png" alt="Dubai Billiards Club" className="w-full h-full object-cover opacity-70" />
+               </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="order-1 lg:order-2"
+            >
+              <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">4. Why Choose Pot Black</h2>
+              <div className="w-16 h-[1px] bg-[#D4AF37] mb-8" />
+              <ul className="space-y-6">
+                {[
+                  "Dubai's largest selection of championship-grade tables",
+                  "Exclusive VIP rooms for private gaming and corporate events",
+                  "Expert in-house coaching from seasoned professionals",
+                  "Gourmet food and premium beverages served to your table",
+                  "A sophisticated, distraction-free environment"
+                ].map((point, idx) => (
+                  <li key={idx} className="flex items-start gap-4">
+                    <CheckCircle2 className="w-6 h-6 text-[#D4AF37] shrink-0" />
+                    <span className="text-gray-300 font-light text-sm md:text-base leading-relaxed">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Facilities */}
+      <section className="py-24 bg-[#0a0505] relative overflow-hidden border-t border-white/5">
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2" />
+        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+          
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">5. Facilities</h2>
+            <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto mb-6" />
+            <p className="text-gray-400 font-light max-w-2xl mx-auto">
+              Experience the finest professional billiard tables in Dubai. Our layout is designed to offer ample space, perfect lighting, and an ambiance that respects the game.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="w-full h-64 lg:h-80 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-2xl relative group"
+            >
+              <img src="/gallery_4.png" alt="Professional Billiard Tables Dubai" className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700" />
+              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
+                <h3 className="text-[#E2D2A4] font-serif text-xl uppercase">The Main Arena</h3>
+                <p className="text-gray-400 text-sm font-light">Over 20 premium match tables</p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-full h-64 lg:h-80 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-2xl relative group"
+            >
+              <img src="/gallery_2.png" alt="Luxury Sports Lounge Dubai" className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700" />
+              <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
+                <h3 className="text-[#E2D2A4] font-serif text-xl uppercase">The Lounge</h3>
+                <p className="text-gray-400 text-sm font-light">Relaxation and refreshments</p>
+              </div>
+            </motion.div>
+          </div>
+          
+          <div className="mt-16">
+            <Stats />
+          </div>
+          
         </div>
       </section>
     </div>
