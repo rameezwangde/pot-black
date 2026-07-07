@@ -197,21 +197,30 @@ export default function AboutUs() {
       </section>
 
       {/* Why Choose Pot Black */}
-      <section className="py-12 relative border-t border-white/5">
-        <div className="max-w-[1200px] mx-auto px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 items-center">
+      <section className="py-24 relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/4" />
+        <div className="absolute inset-0 border-t border-white/5" />
+
+        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 lg:gap-24 items-center">
              <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="order-2 lg:order-1 grid grid-cols-2 gap-4"
+              className="order-2 lg:order-1 relative"
             >
-               <div className="w-full h-48 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-xl mt-8">
-                  <img src="/gallery_3.png" alt="Premium Snooker Lounge Dubai" className="w-full h-full object-cover opacity-70" />
-               </div>
-               <div className="w-full h-56 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/5 shadow-xl">
-                  <img src="/gallery_1.png" alt="Dubai Billiards Club" className="w-full h-full object-cover opacity-70" />
+               {/* Decorative frame behind images */}
+               <div className="absolute -inset-4 border border-[#D4AF37]/20 rounded-sm hidden md:block" />
+               
+               <div className="grid grid-cols-2 gap-4 relative z-10">
+                 <div className="w-full h-56 md:h-64 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/10 shadow-2xl mt-8 md:mt-12 group cursor-pointer">
+                    <img src="/gallery_3.png" alt="Premium Snooker Lounge Dubai" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
+                 </div>
+                 <div className="w-full h-64 md:h-72 bg-[#1A0E0E] rounded-sm overflow-hidden border border-white/10 shadow-2xl group cursor-pointer relative -top-4 md:-top-8">
+                    <img src="/gallery_1.png" alt="Dubai Billiards Club" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
+                 </div>
                </div>
             </motion.div>
 
@@ -222,9 +231,10 @@ export default function AboutUs() {
               transition={{ duration: 0.8 }}
               className="order-1 lg:order-2"
             >
-              <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">Why Choose Pot Black</h2>
-              <div className="w-16 h-[1px] bg-[#D4AF37] mb-8" />
-              <ul className="space-y-6">
+              <h2 className="text-3xl md:text-5xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide drop-shadow-md">Why Choose Pot Black</h2>
+              <div className="w-20 h-[2px] bg-gradient-to-r from-[#D4AF37] to-[#968351] mb-10" />
+              
+              <div className="space-y-4">
                 {[
                   "Dubai's largest selection of championship-grade tables",
                   "Exclusive VIP rooms for private gaming and corporate events",
@@ -232,12 +242,21 @@ export default function AboutUs() {
                   "Gourmet food and premium beverages served to your table",
                   "A sophisticated, distraction-free environment"
                 ].map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-4">
-                    <CheckCircle2 className="w-6 h-6 text-[#D4AF37] shrink-0" />
-                    <span className="text-gray-300 font-light text-sm md:text-base leading-relaxed">{point}</span>
-                  </li>
+                  <motion.div 
+                    key={idx} 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                    className="group flex items-start gap-5 p-4 md:p-5 bg-[#0d0707]/40 backdrop-blur-sm border border-white/5 rounded-sm hover:border-[#D4AF37]/30 hover:bg-[#1A0E0E]/60 hover:-translate-y-1 transition-all duration-300 hover:shadow-[0_10px_20px_-10px_rgba(212,175,55,0.1)] cursor-default"
+                  >
+                    <div className="bg-[#1A0E0E] p-2 rounded-full border border-[#D4AF37]/20 group-hover:border-[#D4AF37]/60 group-hover:bg-[#D4AF37]/10 transition-colors duration-300 shrink-0 mt-0.5">
+                      <CheckCircle2 className="w-5 h-5 text-[#D4AF37]" strokeWidth={2} />
+                    </div>
+                    <span className="text-gray-300 font-light text-sm md:text-base leading-relaxed group-hover:text-white transition-colors duration-300 pt-1">{point}</span>
+                  </motion.div>
                 ))}
-              </ul>
+              </div>
             </motion.div>
           </div>
         </div>
