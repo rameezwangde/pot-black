@@ -41,7 +41,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 1. Company Story */}
+      {/* Company Story */}
       <section className="py-12 relative border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -51,7 +51,7 @@ export default function AboutUs() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">1. Company Story</h2>
+              <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">Company Story</h2>
               <div className="w-16 h-[1px] bg-[#D4AF37] mb-8" />
               <p className="text-gray-300 font-light leading-relaxed mb-6 text-sm md:text-base">
                 Established as the best billiards club in Dubai, Pot Black was born out of a profound passion for cue sports. Our founders recognized a gap in the UAE market for a truly elite venue that combines professional-grade snooker and pool facilities with high-end hospitality.
@@ -75,11 +75,11 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 2. Vision & Mission */}
+      {/* Vision & Mission */}
       <section className="py-12 relative border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-8">
            <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">2. Vision & Mission</h2>
+            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">Vision & Mission</h2>
             <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto" />
           </div>
           
@@ -137,11 +137,11 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 3. Our Core Values */}
+      {/* Our Core Values */}
       <section className="py-12 relative border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">3. Our Core Values</h2>
+            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">Our Core Values</h2>
             <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto" />
           </div>
 
@@ -182,7 +182,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 4. Why Choose Pot Black */}
+      {/* Why Choose Pot Black */}
       <section className="py-12 relative border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 items-center">
@@ -208,7 +208,7 @@ export default function AboutUs() {
               transition={{ duration: 0.8 }}
               className="order-1 lg:order-2"
             >
-              <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">4. Why Choose Pot Black</h2>
+              <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">Why Choose Pot Black</h2>
               <div className="w-16 h-[1px] bg-[#D4AF37] mb-8" />
               <ul className="space-y-6">
                 {[
@@ -229,13 +229,13 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* 5. Facilities */}
+      {/* Facilities */}
       <section className="py-12 relative overflow-hidden border-t border-white/5">
         <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2" />
         <div className="max-w-[1200px] mx-auto px-8 relative z-10">
           
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">5. Facilities</h2>
+            <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">Facilities</h2>
             <div className="w-16 h-[1px] bg-[#D4AF37] mx-auto mb-6" />
             <p className="text-gray-400 font-light max-w-2xl mx-auto">
               Experience the finest professional billiard tables in Dubai. Our layout is designed to offer ample space, perfect lighting, and an ambiance that respects the game.
