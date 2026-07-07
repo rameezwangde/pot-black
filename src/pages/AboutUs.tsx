@@ -84,36 +84,54 @@ export default function AboutUs() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Vision Card */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-[#1A0E0E] p-12 border border-white/5 hover:border-[#D4AF37]/30 transition-all duration-500"
+              className="group relative bg-[#0d0707] p-10 md:p-14 border border-white/5 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37]/20 hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.05)]"
             >
-              <div className="w-14 h-14 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mb-8">
-                <Target className="w-6 h-6 text-[#D4AF37]" />
+              {/* Decorative gradient orb */}
+              <div className="absolute -right-20 -top-20 w-64 h-64 bg-[#D4AF37]/5 rounded-full blur-[80px] group-hover:bg-[#D4AF37]/10 transition-colors duration-700" />
+              
+              {/* Gold accent line */}
+              <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#D4AF37] to-[#968351] transition-all duration-700 ease-out group-hover:w-full" />
+              
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-16 h-16 rounded-full border border-[#D4AF37]/20 bg-[#1A0E0E] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-[#D4AF37]/50 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                  <Target className="w-7 h-7 text-[#D4AF37]" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-3xl font-serif text-[#E2D2A4] uppercase mb-4 tracking-wide group-hover:text-white transition-colors duration-300">Our Vision</h3>
+                <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base group-hover:text-gray-300 transition-colors duration-300">
+                  To be universally recognized as the top pool hall in Dubai and the most prestigious luxury sports lounge in the UAE. We envision a vibrant community where the sport of billiards is celebrated, respected, and elevated to its highest standard.
+                </p>
               </div>
-              <h3 className="text-2xl font-serif text-[#E2D2A4] uppercase mb-4">Our Vision</h3>
-              <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                To be universally recognized as the top pool hall in Dubai and the most prestigious luxury sports lounge in the UAE. We envision a vibrant community where the sport of billiards is celebrated, respected, and elevated to its highest standard.
-              </p>
             </motion.div>
 
+            {/* Mission Card */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-[#1A0E0E] p-12 border border-white/5 hover:border-[#D4AF37]/30 transition-all duration-500"
+              className="group relative bg-[#0d0707] p-10 md:p-14 border border-white/5 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37]/20 hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.05)]"
             >
-              <div className="w-14 h-14 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mb-8">
-                <Award className="w-6 h-6 text-[#D4AF37]" />
+              {/* Decorative gradient orb */}
+              <div className="absolute -right-20 -top-20 w-64 h-64 bg-[#D4AF37]/5 rounded-full blur-[80px] group-hover:bg-[#D4AF37]/10 transition-colors duration-700" />
+              
+              {/* Gold accent line */}
+              <div className="absolute top-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#D4AF37] to-[#968351] transition-all duration-700 ease-out group-hover:w-full" />
+              
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-16 h-16 rounded-full border border-[#D4AF37]/20 bg-[#1A0E0E] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 group-hover:border-[#D4AF37]/50 group-hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                  <Award className="w-7 h-7 text-[#D4AF37]" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-3xl font-serif text-[#E2D2A4] uppercase mb-4 tracking-wide group-hover:text-white transition-colors duration-300">Our Mission</h3>
+                <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base group-hover:text-gray-300 transition-colors duration-300">
+                  To provide an unparalleled billiards experience by offering professional billiard tables in Dubai, exceptional customer service, and an environment that fosters both competitive excellence and relaxed socialization.
+                </p>
               </div>
-              <h3 className="text-2xl font-serif text-[#E2D2A4] uppercase mb-4">Our Mission</h3>
-              <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                To provide an unparalleled billiards experience by offering professional billiard tables in Dubai, exceptional customer service, and an environment that fosters both competitive excellence and relaxed socialization.
-              </p>
             </motion.div>
           </div>
         </div>
