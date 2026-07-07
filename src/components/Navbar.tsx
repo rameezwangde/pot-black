@@ -17,13 +17,13 @@ export default function Navbar({ show = true }: { show?: boolean }) {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Tables', href: '/#tables' },
-    { name: 'Membership', href: '/#membership' },
-    { name: 'Events', href: '/#events' },
+    { name: 'Home Page', href: '/' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Products', href: '/#products' },
+    { name: 'Booking System', href: '/#booking' },
     { name: 'Gallery', href: '/#gallery' },
-    { name: 'Contact', href: '/#contact' },
+    { name: 'Blogs', href: '/#blogs' },
+    { name: 'Contact Us', href: '/#contact' },
   ];
 
   const checkIsActive = (href: string) => {

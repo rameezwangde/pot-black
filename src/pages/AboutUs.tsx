@@ -18,7 +18,7 @@ export default function AboutUs() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-[#968351] uppercase tracking-[0.3em] text-[10px] font-semibold mb-6 block"
+            className="text-[#968351] uppercase tracking-[0.3em] text-sm md:text-base font-semibold mb-6 block"
           >
             About Us
           </motion.span>
