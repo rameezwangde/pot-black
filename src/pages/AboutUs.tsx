@@ -42,7 +42,7 @@ export default function AboutUs() {
       </section>
 
       {/* 1. Company Story */}
-      <section className="py-12 bg-[#0a0505] relative border-t border-white/5">
+      <section className="py-12 relative border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -76,7 +76,7 @@ export default function AboutUs() {
       </section>
 
       {/* 2. Vision & Mission */}
-      <section className="py-12 bg-[#110909] relative border-t border-white/5">
+      <section className="py-12 relative border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-8">
            <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">2. Vision & Mission</h2>
@@ -120,7 +120,7 @@ export default function AboutUs() {
       </section>
 
       {/* 3. Our Core Values */}
-      <section className="py-12 bg-[#0a0505] relative border-t border-white/5">
+      <section className="py-12 relative border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-serif text-[#E2D2A4] uppercase mb-6 tracking-wide">3. Our Core Values</h2>
@@ -165,7 +165,7 @@ export default function AboutUs() {
       </section>
 
       {/* 4. Why Choose Pot Black */}
-      <section className="py-12 bg-[#110909] relative border-t border-white/5">
+      <section className="py-12 relative border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-16 items-center">
              <motion.div
@@ -212,7 +212,7 @@ export default function AboutUs() {
       </section>
 
       {/* 5. Facilities */}
-      <section className="py-12 bg-[#0a0505] relative overflow-hidden border-t border-white/5">
+      <section className="py-12 relative overflow-hidden border-t border-white/5">
         <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2" />
         <div className="max-w-[1200px] mx-auto px-8 relative z-10">
           
