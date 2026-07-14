@@ -1,16 +1,20 @@
-import { useEffect, useState, useRef } from 'react';
+﻿import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import BookingPage from './pages/BookingPage';
+import AdminLoginPage from './pages/admin/AdminLoginPage';
+import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+import ProtectedAdminRoute from './components/admin/ProtectedAdminRoute';
+import AdminLayout from './components/admin/AdminLayout';
 
 export default function App() {
   const [animationFinished, setAnimationFinished] = useState(() => sessionStorage.getItem('pot-black-intro-complete') === 'true');
   const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
   const lenisRef = useRef<Lenis | null>(null);
 
   const completeIntroAnimation = () => {
@@ -19,6 +23,7 @@ export default function App() {
   };
 
   useEffect(() => {
+    if (isAdminRoute) return;
     lenisRef.current = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -28,42 +33,44 @@ export default function App() {
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
-
+    let animationFrameId = 0;
     function raf(time: number) {
       lenisRef.current?.raf(time);
-      requestAnimationFrame(raf);
+      animationFrameId = requestAnimationFrame(raf);
     }
-
-    requestAnimationFrame(raf);
-
+    animationFrameId = requestAnimationFrame(raf);
     return () => {
+      cancelAnimationFrame(animationFrameId);
       lenisRef.current?.destroy();
       lenisRef.current = null;
     };
-  }, []);
+  }, [isAdminRoute]);
 
   useEffect(() => {
+    if (isAdminRoute) return;
     if (!location.hash) {
-      if (lenisRef.current) {
-        lenisRef.current.scrollTo(0, { immediate: true });
-      } else {
-        window.scrollTo(0, 0);
-      }
+      if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
+      else window.scrollTo(0, 0);
     }
-  }, [location.pathname, location.hash]);
+  }, [isAdminRoute, location.pathname, location.hash]);
+
+  if (isAdminRoute) {
+    return <Routes>
+      <Route path="/admin/login" element={<AdminLoginPage />} />
+      <Route path="/admin" element={<ProtectedAdminRoute><AdminLayout /></ProtectedAdminRoute>}>
+        <Route index element={<AdminDashboardPage />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
+      </Route>
+    </Routes>;
+  }
 
   return (
     <div className="bg-[#1A0E0E] min-h-screen text-[#F4F6F6] selection:bg-[#D4AF37] selection:text-[#1A0E0E] overflow-x-clip relative font-sans">
-      
-      {/* Background marble/smoke texture */}
-      <div 
-        className={`fixed inset-0 pointer-events-none transition-opacity duration-[3000ms] ease-in-out z-0 ${animationFinished || location.pathname !== '/' ? 'opacity-100' : 'opacity-0'}`}
-      >
+      <div className={`fixed inset-0 pointer-events-none transition-opacity duration-[3000ms] ease-in-out z-0 ${animationFinished || location.pathname !== '/' ? 'opacity-100' : 'opacity-0'}`}>
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-mamba.png')] opacity-20 mix-blend-overlay" />
         <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[150px]" />
         <div className="absolute bottom-1/4 right-0 w-[800px] h-[800px] bg-[#D4AF37]/5 rounded-full blur-[150px]" />
       </div>
-
       <div className="relative z-10">
         <Navbar show={animationFinished || location.pathname !== '/'} />
         <main>
