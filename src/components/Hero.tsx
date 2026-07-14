@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform, useMotionValueEvent, useMotionValue } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const playSound = (type: 'strike' | 'pocket' | 'whoosh') => {
   try {
@@ -403,3 +404,4 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
     </div>
   );
 }
+

@@ -20,7 +20,7 @@ export default function Navbar({ show = true }: { show?: boolean }) {
     { name: 'Home Page', href: '/' },
     { name: 'About Us', href: '/about' },
     { name: 'Products', href: '/#products' },
-    { name: 'Booking System', href: '/#booking' },
+    { name: 'Booking System', href: '/booking' },
     { name: 'Gallery', href: '/#gallery' },
     { name: 'Blogs', href: '/#blogs' },
     { name: 'Contact Us', href: '/#contact' },
@@ -72,12 +72,11 @@ export default function Navbar({ show = true }: { show?: boolean }) {
 
         {/* Right Actions */}
         <div className="flex items-center gap-6">
-          <a 
-            href="#booking"
+          <Link to="/booking"
             className="hidden md:flex px-6 py-2.5 bg-gradient-to-r from-[#b38b4d] to-[#d4b075] text-black font-medium uppercase tracking-[0.15em] text-[10px] hover:scale-105 transition-transform duration-300"
           >
             Book A Table
-          </a>
+          </Link>
           <button 
             className="text-white hover:text-[#D4AF37] transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -108,15 +107,17 @@ export default function Navbar({ show = true }: { show?: boolean }) {
               </Link>
             );
           })}
-          <a 
-            href="#booking"
+          <Link to="/booking"
             className="w-full text-center py-4 bg-gradient-to-r from-[#b38b4d] to-[#d4b075] text-black font-semibold uppercase tracking-widest text-sm mt-4"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Book A Table
-          </a>
+          </Link>
         </div>
       </motion.div>
     </header>
   );
 }
+
+
+

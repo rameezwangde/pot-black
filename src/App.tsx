@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
+import BookingPage from './pages/BookingPage';
 
 export default function App() {
   const [animationFinished, setAnimationFinished] = useState(false);
@@ -64,6 +65,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home onAnimationComplete={() => setAnimationFinished(true)} />} />
             <Route path="/about" element={<AboutUs />} />
+            <Route path="/booking" element={<BookingPage />} />
           </Routes>
         </main>
         <Footer />
@@ -71,3 +73,4 @@ export default function App() {
     </div>
   );
 }
+
