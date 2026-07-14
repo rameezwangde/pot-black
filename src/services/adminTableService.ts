@@ -1,4 +1,5 @@
-﻿import { adminApi, type AdminApiError } from './adminService';
+import { adminApi } from './adminService';
+import { normalizeApiError } from './apiError';
 import type { AdminTable, BookingStatus } from './adminBookingService';
 
 export type OperationalStatus = 'available' | 'reserved' | 'occupied' | 'maintenance' | 'unavailable' | 'inactive';
@@ -9,7 +10,7 @@ export interface TableStatusPayload { status?: 'active' | 'maintenance' | 'unava
 
 const request = async <T>(work: () => Promise<{ data: { data: T } }>) => {
   try { return (await work()).data.data; }
-  catch (error) { throw error as AdminApiError; }
+  catch (error) { throw normalizeApiError(error); }
 };
 export const getAdminTables = () => request<OperationalTable[]>(() => adminApi.get('/admin/tables'));
 export const createTable = (payload: TablePayload) => request<{ table: AdminTable }>(() => adminApi.post('/admin/tables', payload));
@@ -17,5 +18,5 @@ export const updateTable = (id: string, payload: TablePayload) => request<{ tabl
 export const updateTableStatus = (id: string, payload: TableStatusPayload) => request<{ table: AdminTable }>(() => adminApi.patch(`/admin/tables/${id}/status`, payload));
 export const deactivateTable = async (id: string) => {
   try { return (await adminApi.delete(`/admin/tables/${id}`)).data; }
-  catch (error) { throw error as AdminApiError; }
+  catch (error) { throw normalizeApiError(error); }
 };

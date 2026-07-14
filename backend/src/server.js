@@ -28,7 +28,10 @@ app.use(helmet());
 app.use(cors({
   origin(origin, callback) {
     if (!origin || allowedOrigins.has(origin)) return callback(null, true);
-    return callback(new Error('Origin is not allowed by CORS.'));
+    const error = new Error('Origin is not allowed by CORS.');
+    error.statusCode = 403;
+    error.code = 'CORS_NOT_ALLOWED';
+    return callback(error);
   },
   credentials: true,
 }));
@@ -54,17 +57,47 @@ app.use('/api/admin', adminAuthRoutes);
 app.use((req, _res, next) => {
   const error = new Error(`Route not found: ${req.method} ${req.originalUrl}`);
   error.statusCode = 404;
+  error.code = 'ROUTE_NOT_FOUND';
   next(error);
 });
 
-// Centralized error handler. Additional route errors will flow through here.
-app.use((error, _req, res, _next) => {
-  const statusCode = error.statusCode || 500;
+// Centralized error handler. Internal details are logged server-side and never returned to clients.
+app.use((error, req, res, _next) => {
+  let statusCode = Number(error.statusCode || error.status) || 500;
+  let code = typeof error.code === 'string' ? error.code : 'INTERNAL_SERVER_ERROR';
+  let message = error.message || 'The request could not be completed.';
 
-  res.status(statusCode).json({
-    success: false,
-    message: error.message || 'Internal server error',
-  });
+  if (error instanceof SyntaxError && error.type === 'entity.parse.failed') {
+    statusCode = 400;
+    code = 'INVALID_JSON';
+    message = 'The request body contains invalid JSON.';
+  } else if (error.name === 'ValidationError') {
+    statusCode = 400;
+    code = 'VALIDATION_ERROR';
+    message = 'Some submitted information is invalid.';
+  } else if (error.name === 'CastError') {
+    statusCode = 400;
+    code = 'INVALID_IDENTIFIER';
+    message = 'The supplied identifier is invalid.';
+  } else if (error.code === 11000) {
+    statusCode = 409;
+    code = 'DUPLICATE_RECORD';
+    message = 'A record with those details already exists.';
+  }
+
+  const safeClientMessage = typeof message === 'string'
+    && message.length <= 240
+    && !/(node_modules|stack|validationerror|casterror|mongoserver|econn|\bat\s+\S+\s*\(|error:\s)/i.test(message);
+  if (!safeClientMessage) message = 'The request could not be completed. Please try again.';
+
+  if (statusCode >= 500) {
+    console.error(`Unhandled API error on ${req.method} ${req.originalUrl}:`, error);
+    statusCode = 500;
+    code = 'INTERNAL_SERVER_ERROR';
+    message = 'Pot Black services are temporarily unavailable. Please try again shortly.';
+  }
+
+  res.status(statusCode).json({ success: false, code, message });
 });
 
 let server;

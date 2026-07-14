@@ -1,17 +1,15 @@
-﻿import axios from 'axios';
+import axios from 'axios';
+import { normalizeApiError, type SafeApiError } from './apiError';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
   baseURL: API_URL,
   headers: { 'Content-Type': 'application/json' },
+  timeout: 15000,
 });
 
-export interface FrontendApiError {
-  code: string;
-  message: string;
-  status: number;
-}
+export type FrontendApiError = SafeApiError;
 
 export interface ApiTable {
   _id: string;
@@ -52,18 +50,7 @@ export interface CreateBookingRequest extends AvailabilityRequest {
   specialRequest: string;
 }
 
-const toFrontendError = (error: unknown): FrontendApiError => {
-  if (axios.isAxiosError(error)) {
-    return {
-      code: error.response?.data?.code ?? (error.code === 'ERR_CANCELED' ? 'REQUEST_CANCELLED' : 'API_ERROR'),
-      message: error.response?.data?.message ?? (error.code === 'ERR_CANCELED'
-        ? 'Request cancelled.'
-        : 'We could not reach the booking service. Please try again.'),
-      status: error.response?.status ?? 0,
-    };
-  }
-  return { code: 'UNEXPECTED_ERROR', message: 'An unexpected error occurred. Please try again.', status: 0 };
-};
+const toFrontendError = (error: unknown): FrontendApiError => normalizeApiError(error);
 
 export const getTables = async (signal?: AbortSignal) => {
   try {

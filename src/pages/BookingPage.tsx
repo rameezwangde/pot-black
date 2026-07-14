@@ -10,6 +10,7 @@ import TimeSlotSelector from '../components/booking/TimeSlotSelector';
 import CustomerDetailsForm, { type FormErrors } from '../components/booking/CustomerDetailsForm';
 import BookingSummary from '../components/booking/BookingSummary';
 import BookingSuccessModal from '../components/booking/BookingSuccessModal';
+import ApiErrorCard from '../components/common/ApiErrorCard';
 import type { BookingTable, TimeSlot } from '../data/bookingMockData';
 import {
   checkAvailability,
@@ -89,7 +90,7 @@ export default function BookingPage() {
         }));
       setAvailableTables(activeTables);
     } catch (error) {
-      if (!isRequestCancelled(error)) setTableError('Unable to load tables. Please try again.');
+      if (!isRequestCancelled(error)) setTableError((error as FrontendApiError).message);
     } finally {
       if (tableController.current === controller) { setIsLoading(false); setIsRefreshingTables(false); }
     }
@@ -341,7 +342,7 @@ export default function BookingPage() {
       {tableError && availableTables.length > 0 && <div role="alert" className="border border-red-800/30 bg-red-950/15 px-5 py-3 text-xs text-red-200">{tableError} Current table data remains visible.</div>}
       {apiMessage && <div role="alert" className="border border-red-800/40 bg-red-950/20 px-5 py-4 text-sm text-red-200">{apiMessage}</div>}
       <section className="pt-4"><div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-6"><div><p className="text-[9px] uppercase tracking-[.3em] text-[#D4AF37] mb-2">{readableDate}</p><h2 className="text-4xl sm:text-5xl text-[#F3E5AB] mb-3">Table Availability</h2><p className="text-sm text-gray-400">Select a table to view and reserve an available playing slot.</p></div><AvailabilityLegend/></div><AvailabilityStatus lastCheckedAt={lastCheckedAt} checking={checkingSlotId !== undefined}/>
-        <div className="mt-6">{tableError && !availableTables.length && !isLoading ? <div className="border border-red-800/40 bg-[#100b0a] p-6 text-center sm:p-10"><p className="text-gray-300 mb-5">{tableError}</p><button type="button" onClick={() => void loadTables()} className="border border-[#D4AF37]/40 px-6 py-3 text-[10px] uppercase tracking-[.18em] text-[#F3E5AB] hover:bg-[#D4AF37] hover:text-[#080605]">Retry</button></div> : <TableAvailabilityGrid tables={visibleTables} selectedId={selectedTable?.id} loading={isLoading} onSelect={chooseTable} onReset={resetBookingFilters}/>}</div>
+        <div className="mt-6">{tableError && !availableTables.length && !isLoading ? <ApiErrorCard title="Unable to Load Tables" message={tableError} onRetry={() => void loadTables()}/> : <TableAvailabilityGrid tables={visibleTables} selectedId={selectedTable?.id} loading={isLoading} onSelect={chooseTable} onReset={resetBookingFilters}/>}</div>
       </section>
       {selectedTable && <TimeSlotSelector table={selectedTable} date={selectedDate} duration={selectedDuration} players={selectedPlayers} slots={slots} selected={selectedSlot} checkingSlotId={checkingSlotId} message={apiMessage} onSelect={slot => void chooseSlot(slot)} onChooseShorterDuration={() => changeDuration('30 Minutes')}/>}
       {selectedTable && selectedSlot && <CustomerDetailsForm details={customerDetails} errors={errors} capacity={selectedTable.capacity} submitting={isSubmitting} onChange={setCustomerDetails} onSubmit={() => void submit()} summary={<BookingSummary date={selectedDate} table={selectedTable} slot={selectedSlot} players={customerDetails.players} duration={selectedDuration}/>}/>}

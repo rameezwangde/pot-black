@@ -1,4 +1,5 @@
-import { adminApi, type AdminApiError } from './adminService';
+import { adminApi } from './adminService';
+import { normalizeApiError } from './apiError';
 
 export type BookingStatus = 'pending' | 'confirmed' | 'checked-in' | 'playing' | 'completed' | 'cancelled' | 'no-show';
 
@@ -75,7 +76,7 @@ export interface WalkInPayload { tableId: string; customerName: string; phone: s
 
 const request = async <T>(work: () => Promise<{ data: { data: T } }>) => {
   try { return (await work()).data.data; }
-  catch (error) { throw error as AdminApiError; }
+  catch (error) { throw normalizeApiError(error); }
 };
 
 export const getDashboardData = () => request<DashboardData>(() => adminApi.get('/admin/dashboard'));

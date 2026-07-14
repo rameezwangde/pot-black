@@ -10,8 +10,11 @@ export function AdminToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const remove = useCallback((id: number) => setToasts(current => current.filter(toast => toast.id !== id)), []);
   const showToast = useCallback((message: string, type: ToastType = 'success') => {
+    const safeMessage = typeof message === 'string' && message.length <= 300 && !/(axios|node_modules|stack|validationerror|casterror|mongoserver|econn|\bat\s+\S+\s*\()/i.test(message)
+      ? message
+      : 'The request could not be completed. Please try again.';
     const id = Date.now() + Math.random();
-    setToasts(current => [...current, { id, type, message }]);
+    setToasts(current => [...current, { id, type, message: safeMessage }]);
     window.setTimeout(() => remove(id), 4500);
   }, [remove]);
   const value = useMemo(() => ({ showToast }), [showToast]);
