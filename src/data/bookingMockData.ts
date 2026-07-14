@@ -3,6 +3,7 @@ export type SlotStatus = 'available' | 'booked' | 'unavailable';
 
 export interface BookingTable {
   id: string;
+  code: string;
   name: string;
   type: string;
   capacity: number;
@@ -12,21 +13,21 @@ export interface BookingTable {
 }
 
 export interface TimeSlot {
-  id: number;
+  id: string | number;
   start: string;
   end: string;
   status: SlotStatus;
 }
 
 export const tables: BookingTable[] = [
-  { id: 'table-01', name: 'Table 01', type: 'English Pool', capacity: 4, zone: 'Main Hall', status: 'available', features: ['Tournament Size', 'Premium Cloth'] },
-  { id: 'table-02', name: 'Table 02', type: 'English Pool', capacity: 4, zone: 'Main Hall', status: 'partially-booked', features: ['Professional Lighting', 'Premium Cues'] },
-  { id: 'table-03', name: 'Table 03', type: 'American Pool', capacity: 6, zone: 'Private Lounge', status: 'available', features: ['Private Seating', 'Table Service'] },
-  { id: 'table-04', name: 'Table 04', type: 'American Pool', capacity: 6, zone: 'Private Lounge', status: 'booked', features: ['Private Seating', 'Table Service'] },
-  { id: 'table-05', name: 'Table 05', type: 'Snooker', capacity: 4, zone: 'Championship Area', status: 'available', features: ['Full Size Table', 'Professional Lighting'] },
-  { id: 'table-06', name: 'Table 06', type: 'Snooker', capacity: 4, zone: 'Championship Area', status: 'partially-booked', features: ['Full Size Table', 'Premium Cloth'] },
-  { id: 'table-07', name: 'Table 07', type: 'VIP Pool', capacity: 6, zone: 'VIP Room', status: 'available', features: ['Private Room', 'Dedicated Service'] },
-  { id: 'table-08', name: 'Table 08', type: 'VIP Pool', capacity: 6, zone: 'VIP Room', status: 'unavailable', features: ['Private Room', 'Dedicated Service'] },
+  { id: 'table-01', code: 'T01', name: 'Table 01', type: 'English Pool', capacity: 4, zone: 'Main Hall', status: 'available', features: ['Tournament Size', 'Premium Cloth'] },
+  { id: 'table-02', code: 'T02', name: 'Table 02', type: 'English Pool', capacity: 4, zone: 'Main Hall', status: 'partially-booked', features: ['Professional Lighting', 'Premium Cues'] },
+  { id: 'table-03', code: 'T03', name: 'Table 03', type: 'American Pool', capacity: 6, zone: 'Private Lounge', status: 'available', features: ['Private Seating', 'Table Service'] },
+  { id: 'table-04', code: 'T04', name: 'Table 04', type: 'American Pool', capacity: 6, zone: 'Private Lounge', status: 'booked', features: ['Private Seating', 'Table Service'] },
+  { id: 'table-05', code: 'T05', name: 'Table 05', type: 'Snooker', capacity: 4, zone: 'Championship Area', status: 'available', features: ['Full Size Table', 'Professional Lighting'] },
+  { id: 'table-06', code: 'T06', name: 'Table 06', type: 'Snooker', capacity: 4, zone: 'Championship Area', status: 'partially-booked', features: ['Full Size Table', 'Premium Cloth'] },
+  { id: 'table-07', code: 'T07', name: 'Table 07', type: 'VIP Pool', capacity: 6, zone: 'VIP Room', status: 'available', features: ['Private Room', 'Dedicated Service'] },
+  { id: 'table-08', code: 'T08', name: 'Table 08', type: 'VIP Pool', capacity: 6, zone: 'VIP Room', status: 'unavailable', features: ['Private Room', 'Dedicated Service'] },
 ];
 
 export const timeSlots: TimeSlot[] = [
@@ -43,4 +44,3 @@ export const timeSlots: TimeSlot[] = [
   { id: 11, start: '8:00 PM', end: '9:00 PM', status: 'available' },
   { id: 12, start: '9:00 PM', end: '10:00 PM', status: 'unavailable' },
 ];
-
