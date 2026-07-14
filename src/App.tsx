@@ -9,9 +9,14 @@ import AboutUs from './pages/AboutUs';
 import BookingPage from './pages/BookingPage';
 
 export default function App() {
-  const [animationFinished, setAnimationFinished] = useState(false);
+  const [animationFinished, setAnimationFinished] = useState(() => sessionStorage.getItem('pot-black-intro-complete') === 'true');
   const location = useLocation();
   const lenisRef = useRef<Lenis | null>(null);
+
+  const completeIntroAnimation = () => {
+    sessionStorage.setItem('pot-black-intro-complete', 'true');
+    setAnimationFinished(true);
+  };
 
   useEffect(() => {
     lenisRef.current = new Lenis({
@@ -63,7 +68,7 @@ export default function App() {
         <Navbar show={animationFinished || location.pathname !== '/'} />
         <main>
           <Routes>
-            <Route path="/" element={<Home onAnimationComplete={() => setAnimationFinished(true)} />} />
+            <Route path="/" element={<Home animationFinished={animationFinished} onAnimationComplete={completeIntroAnimation} />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/booking" element={<BookingPage />} />
           </Routes>
@@ -73,4 +78,5 @@ export default function App() {
     </div>
   );
 }
+
 

@@ -89,17 +89,17 @@ const TargetBall = ({ ball, scrollYProgress }: { key?: number | string; ball: an
   );
 };
 
-export default function Hero({ onAnimationComplete }: { onAnimationComplete?: () => void }) {
+export default function Hero({ initiallyFinished = false, onAnimationComplete }: { initiallyFinished?: boolean; onAnimationComplete?: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const prevScroll = useRef(0);
-  const [isFinished, setIsFinished] = useState(false);
+  const [isFinished, setIsFinished] = useState(initiallyFinished);
 
   const { scrollYProgress: rawScrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  const scrollYProgress = useMotionValue(0);
+  const scrollYProgress = useMotionValue(initiallyFinished ? 1 : 0);
 
   const tableY = useTransform(scrollYProgress, [0, 1], ['0%', '0%']);
   const tableOpacity = useTransform(scrollYProgress, [0, 1], [1, 1]);
@@ -163,7 +163,7 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
   ];
 
   return (
-    <div ref={containerRef} className="relative h-[300vh]">
+    <div ref={containerRef} className={`relative ${isFinished ? 'h-screen' : 'h-[300vh]'}`}>
       <section className="sticky top-0 h-screen w-full flex items-center justify-center pt-20 overflow-hidden bg-billiards-dark">
 
         {/* Background Image */}
@@ -343,12 +343,11 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
               className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md"
               style={{ opacity: textOpacity, y: textY }}
             >
-              <a
-                href="#booking"
+              <Link to="/booking"
                 className="flex-1 flex items-center justify-center px-6 py-3.5 bg-[#CBA469] text-black font-semibold uppercase tracking-[0.15em] text-[10px] hover:scale-105 transition-transform duration-300"
               >
                 Book A Table
-              </a>
+              </Link>
               <a
                 href="#membership"
                 className="flex-1 flex items-center justify-center px-6 py-3.5 border border-white/40 text-white font-semibold uppercase tracking-[0.15em] text-[10px] hover:border-[#CBA469] hover:text-[#CBA469] transition-all duration-300"
@@ -404,4 +403,7 @@ export default function Hero({ onAnimationComplete }: { onAnimationComplete?: ()
     </div>
   );
 }
+
+
+
 

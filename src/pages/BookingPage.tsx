@@ -42,7 +42,7 @@ export default function BookingPage() {
   useEffect(() => { void loadTables(); }, [loadTables]);
   useEffect(() => { if (!mounted.current) { mounted.current = true; return; } setSelectedTable(undefined); setSelectedSlot(undefined); setSlots([]); setCustomerDetails(initialDetails(selectedPlayers)); }, [selectedDate, selectedPlayers, selectedDuration]);
 
-  const activeStep = selectedSlot ? 4 : selectedTable ? 3 : 1;
+  const activeStep = selectedSlot ? 4 : selectedTable ? 3 : isLoading ? 1 : 2;
   const readableDate = useMemo(() => new Date(`${selectedDate}T12:00:00`).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),[selectedDate]);
   const chooseTable = async (table: BookingTable) => { setSelectedTable(table); setSelectedSlot(undefined); setCustomerDetails(initialDetails(selectedPlayers)); setSlots(await getAvailableSlots({tableId:table.id,date:selectedDate,duration:selectedDuration})); window.setTimeout(() => document.getElementById('time-slots')?.scrollIntoView({behavior:'smooth',block:'start'}), 50); };
   const chooseSlot = (slot: TimeSlot) => { setSelectedSlot(slot); window.setTimeout(() => document.getElementById('customer-details')?.scrollIntoView({behavior:'smooth',block:'start'}),50); };
@@ -68,3 +68,4 @@ export default function BookingPage() {
     {selectedTable && selectedSlot && <CustomerDetailsForm details={customerDetails} errors={errors} capacity={selectedTable.capacity} submitting={isSubmitting} onChange={setCustomerDetails} onSubmit={submit} summary={<BookingSummary date={selectedDate} table={selectedTable} slot={selectedSlot} players={customerDetails.players} duration={selectedDuration}/>}/>} 
   </div></div><BookingSuccessModal open={isSuccessModalOpen} reference={reference} date={selectedDate} table={selectedTable} slot={selectedSlot} players={customerDetails.players} onClose={() => setIsSuccessModalOpen(false)} onReset={reset}/></>;
 }
+

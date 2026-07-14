@@ -5,10 +5,10 @@ import Membership from '../components/Membership';
 import Testimonials from '../components/Testimonials';
 import CTA from '../components/CTA';
 
-export default function Home({ onAnimationComplete }: { onAnimationComplete: () => void }) {
+export default function Home({ animationFinished, onAnimationComplete }: { animationFinished: boolean; onAnimationComplete: () => void }) {
   return (
     <>
-      <Hero onAnimationComplete={onAnimationComplete} />
+      <Hero initiallyFinished={animationFinished} onAnimationComplete={onAnimationComplete} />
       <Stats />
       <Amenities />
       <Membership />
