@@ -1,18 +1,34 @@
 const mongoose = require('mongoose');
 
+let connectionPromise;
+
 const connectDB = async () => {
-  if (!process.env.MONGODB_URI) {
-    throw new Error('MONGODB_URI is missing. Add it to backend/.env before starting the server.');
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
   }
 
-  try {
-    const connection = await mongoose.connect(process.env.MONGODB_URI);
-    console.log(`MongoDB connected: ${connection.connection.host}`);
-    return connection;
-  } catch (error) {
-    console.error(`MongoDB connection failed: ${error.message}`);
-    throw error;
+  if (mongoose.connection.readyState === 0) {
+    connectionPromise = undefined;
   }
+
+  if (!process.env.MONGODB_URI) {
+    throw new Error('MONGODB_URI is missing. Add it to the backend environment before starting the server.');
+  }
+
+  if (!connectionPromise) {
+    connectionPromise = mongoose.connect(process.env.MONGODB_URI)
+      .then((mongooseInstance) => {
+        console.log(`MongoDB connected: ${mongooseInstance.connection.host}`);
+        return mongooseInstance.connection;
+      })
+      .catch(() => {
+        connectionPromise = undefined;
+        console.error('MongoDB connection failed.');
+        throw new Error('MongoDB connection could not be established.');
+      });
+  }
+
+  return connectionPromise;
 };
 
 module.exports = connectDB;
