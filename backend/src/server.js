@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const tableRoutes = require('./routes/tableRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.use('/api/tables', tableRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 app.use((req, _res, next) => {
   const error = new Error(`Route not found: ${req.method} ${req.originalUrl}`);
@@ -91,5 +93,6 @@ process.on('SIGINT', () => shutdown('SIGINT'));
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 
 startServer();
+
 
 
