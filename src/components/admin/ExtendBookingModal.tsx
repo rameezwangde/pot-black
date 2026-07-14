@@ -5,6 +5,7 @@ import { extendBooking, type AdminBooking } from '../../services/adminBookingSer
 import type { AdminApiError } from '../../services/adminService';
 import { CAFE_TIMEZONE } from '../../utils/bookingTime';
 import { formatAdminTime } from '../../utils/adminBookingUi';
+import InlineLoadingLabel from '../common/InlineLoadingLabel';
 
 export default function ExtendBookingModal({ booking, onClose, onSuccess }: { booking: AdminBooking; onClose: () => void; onSuccess: () => void }) {
   const [minutes, setMinutes] = useState(30);
@@ -22,6 +23,6 @@ export default function ExtendBookingModal({ booking, onClose, onSuccess }: { bo
     <div className="grid grid-cols-2 gap-3">{[30, 60, 90, 120].map(option => <button type="button" key={option} onClick={() => setMinutes(option)} className={`border px-3 py-3 text-[10px] uppercase tracking-[.14em] ${minutes === option ? 'border-[#D4AF37] bg-[#D4AF37] text-black' : 'border-white/10 text-gray-300 hover:border-[#D4AF37]/50'}`}>+{option} Minutes</button>)}</div>
     <p className="mt-4 text-xs text-gray-500">Selected additional duration: {minutes} minutes</p>
     {error && <p aria-live="polite" className="mt-4 border border-red-800/40 bg-red-950/20 p-3 text-xs text-red-200">{error}</p>}
-    <div className="mt-6 flex gap-3"><button type="button" onClick={onClose} className="flex-1 border border-white/10 py-3 text-[9px] uppercase tracking-[.16em] text-gray-400">Close</button><button type="button" onClick={() => void submit()} disabled={submitting} className="flex-1 bg-[#D4AF37] py-3 text-[9px] font-semibold uppercase tracking-[.16em] text-black disabled:opacity-60">{submitting ? 'Extending...' : 'Extend Booking'}</button></div>
+    <div className="mt-6 flex gap-3"><button type="button" onClick={onClose} className="flex-1 border border-white/10 py-3 text-[9px] uppercase tracking-[.16em] text-gray-400">Close</button><button type="button" onClick={() => void submit()} disabled={submitting} aria-busy={submitting} className="flex-1 bg-[#D4AF37] py-3 text-[9px] font-semibold uppercase tracking-[.16em] text-black disabled:opacity-60"><InlineLoadingLabel loading={submitting} loadingText="Extending...">Extend Booking</InlineLoadingLabel></button></div>
   </AdminModalShell>;
 }

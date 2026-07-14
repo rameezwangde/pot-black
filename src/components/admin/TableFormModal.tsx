@@ -3,6 +3,7 @@ import { Plus, X } from 'lucide-react';
 import AdminModalShell from './AdminModalShell';
 import { createTable, updateTable, type OperationalTable, type TablePayload } from '../../services/adminTableService';
 import type { AdminApiError } from '../../services/adminService';
+import InlineLoadingLabel from '../common/InlineLoadingLabel';
 
 const input = 'mt-2 w-full border border-white/10 bg-black/30 px-3 py-3 text-sm text-[#F3E5AB] outline-none focus:border-[#D4AF37]';
 export default function TableFormModal({ table, onClose, onSuccess }: { table?: OperationalTable; onClose: () => void; onSuccess: (message: string) => void }) {
@@ -31,6 +32,6 @@ export default function TableFormModal({ table, onClose, onSuccess }: { table?: 
     <label className="text-[9px] uppercase tracking-[.14em] text-gray-400">Capacity<input type="number" min={1} value={form.capacity} onChange={event => set('capacity', Number(event.target.value))} className={input}/></label>
     <div className="sm:col-span-2"><label className="text-[9px] uppercase tracking-[.14em] text-gray-400">Features<span className="mt-2 flex"><input value={feature} onChange={event => setFeature(event.target.value)} onKeyDown={event => { if (event.key === 'Enter') { event.preventDefault(); addFeature(); } }} className={`${input} mt-0`}/><button type="button" onClick={addFeature} aria-label="Add feature" className="border border-l-0 border-white/10 px-4 text-[#D4AF37]"><Plus size={16}/></button></span></label><div className="mt-3 flex flex-wrap gap-2">{form.features.map(item => <span key={item} className="flex items-center gap-2 border border-white/10 px-2.5 py-1.5 text-[9px] text-gray-300">{item}<button type="button" onClick={() => set('features', form.features.filter(featureItem => featureItem !== item))} aria-label={`Remove ${item}`}><X size={12}/></button></span>)}</div></div>
     {error && <p aria-live="polite" className="sm:col-span-2 border border-red-800/40 bg-red-950/20 p-3 text-xs text-red-200">{error}</p>}
-    <div className="sm:col-span-2 flex gap-3"><button type="button" onClick={onClose} className="flex-1 border border-white/10 py-3 text-[9px] uppercase tracking-[.14em] text-gray-400">Close</button><button type="submit" disabled={submitting} className="flex-1 bg-[#D4AF37] py-3 text-[9px] font-semibold uppercase tracking-[.14em] text-black disabled:opacity-60">{submitting ? 'Saving...' : table ? 'Save Changes' : 'Add Table'}</button></div>
+    <div className="sm:col-span-2 flex gap-3"><button type="button" onClick={onClose} className="flex-1 border border-white/10 py-3 text-[9px] uppercase tracking-[.14em] text-gray-400">Close</button><button type="submit" disabled={submitting} aria-busy={submitting} className="flex-1 bg-[#D4AF37] py-3 text-[9px] font-semibold uppercase tracking-[.14em] text-black disabled:opacity-60"><InlineLoadingLabel loading={submitting} loadingText="Saving...">{table ? 'Save Changes' : 'Add Table'}</InlineLoadingLabel></button></div>
   </form></AdminModalShell>;
 }

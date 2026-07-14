@@ -3,6 +3,7 @@ import { Eye, EyeOff, LockKeyhole } from 'lucide-react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import type { AdminApiError } from '../../services/adminService';
+import InlineLoadingLabel from '../../components/common/InlineLoadingLabel';
 
 interface LoginErrors { email?: string; password?: string; }
 
@@ -59,7 +60,7 @@ export default function AdminLoginPage() {
           {errors.password && <span className="mt-1.5 block normal-case tracking-normal text-red-300">{errors.password}</span>}
         </label>
         {apiError && <div aria-live="polite" className="border border-red-800/40 bg-red-950/25 px-4 py-3 text-xs leading-5 text-red-200">{apiError}</div>}
-        <button type="submit" disabled={isSubmitting || isAuthLoading} className="w-full bg-[#D4AF37] py-4 text-[10px] font-semibold uppercase tracking-[.2em] text-[#080605] transition-colors hover:bg-[#F3E5AB] focus:outline-none focus:ring-2 focus:ring-[#F3E5AB] disabled:cursor-wait disabled:opacity-60">{isSubmitting ? 'Signing In...' : 'Sign In to Dashboard'}</button>
+        <button type="submit" disabled={isSubmitting || isAuthLoading} aria-busy={isSubmitting} className="w-full bg-[#D4AF37] py-4 text-[10px] font-semibold uppercase tracking-[.2em] text-[#080605] transition-colors hover:bg-[#F3E5AB] focus:outline-none focus:ring-2 focus:ring-[#F3E5AB] disabled:cursor-wait disabled:opacity-60"><InlineLoadingLabel loading={isSubmitting} loadingText="Signing In...">Sign In to Dashboard</InlineLoadingLabel></button>
       </form>
       <Link to="/" className="mt-7 block text-center text-[10px] uppercase tracking-[.16em] text-gray-500 transition-colors hover:text-[#D4AF37] focus:outline-none focus:text-[#D4AF37]">Back to Website</Link>
     </section>

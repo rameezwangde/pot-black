@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import type { CustomerDetails } from '../../pages/BookingPage';
+import InlineLoadingLabel from '../common/InlineLoadingLabel';
 
 export type FormErrors = Partial<Record<keyof CustomerDetails, string>>;
 interface Props { details: CustomerDetails; errors: FormErrors; capacity: number; submitting: boolean; onChange: (details: CustomerDetails) => void; onSubmit: () => void; summary: ReactNode; }
@@ -16,7 +17,7 @@ export default function CustomerDetailsForm({ details, errors, capacity, submitt
       <Field label="Number of Players" error={errors.players}><input value={details.players} onChange={e=>set('players',Number(e.target.value))} className={input} type="number" min={1} max={capacity} /></Field>
       <div className="sm:col-span-2"><label className="text-[10px] uppercase tracking-[.16em] text-gray-400">Special Request <span className="normal-case tracking-normal text-gray-600">(optional)</span><textarea rows={4} value={details.request} onChange={e=>set('request',e.target.value)} className={`${input} resize-none`} /></label></div>
       <div className="sm:col-span-2"><label className="flex items-start gap-3 text-xs text-gray-400 cursor-pointer"><input type="checkbox" checked={details.terms} onChange={e=>set('terms',e.target.checked)} className="mt-0.5 accent-[#D4AF37] w-4 h-4" />I agree to the booking terms and cancellation policy</label>{errors.terms && <p className="text-red-300 text-[10px] mt-2">{errors.terms}</p>}</div>
-      <button disabled={submitting} className="sm:col-span-2 w-full bg-[#D4AF37] text-[#080605] py-4 uppercase tracking-[.2em] text-[10px] font-semibold hover:bg-[#F3E5AB] focus:outline-none focus:ring-2 focus:ring-[#F3E5AB] disabled:opacity-60">{submitting ? 'Confirming Reservation...' : 'Confirm Reservation'}</button>
+      <button disabled={submitting} aria-busy={submitting} className="sm:col-span-2 w-full bg-[#D4AF37] text-[#080605] py-4 uppercase tracking-[.2em] text-[10px] font-semibold hover:bg-[#F3E5AB] focus:outline-none focus:ring-2 focus:ring-[#F3E5AB] disabled:opacity-60"><InlineLoadingLabel loading={submitting} loadingText="Booking...">Confirm Reservation</InlineLoadingLabel></button>
     </form><div className="order-first lg:order-none">{summary}</div></div>
   </section>;
 }
