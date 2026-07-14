@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { Eye, EyeOff, LockKeyhole } from 'lucide-react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
@@ -6,6 +6,7 @@ import type { AdminApiError } from '../../services/adminService';
 import InlineLoadingLabel from '../../components/common/InlineLoadingLabel';
 
 interface LoginErrors { email?: string; password?: string; }
+interface LoginLocationState { message?: string; from?: { pathname?: string; search?: string; hash?: string } }
 
 export default function AdminLoginPage() {
   const { isAuthenticated, isAuthLoading, login } = useAdminAuth();
@@ -14,10 +15,20 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<LoginErrors>({});
-  const [apiError, setApiError] = useState((location.state as { message?: string } | null)?.message ?? '');
+  const locationState = location.state as LoginLocationState | null;
+  const [apiError, setApiError] = useState(locationState?.message ?? '');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const requestedPath = locationState?.from?.pathname;
+  const isSafeAdminDestination = requestedPath === '/admin' || (requestedPath?.startsWith('/admin/') && requestedPath !== '/admin/login');
+  const destination = isSafeAdminDestination
+    ? `${requestedPath}${locationState?.from?.search ?? ''}${locationState?.from?.hash ?? ''}`
+    : '/admin';
 
-  if (!isAuthLoading && isAuthenticated) return <Navigate to="/admin" replace />;
+  useEffect(() => {
+    if (locationState?.message) setApiError(locationState.message);
+  }, [locationState?.message]);
+
+  if (!isAuthLoading && isAuthenticated) return <Navigate to={destination} replace />;
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -31,8 +42,7 @@ export default function AdminLoginPage() {
 
     setIsSubmitting(true);
     try {
-      const from = (location.state as { from?: { pathname?: string } } | null)?.from?.pathname;
-      await login({ email: email.trim().toLowerCase(), password }, from?.startsWith('/admin') ? from : '/admin');
+      await login({ email: email.trim().toLowerCase(), password }, destination);
     } catch (error) {
       const adminError = error as AdminApiError;
       if (adminError.code === 'INVALID_CREDENTIALS') setApiError('Invalid email or password.');

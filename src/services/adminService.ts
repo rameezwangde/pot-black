@@ -4,6 +4,7 @@ import { clearAdminSession, getAdminToken, type AdminUser } from '../utils/admin
 
 const API_URL = import.meta.env.VITE_API_URL;
 export const ADMIN_SESSION_EXPIRED_EVENT = 'potblack:admin-session-expired';
+export const SESSION_EXPIRED_MESSAGE = 'Session expired. Please login again.';
 
 export type AdminApiError = SafeApiError;
 
@@ -21,9 +22,10 @@ adminApi.interceptors.request.use((config) => {
 
 adminApi.interceptors.response.use(response => response, (error) => {
   const adminError = toAdminError(error);
-  if ((adminError.status === 401 || adminError.status === 403) && sessionFailureCodes.has(adminError.code)) {
+  const hasAdminSession = Boolean(getAdminToken());
+  if ((adminError.status === 401 && hasAdminSession) || (adminError.status === 403 && sessionFailureCodes.has(adminError.code))) {
     clearAdminSession();
-    window.dispatchEvent(new CustomEvent(ADMIN_SESSION_EXPIRED_EVENT, { detail: { message: 'Your session has expired. Please sign in again.' } }));
+    window.dispatchEvent(new CustomEvent(ADMIN_SESSION_EXPIRED_EVENT, { detail: { message: SESSION_EXPIRED_MESSAGE } }));
   }
   return Promise.reject(adminError);
 });

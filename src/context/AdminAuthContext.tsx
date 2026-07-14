@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ADMIN_SESSION_EXPIRED_EVENT, getCurrentAdmin, loginAdmin } from '../services/adminService';
-import { clearAdminSession, getAdminToken, getStoredAdmin, setAdminSession, type AdminUser } from '../utils/adminAuthStorage';
+import { ADMIN_SESSION_EXPIRED_EVENT, getCurrentAdmin, loginAdmin, SESSION_EXPIRED_MESSAGE } from '../services/adminService';
+import { clearAdminSession, getAdminToken, getAdminTokenExpiry, getStoredAdmin, setAdminSession, type AdminUser } from '../utils/adminAuthStorage';
 import { normalizeApiError } from '../services/apiError';
 
 interface AdminAuthValue {
@@ -48,16 +48,35 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
     } finally { setIsAuthLoading(false); }
   }, []);
 
+  const expireSession = useCallback(() => {
+    const from = location.pathname.startsWith('/admin') && location.pathname !== '/admin/login'
+      ? { pathname: location.pathname, search: location.search, hash: location.hash }
+      : undefined;
+    clearAdminSession();
+    setToken(null); setAdmin(null); setIsAdminVerified(false); setAuthError(''); setIsAuthLoading(false);
+    navigate('/admin/login', { replace: true, state: { message: SESSION_EXPIRED_MESSAGE, from } });
+  }, [location.hash, location.pathname, location.search, navigate]);
+
   useEffect(() => { void refreshAdmin(); }, [refreshAdmin]);
   useEffect(() => {
-    const handleExpiredSession = (event: Event) => {
-      const message = (event as CustomEvent<{ message?: string }>).detail?.message ?? 'Your session has expired. Please sign in again.';
-      clearAdminSession(); setToken(null); setAdmin(null); setIsAdminVerified(false); setAuthError(''); setIsAuthLoading(false);
-      if (location.pathname.startsWith('/admin')) navigate('/admin/login', { replace: true, state: { message } });
-    };
+    const handleExpiredSession = () => expireSession();
     window.addEventListener(ADMIN_SESSION_EXPIRED_EVENT, handleExpiredSession);
     return () => window.removeEventListener(ADMIN_SESSION_EXPIRED_EVENT, handleExpiredSession);
-  }, [location.pathname, navigate]);
+  }, [expireSession]);
+
+  useEffect(() => {
+    if (!token) return;
+    const expiresAt = getAdminTokenExpiry(token);
+    if (!expiresAt) return;
+    let timer = 0;
+    const checkExpiry = () => {
+      const remaining = expiresAt - Date.now();
+      if (remaining <= 0) { expireSession(); return; }
+      timer = window.setTimeout(checkExpiry, Math.min(remaining, 60 * 60 * 1000));
+    };
+    checkExpiry();
+    return () => window.clearTimeout(timer);
+  }, [expireSession, token]);
 
   const login = useCallback(async (credentials: { email: string; password: string }, destination = '/admin') => {
     setAuthError('');

@@ -9,7 +9,7 @@ export interface SafeApiError {
 
 const statusMessages: Record<number, string> = {
   400: 'Some submitted information is invalid. Please review it and try again.',
-  401: 'Your session is no longer valid. Please sign in again.',
+  401: 'Session expired. Please login again.',
   403: 'You do not have permission to perform this action.',
   404: 'The requested record could not be found.',
   409: 'This request conflicts with a recent change. Refresh and try again.',
