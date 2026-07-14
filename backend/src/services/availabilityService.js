@@ -24,6 +24,8 @@ const validateBookingWindow = ({
   closingHour = process.env.CAFE_CLOSING_HOUR ?? 23,
   minimumAdvanceMinutes = process.env.MIN_BOOKING_ADVANCE_MINUTES ?? 15,
   maximumAdvanceDays = process.env.MAX_BOOKING_ADVANCE_DAYS ?? 60,
+  allowExtendedDuration = false,
+  skipAdvanceChecks = false,
 } = {}) => {
   if (startDateTime === undefined || startDateTime === null || startDateTime === '') {
     return invalid('MISSING_START_TIME', 'A booking start time is required.');
@@ -48,8 +50,13 @@ const validateBookingWindow = ({
   }
 
   const duration = Number(durationMinutes);
-  if (!ALLOWED_DURATIONS.includes(duration)) {
-    return invalid('INVALID_DURATION', 'Duration must be one of: 30, 60, 90, 120 minutes.');
+  const durationIsValid = allowExtendedDuration
+    ? Number.isFinite(duration) && duration >= 30 && duration % 30 === 0
+    : ALLOWED_DURATIONS.includes(duration);
+  if (!durationIsValid) {
+    return invalid('INVALID_DURATION', allowExtendedDuration
+      ? 'Duration must use 30-minute increments.'
+      : 'Duration must be one of: 30, 60, 90, 120 minutes.');
   }
 
   if (endUtc.toMillis() <= startUtc.toMillis()) {
@@ -104,22 +111,24 @@ const validateBookingWindow = ({
     return invalid('AFTER_CLOSING_TIME', `Bookings must end by ${String(closeHour).padStart(2, '0')}:00 in ${timezone}.`);
   }
 
-  const nowUtc = parseIsoInstant(now);
-  if (!nowUtc.isValid) {
-    return invalid('INVALID_ADVANCE_CONFIGURATION', 'The current-time configuration is invalid.');
-  }
+  if (!skipAdvanceChecks) {
+    const nowUtc = parseIsoInstant(now);
+    if (!nowUtc.isValid) {
+      return invalid('INVALID_ADVANCE_CONFIGURATION', 'The current-time configuration is invalid.');
+    }
 
-  const nowDubai = nowUtc.setZone(timezone);
-  if (startDubai.toMillis() <= nowDubai.toMillis()) {
-    return invalid('BOOKING_IN_PAST', 'The booking start time must be in the future.');
-  }
+    const nowDubai = nowUtc.setZone(timezone);
+    if (startDubai.toMillis() <= nowDubai.toMillis()) {
+      return invalid('BOOKING_IN_PAST', 'The booking start time must be in the future.');
+    }
 
-  if (startDubai.toMillis() < nowDubai.plus({ minutes: minimumAdvance }).toMillis()) {
-    return invalid('INSUFFICIENT_ADVANCE_TIME', `Bookings require at least ${minimumAdvance} minutes of advance notice.`);
-  }
+    if (startDubai.toMillis() < nowDubai.plus({ minutes: minimumAdvance }).toMillis()) {
+      return invalid('INSUFFICIENT_ADVANCE_TIME', `Bookings require at least ${minimumAdvance} minutes of advance notice.`);
+    }
 
-  if (startDubai.toMillis() > nowDubai.plus({ days: maximumAdvance }).toMillis()) {
-    return invalid('BOOKING_TOO_FAR_AHEAD', `Bookings cannot be made more than ${maximumAdvance} days in advance.`);
+    if (startDubai.toMillis() > nowDubai.plus({ days: maximumAdvance }).toMillis()) {
+      return invalid('BOOKING_TOO_FAR_AHEAD', `Bookings cannot be made more than ${maximumAdvance} days in advance.`);
+    }
   }
 
   return { valid: true };
@@ -152,6 +161,8 @@ const checkTableAvailability = async ({
   durationMinutes,
   excludeBookingId,
   now,
+  allowExtendedDuration = false,
+  skipAdvanceChecks = false,
 } = {}) => {
   if (!mongoose.isValidObjectId(tableId)) {
     return { available: false, code: 'INVALID_TABLE_ID', message: 'The table ID is invalid.' };
@@ -188,6 +199,8 @@ const checkTableAvailability = async ({
     endDateTime,
     durationMinutes: inferredDuration,
     now,
+    allowExtendedDuration,
+    skipAdvanceChecks,
   });
 
   if (!windowValidation.valid) {
@@ -235,3 +248,5 @@ module.exports = {
   findConflictingBooking,
   validateBookingWindow,
 };
+
+

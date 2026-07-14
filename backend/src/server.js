@@ -10,6 +10,7 @@ const bookingRoutes = require('./routes/bookingRoutes');
 const availabilityRoutes = require('./routes/availabilityRoutes');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const adminBookingRoutes = require('./routes/adminBookingRoutes');
+const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.get('/api/health', (_req, res) => {
 app.use('/api/tables', tableRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/availability', availabilityRoutes);
+app.use('/api/admin/dashboard', adminDashboardRoutes);
 app.use('/api/admin/bookings', adminBookingRoutes);
 app.use('/api/admin', adminAuthRoutes);
 
@@ -99,6 +101,7 @@ process.on('SIGINT', () => shutdown('SIGINT'));
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 
 startServer();
+
 
 
 

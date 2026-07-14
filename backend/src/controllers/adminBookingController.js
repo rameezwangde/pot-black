@@ -6,6 +6,7 @@ const { checkTableAvailability } = require('../services/availabilityService');
 const generateBookingReference = require('../utils/generateBookingReference');
 const normalizeBookingInput = require('../utils/normalizeBookingInput');
 const { convertCafeTimeToUtc, getCafeTimezone, parseIsoInstant } = require('../utils/timezone');
+const findBookingByIdentifier = require('../utils/findBookingByIdentifier');
 
 const BOOKING_STATUSES = ['pending', 'confirmed', 'checked-in', 'playing', 'completed', 'cancelled', 'no-show'];
 const ALLOWED_DURATIONS = [30, 60, 90, 120];
@@ -103,23 +104,17 @@ const getAdminBookings = async (req, res, next) => {
 
 const getAdminBookingById = async (req, res, next) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) {
-      return sendError(res, 400, 'INVALID_BOOKING_ID', 'The booking ID is invalid.');
-    }
-
-    const booking = await Booking.findById(req.params.id)
-      .select('-__v')
-      .populate('table', 'name code type zone capacity')
-      .lean();
-
+    const booking = await findBookingByIdentifier(req.params.id);
     if (!booking) return sendError(res, 404, 'BOOKING_NOT_FOUND', 'Booking not found.');
 
-    return res.status(200).json({ success: true, data: { booking } });
+    return res.status(200).json({
+      success: true,
+      data: { booking: booking.toObject({ versionKey: false }) },
+    });
   } catch (error) {
     return next(error);
   }
 };
-
 const createWalkInBooking = async (req, res, next) => {
   try {
     if (req.body.endDateTime !== undefined) {
@@ -198,12 +193,11 @@ const createWalkInBooking = async (req, res, next) => {
 
 const updateBookingStatus = async (req, res, next) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) return sendError(res, 400, 'INVALID_BOOKING_ID', 'The booking ID is invalid.');
 
     const nextStatus = typeof req.body.status === 'string' ? req.body.status.trim().toLowerCase() : '';
     if (!BOOKING_STATUSES.includes(nextStatus)) return sendError(res, 400, 'INVALID_BOOKING_STATUS', 'Invalid booking status.');
 
-    const booking = await Booking.findById(req.params.id);
+    const booking = await findBookingByIdentifier(req.params.id, false);
     if (!booking) return sendError(res, 404, 'BOOKING_NOT_FOUND', 'Booking not found.');
 
     if (!STATUS_TRANSITIONS[booking.status].includes(nextStatus)) {
@@ -226,16 +220,13 @@ const updateBookingStatus = async (req, res, next) => {
 
 const extendBooking = async (req, res, next) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) {
-      return sendError(res, 400, 'INVALID_BOOKING_ID', 'The booking ID is invalid.');
-    }
 
     const additionalMinutes = Number(req.body.additionalMinutes);
     if (![30, 60, 90, 120].includes(additionalMinutes)) {
       return sendError(res, 400, 'INVALID_EXTENSION_DURATION', 'additionalMinutes must be one of: 30, 60, 90, 120.');
     }
 
-    const booking = await Booking.findById(req.params.id);
+    const booking = await findBookingByIdentifier(req.params.id, false);
     if (!booking) return sendError(res, 404, 'BOOKING_NOT_FOUND', 'Booking not found.');
 
     if (!['confirmed', 'checked-in', 'playing'].includes(booking.status)) {
@@ -250,6 +241,7 @@ const extendBooking = async (req, res, next) => {
       endDateTime: newEndDateTime.toISOString(),
       durationMinutes: additionalMinutes,
       excludeBookingId: booking._id.toString(),
+      skipAdvanceChecks: true,
     });
 
     if (!availability.available) {
@@ -282,16 +274,13 @@ const extendBooking = async (req, res, next) => {
 
 const cancelBooking = async (req, res, next) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) {
-      return sendError(res, 400, 'INVALID_BOOKING_ID', 'The booking ID is invalid.');
-    }
 
     const reason = req.body.reason === undefined ? '' : req.body.reason;
     if (typeof reason !== 'string' || reason.trim().length > 300) {
       return sendError(res, 400, 'INVALID_CANCELLATION_REASON', 'Cancellation reason must contain no more than 300 characters.');
     }
 
-    const booking = await Booking.findById(req.params.id);
+    const booking = await findBookingByIdentifier(req.params.id, false);
     if (!booking) return sendError(res, 404, 'BOOKING_NOT_FOUND', 'Booking not found.');
 
     if (['cancelled', 'completed'].includes(booking.status)) {
@@ -317,12 +306,76 @@ const cancelBooking = async (req, res, next) => {
     return next(error);
   }
 };
+const moveBookingToTable = async (req, res, next) => {
+  try {
+    const booking = await findBookingByIdentifier(req.params.id);
+    if (!booking) return sendError(res, 404, 'BOOKING_NOT_FOUND', 'Booking not found.');
+
+    const newTableId = typeof req.body.tableId === 'string' ? req.body.tableId.trim() : '';
+    if (!newTableId) return sendError(res, 400, 'NEW_TABLE_REQUIRED', 'A new table ID is required.');
+    if (!mongoose.isValidObjectId(newTableId)) return sendError(res, 400, 'INVALID_TABLE_ID', 'The table ID is invalid.');
+
+    const newTable = await Table.findById(newTableId).lean();
+    if (!newTable) return sendError(res, 404, 'TABLE_NOT_FOUND', 'Table not found.');
+    if (!newTable.isActive) return sendError(res, 400, 'TABLE_INACTIVE', 'This table is inactive.');
+    if (newTable.status === 'maintenance') return sendError(res, 400, 'TABLE_MAINTENANCE', 'This table is currently under maintenance.');
+    if (newTable.status === 'unavailable') return sendError(res, 400, 'TABLE_UNAVAILABLE', 'This table is currently unavailable.');
+    if (booking.players > newTable.capacity) {
+      return sendError(res, 400, 'TABLE_CAPACITY_EXCEEDED', `This table can accommodate a maximum of ${newTable.capacity} players.`);
+    }
+
+    const currentTableId = booking.table?._id ? booking.table._id.toString() : booking.table.toString();
+    if (currentTableId === newTableId) {
+      return res.status(200).json({
+        success: true,
+        message: 'Booking is already assigned to this table.',
+        data: { booking: booking.toObject({ versionKey: false }) },
+      });
+    }
+
+    if (['completed', 'cancelled', 'no-show'].includes(booking.status)) {
+      return sendError(res, 409, 'BOOKING_CANNOT_BE_MOVED', `A ${booking.status} booking cannot be moved.`);
+    }
+
+    const availability = await checkTableAvailability({
+      tableId: newTableId,
+      startDateTime: booking.startDateTime.toISOString(),
+      endDateTime: booking.endDateTime.toISOString(),
+      durationMinutes: booking.durationMinutes,
+      excludeBookingId: booking._id.toString(),
+      allowExtendedDuration: true,
+      skipAdvanceChecks: true,
+    });
+
+    if (!availability.available) {
+      if (availability.code === 'BOOKING_CONFLICT') {
+        return sendError(res, 409, 'TABLE_REASSIGNMENT_CONFLICT', 'The selected table is not available during this booking time.');
+      }
+      return sendError(res, availability.code === 'TABLE_NOT_FOUND' ? 404 : 400, availability.code, availability.message);
+    }
+
+    booking.table = newTable._id;
+    await booking.save();
+    await booking.populate('table', 'name code type zone capacity');
+
+    return res.status(200).json({
+      success: true,
+      message: 'Booking moved to the selected table successfully.',
+      data: { booking: booking.toObject({ versionKey: false }) },
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
 module.exports = {
   cancelBooking,
   createWalkInBooking,
   extendBooking,
   getAdminBookingById,
   getAdminBookings,
+  moveBookingToTable,
   updateBookingStatus,
 };
+
+
 
