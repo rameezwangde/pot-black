@@ -9,6 +9,7 @@ const { convertCafeTimeToUtc, getCafeTimezone, parseIsoInstant } = require('../u
 const findBookingByIdentifier = require('../utils/findBookingByIdentifier');
 
 const BOOKING_STATUSES = ['pending', 'confirmed', 'checked-in', 'playing', 'completed', 'cancelled', 'no-show'];
+const BOOKING_SOURCES = ['website', 'walk-in', 'phone', 'admin'];
 const ALLOWED_DURATIONS = [30, 60, 90, 120];
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const STATUS_TRANSITIONS = {
@@ -65,6 +66,13 @@ const getAdminBookings = async (req, res, next) => {
         return sendError(res, 400, 'INVALID_BOOKING_STATUS', 'Invalid booking status.');
       }
       filter.status = status;
+    }
+    if (req.query.source) {
+      const source = String(req.query.source).trim().toLowerCase();
+      if (!BOOKING_SOURCES.includes(source)) {
+        return sendError(res, 400, 'INVALID_BOOKING_SOURCE', 'Invalid booking source.');
+      }
+      filter.source = source;
     }
 
     if (req.query.search && String(req.query.search).trim()) {
@@ -376,6 +384,3 @@ module.exports = {
   moveBookingToTable,
   updateBookingStatus,
 };
-
-
-

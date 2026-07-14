@@ -67,6 +67,7 @@ export interface BookingQuery {
   page?: number;
   limit?: number;
   sort?: string;
+  source?: 'website' | 'walk-in' | 'phone' | 'admin';
 }
 
 export interface Pagination { page: number; limit: number; total: number; pages: number; }

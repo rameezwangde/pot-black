@@ -2,7 +2,7 @@ const Table = require('../models/Table');
 
 const getAllTables = async (_req, res, next) => {
   try {
-    const tables = await Table.find().sort({ code: 1 });
+    const tables = await Table.find({ isActive: true, status: 'active' }).sort({ code: 1 });
 
     res.status(200).json({
       success: true,

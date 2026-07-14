@@ -1,4 +1,4 @@
-﻿import { useEffect } from 'react';
+import { useEffect } from 'react';
 import { X } from 'lucide-react';
 import type { AdminBooking, BookingStatus } from '../../services/adminBookingService';
 import { canCancel, canExtend, canMove, formatAdminDateTime, formatTimeRange, statusTransitions } from '../../utils/adminBookingUi';
@@ -14,7 +14,7 @@ export default function BookingDetailsPanel({ booking, loading, onClose, onStatu
   }, [onClose]);
   const rows = booking ? [
     ['Customer', booking.customerName], ['Phone', booking.phone], ['Email', booking.email], ['Players', String(booking.players)],
-    ['Table', `${booking.table.name} (${booking.table.code})`], ['Zone', booking.table.zone], ['Start', formatAdminDateTime(booking.startDateTime)], ['End', `${formatAdminDateTime(booking.endDateTime)} Â· ${formatTimeRange(booking)}`],
+    ['Table', `${booking.table.name} (${booking.table.code})`], ['Zone', booking.table.zone], ['Start', formatAdminDateTime(booking.startDateTime)], ['End', `${formatAdminDateTime(booking.endDateTime)} · ${formatTimeRange(booking)}`],
     ['Duration', `${booking.durationMinutes} minutes`], ['Extension', booking.extensionMinutes ? `${booking.extensionMinutes} minutes` : undefined], ['Source', booking.source], ['Created by', booking.createdBy],
     ['Created', formatAdminDateTime(booking.createdAt)], ['Updated', formatAdminDateTime(booking.updatedAt)], ['Special request', booking.specialRequest], ['Cancellation reason', booking.cancellationReason], ['Cancelled', booking.cancelledAt ? formatAdminDateTime(booking.cancelledAt) : undefined],
   ].filter((row): row is string[] => Boolean(row[1])) : [];
@@ -25,4 +25,3 @@ export default function BookingDetailsPanel({ booking, loading, onClose, onStatu
     </div>}
   </aside></div>;
 }
-

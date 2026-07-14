@@ -9,6 +9,8 @@ import BookingPage from './pages/BookingPage';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminBookingsPage from './pages/admin/AdminBookingsPage';
+import AdminTablesPage from './pages/admin/AdminTablesPage';
+import AdminWalkInsPage from './pages/admin/AdminWalkInsPage';
 import ProtectedAdminRoute from './components/admin/ProtectedAdminRoute';
 import AdminLayout from './components/admin/AdminLayout';
 
@@ -61,6 +63,8 @@ export default function App() {
       <Route path="/admin" element={<ProtectedAdminRoute><AdminLayout /></ProtectedAdminRoute>}>
         <Route index element={<AdminDashboardPage />} />
         <Route path="bookings" element={<AdminBookingsPage />} />
+        <Route path="tables" element={<AdminTablesPage />} />
+        <Route path="walk-ins" element={<AdminWalkInsPage />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>;

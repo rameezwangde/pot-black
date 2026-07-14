@@ -11,6 +11,7 @@ const availabilityRoutes = require('./routes/availabilityRoutes');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const adminBookingRoutes = require('./routes/adminBookingRoutes');
 const adminDashboardRoutes = require('./routes/adminDashboardRoutes');
+const adminTableRoutes = require('./routes/adminTableRoutes');
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use('/api/tables', tableRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/availability', availabilityRoutes);
 app.use('/api/admin/dashboard', adminDashboardRoutes);
+app.use('/api/admin/tables', adminTableRoutes);
 app.use('/api/admin/bookings', adminBookingRoutes);
 app.use('/api/admin', adminAuthRoutes);
 
