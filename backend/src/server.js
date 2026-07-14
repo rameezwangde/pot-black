@@ -3,6 +3,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
+const connectDB = require('./config/db');
 
 dotenv.config();
 
@@ -21,6 +23,7 @@ app.get('/api/health', (_req, res) => {
   res.status(200).json({
     success: true,
     message: 'Pot Black booking API is running',
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
   });
 });
 
@@ -40,6 +43,48 @@ app.use((error, _req, res, _next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Pot Black booking API listening on port ${PORT}`);
-});
+let server;
+let isShuttingDown = false;
+
+const startServer = async () => {
+  try {
+    await connectDB();
+    server = app.listen(PORT, () => {
+      console.log(`Pot Black booking API listening on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error(`Server startup aborted: ${error.message}`);
+    process.exit(1);
+  }
+};
+
+const shutdown = async (signal) => {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+  console.log(`${signal} received. Shutting down gracefully...`);
+
+  try {
+    if (mongoose.connection.readyState !== 0) {
+      await mongoose.connection.close();
+      console.log('MongoDB connection closed');
+    }
+
+    if (server) {
+      server.close(() => {
+        console.log('HTTP server closed');
+        process.exit(0);
+      });
+      return;
+    }
+
+    process.exit(0);
+  } catch (error) {
+    console.error(`Graceful shutdown failed: ${error.message}`);
+    process.exit(1);
+  }
+};
+
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+
+startServer();
