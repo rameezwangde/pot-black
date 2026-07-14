@@ -1,4 +1,4 @@
-﻿import { DateTime } from 'luxon';
+import { DateTime } from 'luxon';
 
 export const CAFE_TIMEZONE = 'Asia/Dubai';
 
@@ -23,7 +23,8 @@ export const durationToMinutes = (duration: string) => {
 };
 
 export const createDubaiStartDateTime = ({ date, time }: { date: string; time: string }) => {
-  const dubaiDateTime = DateTime.fromFormat(`${date} ${time}`, 'yyyy-MM-dd h:mm a', {
+  const timeFormat = /[AP]M$/i.test(time.trim()) ? 'h:mm a' : 'HH:mm';
+  const dubaiDateTime = DateTime.fromFormat(`${date} ${time}`, `yyyy-MM-dd ${timeFormat}`, {
     zone: CAFE_TIMEZONE,
     locale: 'en',
   });
@@ -51,4 +52,3 @@ export const generateDubaiTimeSlots = (durationMinutes: number) => {
   }
   return slots;
 };
-

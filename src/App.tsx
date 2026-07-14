@@ -1,4 +1,4 @@
-﻿import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Lenis from 'lenis';
 import { Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -8,6 +8,7 @@ import AboutUs from './pages/AboutUs';
 import BookingPage from './pages/BookingPage';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+import AdminBookingsPage from './pages/admin/AdminBookingsPage';
 import ProtectedAdminRoute from './components/admin/ProtectedAdminRoute';
 import AdminLayout from './components/admin/AdminLayout';
 
@@ -59,6 +60,7 @@ export default function App() {
       <Route path="/admin/login" element={<AdminLoginPage />} />
       <Route path="/admin" element={<ProtectedAdminRoute><AdminLayout /></ProtectedAdminRoute>}>
         <Route index element={<AdminDashboardPage />} />
+        <Route path="bookings" element={<AdminBookingsPage />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>;
@@ -85,5 +87,3 @@ export default function App() {
     </div>
   );
 }
-
-
