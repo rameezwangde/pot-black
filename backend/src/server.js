@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
+const tableRoutes = require('./routes/tableRoutes');
 
 dotenv.config();
 
@@ -26,6 +27,8 @@ app.get('/api/health', (_req, res) => {
     database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
   });
 });
+
+app.use('/api/tables', tableRoutes);
 
 app.use((req, _res, next) => {
   const error = new Error(`Route not found: ${req.method} ${req.originalUrl}`);
@@ -88,3 +91,5 @@ process.on('SIGINT', () => shutdown('SIGINT'));
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 
 startServer();
+
+
