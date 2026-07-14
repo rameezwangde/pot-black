@@ -325,13 +325,13 @@ export default function BookingPage() {
 
   return <>
     <BookingHero />
-    <div className="bg-[#080605] pb-24"><div className="max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-12 space-y-8">
+    <div className="bg-[#080605] pb-16 sm:pb-24"><div className="max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-12 space-y-8">
       <BookingSteps activeStep={activeStep}/>
       <BookingFilters date={selectedDate} players={selectedPlayers} duration={selectedDuration} loading={isLoading} onDate={changeDate} onPlayers={changePlayers} onDuration={changeDuration} onSearch={() => void loadTables()}/>
       <DateSelector selected={selectedDate} onSelect={changeDate}/>
       {apiMessage && <div role="alert" className="border border-red-800/40 bg-red-950/20 px-5 py-4 text-sm text-red-200">{apiMessage}</div>}
       <section className="pt-4"><div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-6"><div><p className="text-[9px] uppercase tracking-[.3em] text-[#D4AF37] mb-2">{readableDate}</p><h2 className="text-4xl sm:text-5xl text-[#F3E5AB] mb-3">Table Availability</h2><p className="text-sm text-gray-400">Select a table to view and reserve an available playing slot.</p></div><AvailabilityLegend/></div><AvailabilityStatus lastCheckedAt={lastCheckedAt} checking={checkingSlotId !== undefined}/>
-        <div className="mt-6">{tableError && !isLoading ? <div className="border border-red-800/40 bg-[#100b0a] p-10 text-center"><p className="text-gray-300 mb-5">{tableError}</p><button type="button" onClick={() => void loadTables()} className="border border-[#D4AF37]/40 px-6 py-3 text-[10px] uppercase tracking-[.18em] text-[#F3E5AB] hover:bg-[#D4AF37] hover:text-[#080605]">Retry</button></div> : <TableAvailabilityGrid tables={visibleTables} selectedId={selectedTable?.id} loading={isLoading} onSelect={chooseTable}/>}</div>
+        <div className="mt-6">{tableError && !isLoading ? <div className="border border-red-800/40 bg-[#100b0a] p-6 text-center sm:p-10"><p className="text-gray-300 mb-5">{tableError}</p><button type="button" onClick={() => void loadTables()} className="border border-[#D4AF37]/40 px-6 py-3 text-[10px] uppercase tracking-[.18em] text-[#F3E5AB] hover:bg-[#D4AF37] hover:text-[#080605]">Retry</button></div> : <TableAvailabilityGrid tables={visibleTables} selectedId={selectedTable?.id} loading={isLoading} onSelect={chooseTable}/>}</div>
       </section>
       {selectedTable && <TimeSlotSelector table={selectedTable} date={selectedDate} duration={selectedDuration} players={selectedPlayers} slots={slots} selected={selectedSlot} checkingSlotId={checkingSlotId} message={apiMessage} onSelect={slot => void chooseSlot(slot)}/>}
       {selectedTable && selectedSlot && <CustomerDetailsForm details={customerDetails} errors={errors} capacity={selectedTable.capacity} submitting={isSubmitting} onChange={setCustomerDetails} onSubmit={() => void submit()} summary={<BookingSummary date={selectedDate} table={selectedTable} slot={selectedSlot} players={customerDetails.players} duration={selectedDuration}/>}/>}

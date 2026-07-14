@@ -1,4 +1,4 @@
-﻿import { useState, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Eye, EyeOff, LockKeyhole } from 'lucide-react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
@@ -41,13 +41,13 @@ export default function AdminLoginPage() {
     } finally { setIsSubmitting(false); }
   };
 
-  return <main className="relative min-h-screen overflow-hidden bg-[#080605] px-4 py-10 text-white flex items-center justify-center">
+  return <main className="relative min-h-[100svh] overflow-x-hidden overflow-y-auto bg-[#080605] px-4 py-6 sm:py-10 text-white flex items-center justify-center">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(92,13,13,.38),transparent_58%)]"/>
     <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-[#D4AF37]/5 blur-[120px]"/>
     <section className="relative w-full max-w-md border border-[#D4AF37]/25 bg-[#180c0d]/95 p-7 sm:p-10 shadow-[0_30px_100px_rgba(0,0,0,.65),0_0_45px_rgba(212,175,55,.06)]">
       <div className="flex items-center justify-between gap-5 border-b border-white/10 pb-6 mb-8"><img src="/logo.png" alt="Pot Black" className="h-16 w-auto"/><LockKeyhole size={22} strokeWidth={1.2} className="text-[#D4AF37]"/></div>
       <p className="text-[9px] uppercase tracking-[.32em] text-[#D4AF37] mb-3">Pot Black Operations</p>
-      <h1 className="text-4xl sm:text-5xl text-[#F3E5AB] mb-4">Staff Access</h1>
+      <h1 className="text-3xl min-[390px]:text-4xl sm:text-5xl text-[#F3E5AB] mb-4">Staff Access</h1>
       <p className="text-sm leading-6 text-gray-400 mb-8">Sign in to manage reservations, table availability, walk-ins and live playing sessions.</p>
       <form onSubmit={submit} noValidate className="space-y-5">
         <label className="block text-[10px] uppercase tracking-[.16em] text-gray-400">Email Address

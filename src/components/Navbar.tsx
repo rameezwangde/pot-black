@@ -44,7 +44,7 @@ export default function Navbar({ show = true }: { show?: boolean }) {
         isScrolled ? 'bg-[#1A0E0E]/95 backdrop-blur-xl border-b border-white/5 py-2 shadow-2xl' : 'bg-transparent py-4'
       }`}
     >
-      <div className="max-w-[1600px] mx-auto px-8 flex items-center justify-between">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
         {/* Logo */}
         <Link to="/" className="flex items-center gap-4 group">
@@ -88,12 +88,12 @@ export default function Navbar({ show = true }: { show?: boolean }) {
 
       {/* Mobile Nav */}
       <motion.div 
-        className={`xl:hidden absolute top-full left-0 w-full bg-[#1A0E0E]/95 backdrop-blur-xl border-t border-white/5 overflow-hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`}
+        className={`xl:hidden absolute top-full left-0 w-full max-h-[calc(100dvh-5rem)] overflow-y-auto bg-[#1A0E0E]/95 backdrop-blur-xl border-t border-white/5 overscroll-contain ${isMobileMenuOpen ? 'block' : 'hidden'}`}
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: isMobileMenuOpen ? 'auto' : 0, opacity: isMobileMenuOpen ? 1 : 0 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="flex flex-col items-center py-8 gap-6 px-6">
+        <div className="flex flex-col items-center gap-3 px-4 py-5 sm:gap-5 sm:px-6 sm:py-7">
           {navLinks.map((link) => {
             const isActive = checkIsActive(link.href);
             return (

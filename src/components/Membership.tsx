@@ -35,7 +35,7 @@ export default function Membership() {
 
   return (
     <section id="membership" className="relative z-10 pt-24 md:pt-32 pb-12 md:pb-16 bg-[#0a0505]">
-      <div className="max-w-[1400px] mx-auto px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 xl:grid-cols-[4fr_8fr] gap-16 lg:gap-24 items-center">
           
           <motion.div 
@@ -63,7 +63,7 @@ export default function Membership() {
               {plans.map((plan, index) => (
                 <motion.div
                   key={plan.name}
-                  className={`relative flex flex-col p-10 lg:p-12 transition-colors rounded-[2px] ${plan.isPopular ? 'border border-[#B39A5D] bg-[#110808]/80' : 'border border-white/5 bg-[#110808]/40'}`}
+                  className={`relative flex min-w-0 flex-col p-6 sm:p-8 lg:p-12 transition-colors rounded-[2px] ${plan.isPopular ? 'border border-[#B39A5D] bg-[#110808]/80' : 'border border-white/5 bg-[#110808]/40'}`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -81,8 +81,8 @@ export default function Membership() {
                     </div>
                     <h3 className="text-[13px] font-medium text-white uppercase tracking-[0.2em] mb-4">{plan.name}</h3>
                     <p className="text-[11px] text-[#9ca3af] mb-6 leading-relaxed px-4">{plan.desc}</p>
-                    <div className="flex items-baseline justify-center gap-1">
-                      <span className="text-4xl lg:text-[2.5rem] font-serif text-[#D4AF37]">{plan.price}</span>
+                    <div className="flex flex-wrap items-baseline justify-center gap-x-1 gap-y-2">
+                      <span className="text-3xl sm:text-4xl lg:text-[2.5rem] font-serif text-[#D4AF37]">{plan.price}</span>
                       <span className="text-[9px] text-[#9ca3af] uppercase tracking-wider">{plan.period}</span>
                     </div>
                   </div>

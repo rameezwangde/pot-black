@@ -92,7 +92,7 @@ export default function Testimonials() {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none" />
       
-      <div className="max-w-[1400px] mx-auto px-8 relative z-10 mb-16 md:mb-24">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16 md:mb-24">
         <div className="text-center">
           <motion.span 
             className="text-[#D4AF37] uppercase tracking-[0.3em] text-xs font-medium block mb-4"
@@ -123,7 +123,7 @@ export default function Testimonials() {
           {duplicatedTestimonials.map((testimonial, i) => (
             <div
               key={i}
-              className="w-[350px] md:w-[450px] shrink-0 bg-[#120a0a] border border-[#2a1b1b] p-8 md:p-10 relative group hover:border-[#D4AF37]/30 transition-colors duration-500"
+              className="w-[calc(100vw-2rem)] max-w-[350px] md:w-[450px] md:max-w-none shrink-0 bg-[#120a0a] border border-[#2a1b1b] p-5 sm:p-8 md:p-10 relative group hover:border-[#D4AF37]/30 transition-colors duration-500"
             >
               <Quote className="w-10 h-10 text-[#D4AF37]/20 absolute top-8 right-8" />
               
@@ -131,8 +131,8 @@ export default function Testimonials() {
                 <div className="w-14 h-14 rounded-full bg-[#1a0f0a] border border-[#3d2314] flex items-center justify-center shrink-0">
                   <span className="text-[#D4AF37] font-serif text-xl">{testimonial.initial}</span>
                 </div>
-                <div>
-                  <h4 className="text-white font-medium tracking-wider uppercase text-sm truncate max-w-[200px]">{testimonial.name}</h4>
+                <div className="min-w-0">
+                  <h4 className="text-white font-medium tracking-wider uppercase text-sm truncate max-w-[180px] sm:max-w-[200px]">{testimonial.name}</h4>
                   <p className="text-[#D4AF37] text-xs uppercase tracking-[0.2em] mt-1">{testimonial.role}</p>
                 </div>
               </div>

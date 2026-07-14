@@ -59,7 +59,7 @@ export default function Equipment() {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="glass-card p-10 hover:border-billiards-gold/40 transition-all duration-700 group hover:-translate-y-2"
+              className="glass-card p-6 sm:p-10 hover:border-billiards-gold/40 transition-all duration-700 group hover:-translate-y-2"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

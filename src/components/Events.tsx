@@ -31,7 +31,7 @@ export default function Events() {
 
   return (
     <section id="events" className="relative z-10 pt-12 md:pt-16 pb-24 md:pb-32 bg-[#0a0505]">
-      <div className="max-w-[1500px] mx-auto px-8">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col xl:flex-row gap-16 justify-between items-center">
           
           <motion.div 
@@ -53,7 +53,7 @@ export default function Events() {
             </a>
           </motion.div>
 
-          <div className="xl:w-2/3 flex items-center gap-8">
+          <div className="w-full min-w-0 xl:w-2/3 flex items-center gap-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
               {events.map((event, index) => (
                 <motion.div

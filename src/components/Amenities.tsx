@@ -43,7 +43,7 @@ const LockIcon = () => (
 export default function Amenities() {
   return (
     <section className="relative z-10 py-12 md:py-16 bg-[#0a0505]">
-      <div className="max-w-[1500px] mx-auto px-8">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 md:mb-24">
           <span className="text-[#E2D2A4] uppercase tracking-[0.3em] text-[12px] font-medium block">PREMIUM AMENITIES</span>
         </div>
@@ -65,7 +65,7 @@ export default function Amenities() {
               <div className="text-[#D4AF37] mb-8 group-hover:-translate-y-2 transition-transform duration-500">
                 {feature.icon}
               </div>
-              <h4 className="text-[#EAE0C8] text-[13px] font-semibold tracking-[0.1em] uppercase mb-5 whitespace-nowrap">{feature.title}</h4>
+              <h4 className="text-[#EAE0C8] text-[13px] font-semibold tracking-[0.1em] uppercase mb-5 sm:whitespace-nowrap">{feature.title}</h4>
               <p className="text-[#9ca3af] text-[13px] font-light leading-[1.8] whitespace-pre-line max-w-[240px]">
                 {feature.desc}
               </p>

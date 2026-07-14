@@ -2,8 +2,8 @@ import { Instagram, Facebook, MessageCircle, MapPin, Phone, Mail, ArrowRight } f
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 border-t border-white/5 bg-[#1A0E0E] pt-20 pb-8">
-      <div className="max-w-[1600px] mx-auto px-8">
+    <footer className="relative z-10 border-t border-white/5 bg-[#1A0E0E] pt-14 pb-8 sm:pt-20">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
           
@@ -17,7 +17,7 @@ export default function Footer() {
             <p className="text-gray-400 text-sm font-light max-w-xs">
               Good times. Great shots.<br/>Unforgettable moments.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
                 <Instagram size={18} />
               </a>
@@ -67,7 +67,7 @@ export default function Footer() {
                 </li>
                 <li className="flex gap-3">
                   <Mail size={16} className="text-[#D4AF37] shrink-0" />
-                  <span>potblackdxb@gmail.com</span>
+                  <span className="min-w-0 break-all">potblackdxb@gmail.com</span>
                 </li>
                 <li className="flex gap-3">
                   <MapPin size={16} className="text-[#D4AF37] shrink-0 mt-1" />
@@ -86,12 +86,12 @@ export default function Footer() {
             <div>
               <h4 className="text-[#D4AF37] uppercase tracking-widest text-xs font-semibold mb-6">HOURS</h4>
               <ul className="flex flex-col gap-3 text-xs text-gray-400 tracking-wider">
-                <li className="flex gap-4">
-                  <span className="w-24">Mon - Fri :</span>
+                <li className="flex flex-wrap gap-x-4 gap-y-1">
+                  <span className="w-24 shrink-0">Mon - Fri :</span>
                   <span>2:00 PM - 12:00 AM</span>
                 </li>
-                <li className="flex gap-4">
-                  <span className="w-24">Sat - Sun :</span>
+                <li className="flex flex-wrap gap-x-4 gap-y-1">
+                  <span className="w-24 shrink-0">Sat - Sun :</span>
                   <span>12:00 PM - 2:00 AM</span>
                 </li>
               </ul>
@@ -101,9 +101,9 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-center text-xs text-gray-500 md:text-left">
           <p>© 2026 Pot Black Billiards Club. All rights reserved.</p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <span>|</span>
             <a href="#" className="hover:text-white transition-colors">Terms & Conditions</a>

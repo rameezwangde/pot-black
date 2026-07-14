@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 
 export default function CTA() {
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-black">
+    <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden bg-black">
       {/* Background with overlay */}
       <div className="absolute inset-0">
         <img 
@@ -16,7 +16,7 @@ export default function CTA() {
         <div className="absolute inset-0 bg-[#D4AF37]/10 mix-blend-overlay" />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-8 text-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-4 text-center sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -26,7 +26,7 @@ export default function CTA() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-[#E2D2A4] uppercase tracking-wide mb-6 drop-shadow-lg">
             Ready to Take Your Shot?
           </h2>
-          <p className="text-gray-300 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-gray-300 text-base sm:text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed">
             Experience the ultimate luxury in billiards. Whether it's a casual evening with friends or a competitive match, Pot Black awaits.
           </p>
           

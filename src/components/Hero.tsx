@@ -163,8 +163,8 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
   ];
 
   return (
-    <div ref={containerRef} className={`relative ${isFinished ? 'h-screen' : 'h-[300vh]'}`}>
-      <section className="sticky top-0 h-screen w-full flex items-center justify-center pt-20 overflow-hidden bg-billiards-dark">
+    <div ref={containerRef} className={`relative ${isFinished ? 'h-[100svh] min-h-[600px]' : 'h-[300vh]'}`}>
+      <section className="sticky top-0 h-[100svh] min-h-[600px] w-full flex items-center justify-center pt-20 overflow-hidden bg-billiards-dark">
 
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
@@ -305,7 +305,7 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
         </motion.div>
 
         {/* Hero Text Content */}
-        <div className="absolute inset-0 max-w-[1600px] mx-auto px-8 z-40 w-full pointer-events-none flex justify-center items-start pt-8 md:pt-12 lg:pt-16 h-full text-center">
+        <div className="absolute inset-0 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 z-40 w-full pointer-events-none flex justify-center items-start pt-8 md:pt-12 lg:pt-16 h-full text-center">
           <div className="max-w-5xl pointer-events-auto flex flex-col items-center">
             <motion.div
               className="flex flex-wrap justify-center items-center gap-2 md:gap-4 text-[9px] md:text-[10px] tracking-[0.25em] uppercase text-[#D4AF37] mb-6 drop-shadow-lg mt-4 md:mt-8"
@@ -330,7 +330,7 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
             </motion.div>
 
             <motion.h1
-              className="text-5xl md:text-8xl lg:text-[7.5rem] font-serif leading-[1.05] mb-2 drop-shadow-2xl uppercase tracking-tight text-[#EAE0C8]"
+              className="text-4xl min-[360px]:text-5xl md:text-8xl lg:text-[7.5rem] font-serif leading-[1.05] mb-2 drop-shadow-2xl uppercase tracking-tight text-[#EAE0C8]"
               style={{ opacity: textOpacity, y: textY }}
             >
               <span className="block">THE GAME</span>
@@ -377,7 +377,7 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
 
         {/* Bottom Left Pagination */}
         <motion.div
-          className="absolute bottom-12 left-8 z-40 flex items-center gap-6"
+          className="absolute bottom-5 left-4 z-40 hidden items-center gap-6 sm:bottom-12 sm:left-8 sm:flex"
           style={{ opacity: textOpacity }}
         >
           <div className="flex items-center gap-2 group cursor-pointer">
@@ -392,7 +392,7 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
 
         {/* Bottom Right Text */}
         <motion.div
-          className="absolute bottom-12 right-28 z-40 flex flex-col items-end gap-2 pr-4 border-r border-white/10"
+          className="absolute bottom-12 right-28 z-40 hidden flex-col md:flex items-end gap-2 pr-4 border-r border-white/10"
           style={{ opacity: textOpacity }}
         >
           <span className="text-xs uppercase tracking-[0.3em] text-white font-medium">GAME ON</span>

@@ -3,7 +3,7 @@ import AnimatedHeading from './AnimatedHeading';
 
 export default function Pricing() {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-16 sm:py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-billiards-dark -z-20" />
       
       {/* Background Image */}
@@ -20,7 +20,7 @@ export default function Pricing() {
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent z-10" />
       <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-billiards-emerald/10 rounded-full blur-[120px] -z-10 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           <motion.div
@@ -64,7 +64,7 @@ export default function Pricing() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="glass-card p-10 lg:p-14 border border-billiards-gold/20 relative"
+            className="glass-card p-6 sm:p-10 lg:p-14 border border-billiards-gold/20 relative"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-billiards-gold/10 blur-2xl rounded-full" />
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-billiards-emerald/10 blur-2xl rounded-full" />

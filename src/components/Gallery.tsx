@@ -12,7 +12,7 @@ export default function Gallery() {
 
   return (
     <section id="gallery" className="relative z-10 py-24 md:py-32 border-t border-white/5 bg-[#0a0505]">
-      <div className="max-w-[1600px] mx-auto px-8 mb-16 flex justify-center">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 mb-16 flex justify-center">
         <span className="text-[#D4AF37] uppercase tracking-[0.3em] text-sm font-semibold">GALLERY</span>
       </div>
 
@@ -20,7 +20,7 @@ export default function Gallery() {
         {images.map((img, i) => (
           <motion.div
             key={i}
-            className="shrink-0 w-[280px] md:w-[20vw] aspect-[4/3] snap-center overflow-hidden border border-white/5 group relative cursor-pointer"
+            className="shrink-0 w-[calc(100vw-2rem)] max-w-[280px] md:w-[20vw] md:max-w-none aspect-[4/3] snap-center overflow-hidden border border-white/5 group relative cursor-pointer"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}

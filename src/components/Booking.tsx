@@ -14,9 +14,9 @@ export default function Booking() {
         />
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         <motion.div 
-          className="glass-card p-10 md:p-16 text-center border-billiards-gold/20 shadow-[0_30px_60px_rgba(0,0,0,0.8)] relative overflow-hidden"
+          className="glass-card p-6 sm:p-10 md:p-16 text-center border-billiards-gold/20 shadow-[0_30px_60px_rgba(0,0,0,0.8)] relative overflow-hidden"
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
