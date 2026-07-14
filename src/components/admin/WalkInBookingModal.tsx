@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { DateTime } from 'luxon';
 import { Table2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -26,13 +26,18 @@ export default function WalkInBookingModal({ onClose, onSuccess }: { onClose: ()
   const [error, setError] = useState('');
   const [tablesLoading, setTablesLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const submissionPending = useRef(false);
+  const close = () => { if (!submissionPending.current) onClose(); };
   useEffect(() => { getTables().then(data => setTables(data.filter(table => table.isActive && table.status === 'active'))).catch(requestError => setError((requestError as AdminApiError).message)).finally(() => setTablesLoading(false)); }, []);
   const set = (key: keyof typeof form, value: string | number) => setForm(current => ({ ...current, [key]: value }));
   const submit = async (event: FormEvent) => {
-    event.preventDefault(); setError('');
+    event.preventDefault();
+    if (submissionPending.current) return;
+    setError('');
     if (!form.customerName.trim() || !form.phone.trim() || !form.tableId) { setError('Customer name, phone and table are required.'); return; }
     const table = tables.find(item => item._id === form.tableId);
     if (table && form.players > table.capacity) { setError(`This table can accommodate a maximum of ${table.capacity} players.`); return; }
+    submissionPending.current = true;
     setSubmitting(true);
     try {
       const startDateTime = createDubaiStartDateTime({ date: form.date, time: form.time });
@@ -40,9 +45,9 @@ export default function WalkInBookingModal({ onClose, onSuccess }: { onClose: ()
       const result = await createWalkInBooking({ tableId: form.tableId, customerName: form.customerName.trim(), phone: form.phone.trim(), email: form.email.trim() || undefined, players: form.players, startDateTime, durationMinutes: form.durationMinutes, specialRequest: form.specialRequest.trim() });
       onSuccess(result.booking.bookingReference);
     } catch (requestError) { setError((requestError as AdminApiError).message); }
-    finally { setSubmitting(false); }
+    finally { submissionPending.current = false; setSubmitting(false); }
   };
-  return <AdminModalShell title="Add Walk-In Booking" onClose={onClose} width="max-w-3xl"><form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
+  return <AdminModalShell title="Add Walk-In Booking" onClose={close} width="max-w-3xl"><form onSubmit={submit} className="grid gap-4 sm:grid-cols-2">
     <label className="text-[9px] uppercase tracking-[.14em] text-gray-400">Customer Name<input value={form.customerName} onChange={event => set('customerName', event.target.value)} className={input}/></label>
     <label className="text-[9px] uppercase tracking-[.14em] text-gray-400">Phone<input type="tel" value={form.phone} onChange={event => set('phone', event.target.value)} className={input}/></label>
     <label className="text-[9px] uppercase tracking-[.14em] text-gray-400">Email <span className="normal-case tracking-normal text-gray-600">(optional)</span><input type="email" value={form.email} onChange={event => set('email', event.target.value)} className={input}/></label>
@@ -53,6 +58,6 @@ export default function WalkInBookingModal({ onClose, onSuccess }: { onClose: ()
     {tablesLoading || tables.length ? <label className="text-[9px] uppercase tracking-[.14em] text-gray-400">Table<select value={form.tableId} disabled={tablesLoading} onChange={event => set('tableId', event.target.value)} className={input}><option value="">{tablesLoading ? 'Loading tables...' : 'Select table'}</option>{tables.map(table => <option key={table._id} value={table._id}>{table.code} · {table.name} · {table.capacity} players</option>)}</select></label> : <div className="sm:col-span-2"><EmptyState icon={Table2} title="No Available Tables" description="A walk-in cannot be created until at least one active table is available." actionLabel="Manage Tables" onAction={() => { onClose(); navigate('/admin/tables'); }} compact/></div>}
     <label className="sm:col-span-2 text-[9px] uppercase tracking-[.14em] text-gray-400">Special Request<textarea rows={3} maxLength={500} value={form.specialRequest} onChange={event => set('specialRequest', event.target.value)} className={`${input} resize-none`}/></label>
     {error && <p aria-live="polite" className="sm:col-span-2 border border-red-800/40 bg-red-950/20 p-3 text-xs text-red-200">{error}</p>}
-    <div className="sm:col-span-2 flex gap-3"><button type="button" onClick={onClose} className="flex-1 border border-white/10 py-3 text-[9px] uppercase tracking-[.16em] text-gray-400">Close</button><button type="submit" disabled={submitting || tablesLoading || !tables.length} aria-busy={submitting} className="flex-1 bg-[#D4AF37] py-3 text-[9px] font-semibold uppercase tracking-[.16em] text-black disabled:opacity-60"><InlineLoadingLabel loading={submitting} loadingText="Booking...">Create Walk-In</InlineLoadingLabel></button></div>
+    <div className="sm:col-span-2 flex gap-3"><button type="button" onClick={close} disabled={submitting} className="flex-1 border border-white/10 py-3 text-[9px] uppercase tracking-[.16em] text-gray-400">Close</button><button type="submit" disabled={submitting || tablesLoading || !tables.length} aria-busy={submitting} className="flex-1 bg-[#D4AF37] py-3 text-[9px] font-semibold uppercase tracking-[.16em] text-black disabled:opacity-60"><InlineLoadingLabel loading={submitting} loadingText="Booking...">Create Walk-In</InlineLoadingLabel></button></div>
   </form></AdminModalShell>;
 }

@@ -65,6 +65,7 @@ export default function BookingPage() {
   const availabilityController = useRef<AbortController>();
   const pollingController = useRef<AbortController>();
   const submissionController = useRef<AbortController>();
+  const submissionPending = useRef(false);
   const requestId = useRef(0);
   const selectionKey = useRef('');
 
@@ -249,6 +250,7 @@ export default function BookingPage() {
   }, [durationMinutes, selectedDate, selectedDuration, selectedSlot, selectedTable]);
 
   const submit = async () => {
+    if (submissionPending.current) return;
     if (!selectedTable) {
       setApiMessage('Please select a table.');
       return;
@@ -272,7 +274,7 @@ export default function BookingPage() {
     setErrors(next);
     if (Object.keys(next).length) return;
 
-    submissionController.current?.abort();
+    submissionPending.current = true;
     const controller = new AbortController();
     submissionController.current = controller;
     setIsSubmitting(true);
@@ -308,6 +310,7 @@ export default function BookingPage() {
         setApiMessage(apiError.message);
       }
     } finally {
+      submissionPending.current = false;
       setIsSubmitting(false);
     }
   };

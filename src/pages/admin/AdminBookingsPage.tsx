@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CalendarPlus2, Plus, Search, SearchX, SlidersHorizontal } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import BookingDetailsPanel from '../../components/admin/BookingDetailsPanel';
@@ -37,6 +37,7 @@ export default function AdminBookingsPage() {
   const [moveTarget, setMoveTarget] = useState<AdminBooking>();
   const [walkInOpen, setWalkInOpen] = useState(false);
   const [actionLoading, setActionLoading] = useState('');
+  const actionPending = useRef(false);
 
   const queryKey = searchParams.toString();
   const query = useMemo(() => ({
@@ -98,17 +99,19 @@ export default function AdminBookingsPage() {
     if (bookingIdentifier) await loadDetails(bookingIdentifier, true);
   };
   const changeStatus = async (booking: AdminBooking, status: BookingStatus) => {
+    if (actionPending.current) return;
+    actionPending.current = true;
     setActionLoading(`${booking._id}:${status}`);
     try { await updateBookingStatus(booking.bookingReference, status); await refreshAfterAction('Booking status updated successfully.'); }
     catch (requestError) { showToast((requestError as AdminApiError).message, 'error'); }
-    finally { setActionLoading(''); }
+    finally { actionPending.current = false; setActionLoading(''); }
   };
   const modalSuccess = async (message: string) => {
     setExtendTarget(undefined); setCancelTarget(undefined); setMoveTarget(undefined); setWalkInOpen(false);
     await refreshAfterAction(message);
   };
 
-  const actions = (booking: AdminBooking) => <div className="flex flex-wrap gap-1.5"><button type="button" onClick={() => openDetails(booking)} className={actionClass}>View</button>{statusTransitions[booking.status].filter(status => status !== 'cancelled').map(status => <button type="button" key={status} disabled={actionLoading === `${booking._id}:${status}`} aria-busy={actionLoading === `${booking._id}:${status}`} onClick={() => void changeStatus(booking, status)} className={actionClass}>{actionLoading === `${booking._id}:${status}` ? 'Updating...' : statusActionLabel[status] ?? statusLabels[status]}</button>)}{canExtend(booking) && <button type="button" onClick={() => setExtendTarget(booking)} className={actionClass}>Extend</button>}{canMove(booking) && <button type="button" onClick={() => setMoveTarget(booking)} className={actionClass}>Move Table</button>}{statusTransitions[booking.status].includes('cancelled') && <button type="button" onClick={() => setCancelTarget(booking)} className={`${actionClass} border-red-900/40 text-red-300`}>Cancel</button>}</div>;
+  const actions = (booking: AdminBooking) => <div className="flex flex-wrap gap-1.5"><button type="button" onClick={() => openDetails(booking)} className={actionClass}>View</button>{statusTransitions[booking.status].filter(status => status !== 'cancelled').map(status => <button type="button" key={status} disabled={Boolean(actionLoading)} data-loading={actionLoading === `${booking._id}:${status}`} aria-busy={actionLoading === `${booking._id}:${status}`} onClick={() => void changeStatus(booking, status)} className={actionClass}>{actionLoading === `${booking._id}:${status}` ? 'Updating...' : statusActionLabel[status] ?? statusLabels[status]}</button>)}{canExtend(booking) && <button type="button" onClick={() => setExtendTarget(booking)} className={actionClass}>Extend</button>}{canMove(booking) && <button type="button" onClick={() => setMoveTarget(booking)} className={actionClass}>Move Table</button>}{statusTransitions[booking.status].includes('cancelled') && <button type="button" onClick={() => setCancelTarget(booking)} className={`${actionClass} border-red-900/40 text-red-300`}>Cancel</button>}</div>;
 
   return <section className="mx-auto max-w-[1550px]">
     <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="mb-2 text-[9px] uppercase tracking-[.3em] text-[#D4AF37]">Reservations Control</p><h2 className="mb-3 text-3xl text-[#F3E5AB] min-[390px]:text-4xl sm:text-5xl">Booking Management</h2><p className="text-sm text-gray-400">Search, review and manage reservations, walk-ins and active playing sessions.</p></div><button type="button" onClick={() => setWalkInOpen(true)} className="flex w-full shrink-0 items-center justify-center gap-2 bg-[#D4AF37] sm:w-auto px-5 py-3.5 text-[9px] font-semibold uppercase tracking-[.16em] text-black"><Plus size={15}/>Add Walk-In Booking</button></div>

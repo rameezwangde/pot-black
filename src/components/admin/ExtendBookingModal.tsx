@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { DateTime } from 'luxon';
 import AdminModalShell from './AdminModalShell';
 import { extendBooking, type AdminBooking } from '../../services/adminBookingService';
@@ -11,18 +11,22 @@ export default function ExtendBookingModal({ booking, onClose, onSuccess }: { bo
   const [minutes, setMinutes] = useState(30);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const submissionPending = useRef(false);
+  const close = () => { if (!submissionPending.current) onClose(); };
   const proposed = useMemo(() => DateTime.fromISO(booking.endDateTime).setZone(CAFE_TIMEZONE).plus({ minutes }).toFormat('h:mm a'), [booking.endDateTime, minutes]);
   const submit = async () => {
+    if (submissionPending.current) return;
+    submissionPending.current = true;
     setSubmitting(true); setError('');
     try { await extendBooking(booking.bookingReference, minutes); onSuccess(); }
     catch (requestError) { setError((requestError as AdminApiError).message); }
-    finally { setSubmitting(false); }
+    finally { submissionPending.current = false; setSubmitting(false); }
   };
-  return <AdminModalShell title="Extend Booking" onClose={onClose}>
+  return <AdminModalShell title="Extend Booking" onClose={close}>
     <div className="mb-6 grid grid-cols-2 gap-4 border border-white/10 bg-black/20 p-4 text-xs"><div><p className="text-gray-500">Current end</p><p className="mt-1 text-[#F3E5AB]">{formatAdminTime(booking.endDateTime)}</p></div><div><p className="text-gray-500">Proposed end</p><p className="mt-1 text-[#D4AF37]">{proposed}</p></div></div>
-    <div className="grid grid-cols-2 gap-3">{[30, 60, 90, 120].map(option => <button type="button" key={option} onClick={() => setMinutes(option)} className={`border px-3 py-3 text-[10px] uppercase tracking-[.14em] ${minutes === option ? 'border-[#D4AF37] bg-[#D4AF37] text-black' : 'border-white/10 text-gray-300 hover:border-[#D4AF37]/50'}`}>+{option} Minutes</button>)}</div>
+    <div className="grid grid-cols-2 gap-3">{[30, 60, 90, 120].map(option => <button type="button" key={option} onClick={() => setMinutes(option)} disabled={submitting} className={`border px-3 py-3 text-[10px] uppercase tracking-[.14em] ${minutes === option ? 'border-[#D4AF37] bg-[#D4AF37] text-black' : 'border-white/10 text-gray-300 hover:border-[#D4AF37]/50'}`}>+{option} Minutes</button>)}</div>
     <p className="mt-4 text-xs text-gray-500">Selected additional duration: {minutes} minutes</p>
     {error && <p aria-live="polite" className="mt-4 border border-red-800/40 bg-red-950/20 p-3 text-xs text-red-200">{error}</p>}
-    <div className="mt-6 flex gap-3"><button type="button" onClick={onClose} className="flex-1 border border-white/10 py-3 text-[9px] uppercase tracking-[.16em] text-gray-400">Close</button><button type="button" onClick={() => void submit()} disabled={submitting} aria-busy={submitting} className="flex-1 bg-[#D4AF37] py-3 text-[9px] font-semibold uppercase tracking-[.16em] text-black disabled:opacity-60"><InlineLoadingLabel loading={submitting} loadingText="Extending...">Extend Booking</InlineLoadingLabel></button></div>
+    <div className="mt-6 flex gap-3"><button type="button" onClick={close} disabled={submitting} className="flex-1 border border-white/10 py-3 text-[9px] uppercase tracking-[.16em] text-gray-400">Close</button><button type="button" onClick={() => void submit()} disabled={submitting} aria-busy={submitting} className="flex-1 bg-[#D4AF37] py-3 text-[9px] font-semibold uppercase tracking-[.16em] text-black disabled:opacity-60"><InlineLoadingLabel loading={submitting} loadingText="Extending...">Extend Booking</InlineLoadingLabel></button></div>
   </AdminModalShell>;
 }

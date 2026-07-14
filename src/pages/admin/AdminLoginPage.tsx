@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Eye, EyeOff, LockKeyhole } from 'lucide-react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
@@ -18,6 +18,7 @@ export default function AdminLoginPage() {
   const locationState = location.state as LoginLocationState | null;
   const [apiError, setApiError] = useState(locationState?.message ?? '');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const submissionPending = useRef(false);
   const requestedPath = locationState?.from?.pathname;
   const isSafeAdminDestination = requestedPath === '/admin' || (requestedPath?.startsWith('/admin/') && requestedPath !== '/admin/login');
   const destination = isSafeAdminDestination
@@ -32,6 +33,7 @@ export default function AdminLoginPage() {
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
+    if (submissionPending.current) return;
     const nextErrors: LoginErrors = {};
     if (!email.trim()) nextErrors.email = 'Email address is required.';
     else if (!/^\S+@\S+\.\S+$/.test(email)) nextErrors.email = 'Enter a valid email address.';
@@ -40,6 +42,7 @@ export default function AdminLoginPage() {
     setErrors(nextErrors); setApiError('');
     if (Object.keys(nextErrors).length) return;
 
+    submissionPending.current = true;
     setIsSubmitting(true);
     try {
       await login({ email: email.trim().toLowerCase(), password }, destination);
@@ -49,7 +52,7 @@ export default function AdminLoginPage() {
       else if (adminError.code === 'TOO_MANY_LOGIN_ATTEMPTS') setApiError('Too many login attempts. Please wait and try again.');
       else if (adminError.code === 'ADMIN_INACTIVE') setApiError('This staff account is currently inactive.');
       else setApiError(adminError.message || 'Unable to sign in. Please try again.');
-    } finally { setIsSubmitting(false); }
+    } finally { submissionPending.current = false; setIsSubmitting(false); }
   };
 
   return <main className="relative min-h-[100svh] overflow-x-hidden overflow-y-auto bg-[#080605] px-4 py-6 sm:py-10 text-white flex items-center justify-center">
