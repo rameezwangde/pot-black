@@ -9,6 +9,7 @@ const tableRoutes = require('./routes/tableRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const availabilityRoutes = require('./routes/availabilityRoutes');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
+const adminBookingRoutes = require('./routes/adminBookingRoutes');
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.get('/api/health', (_req, res) => {
 app.use('/api/tables', tableRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/availability', availabilityRoutes);
+app.use('/api/admin/bookings', adminBookingRoutes);
 app.use('/api/admin', adminAuthRoutes);
 
 app.use((req, _res, next) => {
@@ -97,6 +99,7 @@ process.on('SIGINT', () => shutdown('SIGINT'));
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 
 startServer();
+
 
 
 

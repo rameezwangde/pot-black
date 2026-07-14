@@ -29,7 +29,9 @@ const bookingSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true,
+      required() {
+        return this.source !== 'walk-in';
+      },
       trim: true,
       lowercase: true,
     },
@@ -106,3 +108,4 @@ bookingSchema.index({ table: 1, status: 1 });
 bookingSchema.index({ startDateTime: 1, status: 1 });
 
 module.exports = mongoose.model('Booking', bookingSchema);
+
