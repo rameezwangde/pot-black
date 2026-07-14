@@ -224,9 +224,105 @@ const updateBookingStatus = async (req, res, next) => {
   }
 };
 
+const extendBooking = async (req, res, next) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return sendError(res, 400, 'INVALID_BOOKING_ID', 'The booking ID is invalid.');
+    }
+
+    const additionalMinutes = Number(req.body.additionalMinutes);
+    if (![30, 60, 90, 120].includes(additionalMinutes)) {
+      return sendError(res, 400, 'INVALID_EXTENSION_DURATION', 'additionalMinutes must be one of: 30, 60, 90, 120.');
+    }
+
+    const booking = await Booking.findById(req.params.id);
+    if (!booking) return sendError(res, 404, 'BOOKING_NOT_FOUND', 'Booking not found.');
+
+    if (!['confirmed', 'checked-in', 'playing'].includes(booking.status)) {
+      return sendError(res, 409, 'BOOKING_CANNOT_BE_EXTENDED', `A ${booking.status} booking cannot be extended.`);
+    }
+
+    const currentEndDateTime = new Date(booking.endDateTime);
+    const newEndDateTime = new Date(currentEndDateTime.getTime() + additionalMinutes * 60 * 1000);
+    const availability = await checkTableAvailability({
+      tableId: booking.table.toString(),
+      startDateTime: currentEndDateTime.toISOString(),
+      endDateTime: newEndDateTime.toISOString(),
+      durationMinutes: additionalMinutes,
+      excludeBookingId: booking._id.toString(),
+    });
+
+    if (!availability.available) {
+      if (availability.code === 'BOOKING_CONFLICT') {
+        return sendError(res, 409, 'BOOKING_EXTENSION_CONFLICT', 'The requested extension overlaps another booking.');
+      }
+      return sendError(res, availability.code === 'TABLE_NOT_FOUND' ? 404 : 400, availability.code, availability.message);
+    }
+
+    booking.endDateTime = newEndDateTime;
+    booking.durationMinutes += additionalMinutes;
+    booking.extensionMinutes = (booking.extensionMinutes || 0) + additionalMinutes;
+    await booking.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Booking extended successfully.',
+      data: {
+        bookingReference: booking.bookingReference,
+        startDateTime: booking.startDateTime.toISOString(),
+        endDateTime: booking.endDateTime.toISOString(),
+        durationMinutes: booking.durationMinutes,
+        extensionMinutes: booking.extensionMinutes,
+      },
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+const cancelBooking = async (req, res, next) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return sendError(res, 400, 'INVALID_BOOKING_ID', 'The booking ID is invalid.');
+    }
+
+    const reason = req.body.reason === undefined ? '' : req.body.reason;
+    if (typeof reason !== 'string' || reason.trim().length > 300) {
+      return sendError(res, 400, 'INVALID_CANCELLATION_REASON', 'Cancellation reason must contain no more than 300 characters.');
+    }
+
+    const booking = await Booking.findById(req.params.id);
+    if (!booking) return sendError(res, 404, 'BOOKING_NOT_FOUND', 'Booking not found.');
+
+    if (['cancelled', 'completed'].includes(booking.status)) {
+      return sendError(res, 409, 'BOOKING_CANNOT_BE_CANCELLED', `A ${booking.status} booking cannot be cancelled.`);
+    }
+
+    booking.status = 'cancelled';
+    booking.cancelledAt = new Date();
+    booking.cancellationReason = reason.trim();
+    await booking.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Booking cancelled successfully.',
+      data: {
+        bookingReference: booking.bookingReference,
+        status: booking.status,
+        cancelledAt: booking.cancelledAt.toISOString(),
+        cancellationReason: booking.cancellationReason,
+      },
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
 module.exports = {
+  cancelBooking,
   createWalkInBooking,
+  extendBooking,
   getAdminBookingById,
   getAdminBookings,
   updateBookingStatus,
 };
+

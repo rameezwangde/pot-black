@@ -59,7 +59,11 @@ const bookingSchema = new mongoose.Schema(
     durationMinutes: {
       type: Number,
       required: true,
-      enum: [30, 60, 90, 120],
+      min: 30,
+      validate: {
+        validator: (value) => value % 30 === 0,
+        message: 'Duration must use 30-minute increments.',
+      },
     },
     specialRequest: {
       type: String,
@@ -108,4 +112,5 @@ bookingSchema.index({ table: 1, status: 1 });
 bookingSchema.index({ startDateTime: 1, status: 1 });
 
 module.exports = mongoose.model('Booking', bookingSchema);
+
 
