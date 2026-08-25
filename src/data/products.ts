@@ -6,7 +6,7 @@ export interface Product {
   price: number;
   salePrice?: number;
   quantityInStock: number;
-  stockStatus: 'In Stock' | 'Out of Stock';
+  stockStatus: 'In Stock' | 'Out of Stock' | 'Low Stock';
   status: 'Active' | 'Inactive';
   image: string;
   images?: string[];
