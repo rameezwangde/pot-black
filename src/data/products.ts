@@ -117,7 +117,16 @@ export const products: Product[] = [
     quantityInStock: 10,
     stockStatus: 'In Stock',
     status: 'Active',
-    image: 'https://images.unsplash.com/photo-1616429210967-0c1dfd42c38d?q=80&w=800&auto=format&fit=crop'
+    image: '/images/products/dragon-carbon-fiber-cue/01.jpg',
+    images: [
+      '/images/products/dragon-carbon-fiber-cue/01.jpg',
+      '/images/products/dragon-carbon-fiber-cue/02.jpg',
+      '/images/products/dragon-carbon-fiber-cue/03.jpg',
+      '/images/products/dragon-carbon-fiber-cue/04.jpg',
+      '/images/products/dragon-carbon-fiber-cue/05.jpg',
+      '/images/products/dragon-carbon-fiber-cue/06.jpg',
+      '/images/products/dragon-carbon-fiber-cue/07.jpg'
+    ]
   },
   {
     id: 'p8',
