@@ -9,6 +9,7 @@ export interface Product {
   stockStatus: 'In Stock' | 'Out of Stock';
   status: 'Active' | 'Inactive';
   image: string;
+  images?: string[];
 }
 
 export const products: Product[] = [
@@ -21,7 +22,13 @@ export const products: Product[] = [
     quantityInStock: 10,
     stockStatus: 'In Stock',
     status: 'Active',
-    image: 'https://images.unsplash.com/photo-1595155700889-138be78152c1?q=80&w=800&auto=format&fit=crop'
+    image: '/images/products/3-in-1-tip-shaper/01.jpg',
+    images: [
+      '/images/products/3-in-1-tip-shaper/01.jpg',
+      '/images/products/3-in-1-tip-shaper/02.jpg',
+      '/images/products/3-in-1-tip-shaper/03.jpg',
+      '/images/products/3-in-1-tip-shaper/04.jpg'
+    ]
   },
   {
     id: 'p2',

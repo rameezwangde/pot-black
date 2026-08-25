@@ -6,9 +6,10 @@ import { useCart } from '../context/CartContext';
 interface ProductCardProps {
   product: Product;
   key?: string | number;
+  onImageClick?: (images: string[]) => void;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, onImageClick }: ProductCardProps) {
   const { addToCart, cartItems, updateQuantity } = useCart();
   const isOutOfStock = product.stockStatus === 'Out of Stock' || product.quantityInStock <= 0;
 
@@ -20,6 +21,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     addToCart(product);
   };
 
+  const handleImageClick = () => {
+    if (onImageClick) {
+      onImageClick(product.images && product.images.length > 0 ? product.images : [product.image]);
+    }
+  };
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -27,14 +34,17 @@ export default function ProductCard({ product }: ProductCardProps) {
       viewport={{ once: true }}
       className="bg-[#2A1B1B]/40 border border-white/5 rounded-2xl overflow-hidden hover:border-[#D4AF37]/30 transition-all duration-300 group flex flex-col"
     >
-      <div className="relative aspect-square overflow-hidden bg-black/40">
+      <div 
+        className="relative aspect-square overflow-hidden bg-black/40 cursor-pointer flex items-center justify-center"
+        onClick={handleImageClick}
+      >
         <img 
           src={product.image} 
           alt={product.name} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className="w-full h-full object-contain drop-shadow-2xl"
         />
         {product.salePrice && (
-          <div className="absolute top-4 right-4 bg-[#D4AF37] text-black text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+          <div className="absolute top-4 right-4 bg-[#D4AF37] text-black text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full z-10">
             Sale
           </div>
         )}
