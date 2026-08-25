@@ -198,7 +198,13 @@ export const products: Product[] = [
     quantityInStock: 10,
     stockStatus: 'In Stock',
     status: 'Active',
-    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=VanQ5+Red'
+    image: '/images/products/vanq5-cue-red/01.jpg',
+    images: [
+      '/images/products/vanq5-cue-red/01.jpg',
+      '/images/products/vanq5-cue-red/02.jpg',
+      '/images/products/vanq5-cue-red/03.jpg',
+      '/images/products/vanq5-cue-red/04.jpg'
+    ]
   },
   {
     id: 'p12',
