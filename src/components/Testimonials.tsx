@@ -87,7 +87,7 @@ export default function Testimonials() {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section className="py-24 bg-[#0a0505] relative overflow-hidden">
+    <section className="pt-12 md:pt-16 pb-24 bg-[#0a0505] relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none" />
