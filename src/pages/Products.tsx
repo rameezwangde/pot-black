@@ -32,37 +32,45 @@ export default function Products() {
 
   return (
     <>
-      <div className="min-h-screen pt-32 pb-24 relative z-10">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Header section */}
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-4 mb-6"
-            >
-              <span className="w-12 h-[1px] bg-[#D4AF37]" />
-              <span className="text-[#D4AF37] uppercase tracking-[0.3em] text-sm font-medium">Pot Black Pro Shop</span>
-              <span className="w-12 h-[1px] bg-[#D4AF37]" />
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl font-normal text-white uppercase tracking-wider mb-6"
-            >
-              Premium <span className="font-serif italic text-[#D4AF37]">Gear</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-white/60 max-w-2xl mx-auto text-lg font-light leading-relaxed"
-            >
-              Elevate your game with our curated selection of professional billiards equipment.
-            </motion.p>
-          </div>
+      {/* Page Header */}
+      <section className="relative pt-32 pb-16 px-4 sm:px-6 sm:pt-40 sm:pb-20 lg:px-8 overflow-hidden min-h-[50vh] flex items-center">
+        <div className="absolute inset-0 z-0">
+          <img src="/images/products-hero.jpg" alt="Pot Black Pro Shop" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0a0505]/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0505] via-[#0a0505]/30 to-transparent" />
+        </div>
+        
+        <div className="max-w-[1200px] mx-auto relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-4 mb-6"
+          >
+            <span className="w-12 h-[1px] bg-[#D4AF37]" />
+            <span className="text-[#D4AF37] uppercase tracking-[0.3em] text-sm font-medium">Pot Black Pro Shop</span>
+            <span className="w-12 h-[1px] bg-[#D4AF37]" />
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-[#E2D2A4] uppercase drop-shadow-md mb-8 tracking-wide"
+          >
+            Premium <span className="italic text-[#D4AF37]">Gear</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-gray-300 max-w-2xl mx-auto font-light leading-relaxed text-sm md:text-base"
+          >
+            Elevate your game with our curated selection of professional billiards equipment.
+          </motion.p>
+        </div>
+      </section>
+
+      <div className="min-h-screen pb-24 relative z-10 bg-[#0a0505]">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
 
           {/* Categories */}
           <motion.div 
