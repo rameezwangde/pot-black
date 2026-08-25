@@ -231,10 +231,16 @@ export const products: Product[] = [
     category: 'Billiards Cues',
     price: 200,
     salePrice: 180,
-    quantityInStock: 10,
+    quantityInStock: 20,
     stockStatus: 'In Stock',
     status: 'Active',
-    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=VanQ5+House+Cue'
+    image: '/images/products/vanq5-house-cue/01.jpg',
+    images: [
+      '/images/products/vanq5-house-cue/01.jpg',
+      '/images/products/vanq5-house-cue/02.jpg',
+      '/images/products/vanq5-house-cue/03.jpg',
+      '/images/products/vanq5-house-cue/04.jpg'
+    ]
   },
   {
     id: 'p14',
@@ -242,9 +248,13 @@ export const products: Product[] = [
     description: 'Carbon fiber billiards cue designed for enhanced durability, stability, and consistent performance.',
     category: 'Billiards Cues',
     price: 300,
-    quantityInStock: 10,
-    stockStatus: 'In Stock',
+    quantityInStock: 5,
+    stockStatus: 'Low Stock',
     status: 'Active',
-    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=VanQ5+Carbon+Fiber'
+    image: '/images/products/vanq5-carbon-cue/01.jpg',
+    images: [
+      '/images/products/vanq5-carbon-cue/01.jpg',
+      '/images/products/vanq5-carbon-cue/02.jpg'
+    ]
   }
 ];
