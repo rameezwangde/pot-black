@@ -120,7 +120,7 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
 
   useMotionValueEvent(rawScrollYProgress, "change", (latest) => {
     if (isFinished) return;
-    
+
     scrollYProgress.set(latest);
 
     const prev = prevScroll.current;
@@ -229,7 +229,7 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
               <div className="absolute inset-2 md:inset-4 z-20 pointer-events-none">
                 <div className="absolute top-0 left-12 right-[calc(50%+20px)] h-8 md:h-12 bg-gradient-to-b from-[#1c0404] via-[#3a0a0a] to-[#110202] shadow-[0_15px_25px_rgba(0,0,0,0.9)] border-b border-[#5c1313]/40 rounded-br-2xl" />
                 <div className="absolute top-0 left-[calc(50%+20px)] right-12 h-8 md:h-12 bg-gradient-to-b from-[#1c0404] via-[#3a0a0a] to-[#110202] shadow-[0_15px_25px_rgba(0,0,0,0.9)] border-b border-[#5c1313]/40 rounded-bl-2xl" />
-                
+
                 <div className="absolute bottom-0 left-12 right-[calc(50%+20px)] h-8 md:h-12 bg-gradient-to-t from-[#1c0404] via-[#3a0a0a] to-[#110202] shadow-[0_-15px_25px_rgba(0,0,0,0.9)] border-t border-[#5c1313]/40 rounded-tr-2xl" />
                 <div className="absolute bottom-0 left-[calc(50%+20px)] right-12 h-8 md:h-12 bg-gradient-to-t from-[#1c0404] via-[#3a0a0a] to-[#110202] shadow-[0_-15px_25px_rgba(0,0,0,0.9)] border-t border-[#5c1313]/40 rounded-tl-2xl" />
 
