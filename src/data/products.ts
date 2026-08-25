@@ -153,7 +153,22 @@ export const products: Product[] = [
     quantityInStock: 10,
     stockStatus: 'In Stock',
     status: 'Active',
-    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Precal+Cue'
+    image: '/images/products/precal-cue/01.jpg',
+    images: [
+      '/images/products/precal-cue/01.jpg',
+      '/images/products/precal-cue/02.jpg',
+      '/images/products/precal-cue/03.jpg',
+      '/images/products/precal-cue/04.jpg',
+      '/images/products/precal-cue/05.jpg',
+      '/images/products/precal-cue/06.jpg',
+      '/images/products/precal-cue/07.jpg',
+      '/images/products/precal-cue/08.jpg',
+      '/images/products/precal-cue/09.jpg',
+      '/images/products/precal-cue/10.jpg',
+      '/images/products/precal-cue/11.jpg',
+      '/images/products/precal-cue/12.jpg',
+      '/images/products/precal-cue/13.jpg'
+    ]
   },
   {
     id: 'p10',
