@@ -39,7 +39,13 @@ export const products: Product[] = [
     quantityInStock: 10,
     stockStatus: 'In Stock',
     status: 'Active',
-    image: 'https://images.unsplash.com/photo-1590393666275-5f502c3b28b4?q=80&w=800&auto=format&fit=crop'
+    image: '/images/products/billiards-ball-rack/01.jpg',
+    images: [
+      '/images/products/billiards-ball-rack/01.jpg',
+      '/images/products/billiards-ball-rack/02.jpg',
+      '/images/products/billiards-ball-rack/03.jpg',
+      '/images/products/billiards-ball-rack/04.jpg'
+    ]
   },
   {
     id: 'p3',
