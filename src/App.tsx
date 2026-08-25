@@ -12,6 +12,7 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminBookingsPage from './pages/admin/AdminBookingsPage';
 import AdminTablesPage from './pages/admin/AdminTablesPage';
 import AdminWalkInsPage from './pages/admin/AdminWalkInsPage';
+import Gallery from './pages/Gallery';
 import ProtectedAdminRoute from './components/admin/ProtectedAdminRoute';
 import AdminLayout from './components/admin/AdminLayout';
 import { CartProvider } from './context/CartContext';
@@ -90,6 +91,7 @@ export default function App() {
               <Route path="/about" element={<AboutUs />} />
               <Route path="/booking" element={<BookingPage />} />
               <Route path="/products" element={<Products />} />
+              <Route path="/gallery" element={<Gallery />} />
             </Routes>
           </main>
           <Footer />

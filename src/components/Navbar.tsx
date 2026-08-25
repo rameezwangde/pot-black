@@ -23,7 +23,7 @@ export default function Navbar({ show = true }: { show?: boolean }) {
     { name: 'About Us', href: '/about' },
     { name: 'Products', href: '/products' },
     { name: 'Booking System', href: '/booking' },
-    { name: 'Gallery', href: '/#gallery' },
+    { name: 'Gallery', href: '/gallery' },
     { name: 'Blogs', href: '/#blogs' },
     { name: 'Contact Us', href: '/#contact' },
   ];
