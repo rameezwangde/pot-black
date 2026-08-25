@@ -137,7 +137,12 @@ export const products: Product[] = [
     quantityInStock: 10,
     stockStatus: 'In Stock',
     status: 'Active',
-    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Predator+Victory+Tip'
+    image: '/images/products/predator-victory-tip/01.jpg',
+    images: [
+      '/images/products/predator-victory-tip/01.jpg',
+      '/images/products/predator-victory-tip/02.jpg',
+      '/images/products/predator-victory-tip/03.jpg'
+    ]
   },
   {
     id: 'p9',
