@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import BookingPage from './pages/BookingPage';
+import Products from './pages/Products';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminBookingsPage from './pages/admin/AdminBookingsPage';
@@ -13,6 +14,8 @@ import AdminTablesPage from './pages/admin/AdminTablesPage';
 import AdminWalkInsPage from './pages/admin/AdminWalkInsPage';
 import ProtectedAdminRoute from './components/admin/ProtectedAdminRoute';
 import AdminLayout from './components/admin/AdminLayout';
+import { CartProvider } from './context/CartContext';
+import CartSidebar from './components/CartSidebar';
 
 export default function App() {
   const [animationFinished, setAnimationFinished] = useState(() => sessionStorage.getItem('pot-black-intro-complete') === 'true');
@@ -71,23 +74,27 @@ export default function App() {
   }
 
   return (
-    <div className="bg-[#1A0E0E] min-h-screen text-[#F4F6F6] selection:bg-[#D4AF37] selection:text-[#1A0E0E] overflow-x-clip relative font-sans">
-      <div className={`fixed inset-0 pointer-events-none transition-opacity duration-[3000ms] ease-in-out z-0 ${animationFinished || location.pathname !== '/' ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-mamba.png')] opacity-20 mix-blend-overlay" />
-        <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 right-0 w-[800px] h-[800px] bg-[#D4AF37]/5 rounded-full blur-[150px]" />
+    <CartProvider>
+      <div className="bg-[#1A0E0E] min-h-screen text-[#F4F6F6] selection:bg-[#D4AF37] selection:text-[#1A0E0E] overflow-x-clip relative font-sans">
+        <div className={`fixed inset-0 pointer-events-none transition-opacity duration-[3000ms] ease-in-out z-0 ${animationFinished || location.pathname !== '/' ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-mamba.png')] opacity-20 mix-blend-overlay" />
+          <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[150px]" />
+          <div className="absolute bottom-1/4 right-0 w-[800px] h-[800px] bg-[#D4AF37]/5 rounded-full blur-[150px]" />
+        </div>
+        <div className="relative z-10">
+          <Navbar show={animationFinished || location.pathname !== '/'} />
+          <CartSidebar />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home animationFinished={animationFinished} onAnimationComplete={completeIntroAnimation} />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/booking" element={<BookingPage />} />
+              <Route path="/products" element={<Products />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
       </div>
-      <div className="relative z-10">
-        <Navbar show={animationFinished || location.pathname !== '/'} />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home animationFinished={animationFinished} onAnimationComplete={completeIntroAnimation} />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/booking" element={<BookingPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </div>
+    </CartProvider>
   );
 }

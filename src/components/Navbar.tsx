@@ -1,12 +1,14 @@
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingBag } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 export default function Navbar({ show = true }: { show?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { toggleCart, cartCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,7 +21,7 @@ export default function Navbar({ show = true }: { show?: boolean }) {
   const navLinks = [
     { name: 'Home Page', href: '/' },
     { name: 'About Us', href: '/about' },
-    { name: 'Products', href: '/#products' },
+    { name: 'Products', href: '/products' },
     { name: 'Booking System', href: '/booking' },
     { name: 'Gallery', href: '/#gallery' },
     { name: 'Blogs', href: '/#blogs' },
@@ -72,6 +74,18 @@ export default function Navbar({ show = true }: { show?: boolean }) {
 
         {/* Right Actions */}
         <div className="flex items-center gap-6">
+          <button
+            onClick={toggleCart}
+            className="relative text-white hover:text-[#D4AF37] transition-colors"
+          >
+            <ShoppingBag size={24} strokeWidth={1.5} />
+            {cartCount > 0 && (
+              <span className="absolute -top-1.5 -right-2 bg-[#D4AF37] text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </button>
+          
           <Link to="/booking"
             className="hidden md:flex px-6 py-2.5 bg-gradient-to-r from-[#b38b4d] to-[#d4b075] text-black font-medium uppercase tracking-[0.15em] text-[10px] hover:scale-105 transition-transform duration-300"
           >

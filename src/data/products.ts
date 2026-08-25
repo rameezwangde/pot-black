@@ -1,0 +1,173 @@
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  price: number;
+  salePrice?: number;
+  quantityInStock: number;
+  stockStatus: 'In Stock' | 'Out of Stock';
+  status: 'Active' | 'Inactive';
+  image: string;
+}
+
+export const products: Product[] = [
+  {
+    id: 'p1',
+    name: '3 in 1 Tip Shaper Tool',
+    description: 'Multi-purpose cue tip tool designed for shaping, scuffing, and maintaining your cue tip for consistent performance.',
+    category: 'Accessories',
+    price: 35,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://images.unsplash.com/photo-1595155700889-138be78152c1?q=80&w=800&auto=format&fit=crop'
+  },
+  {
+    id: 'p2',
+    name: 'Billiards Ball Rack',
+    description: 'Durable ball rack designed to neatly arrange billiards balls for accurate and consistent game setups.',
+    category: 'Accessories',
+    price: 20,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://images.unsplash.com/photo-1590393666275-5f502c3b28b4?q=80&w=800&auto=format&fit=crop'
+  },
+  {
+    id: 'p3',
+    name: 'Billiards Cue Bag - B&W',
+    description: 'Stylish black and white cue bag designed to safely store and carry your billiards cue with ease.',
+    category: 'Bags & Cases',
+    price: 80,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Cue+Bag+B%26W'
+  },
+  {
+    id: 'p4',
+    name: 'Billiards Cue Bag - Black',
+    description: 'Classic black cue bag offering convenient and secure storage for your billiards cue while on the go.',
+    category: 'Bags & Cases',
+    price: 80,
+    salePrice: 50,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Cue+Bag+Black'
+  },
+  {
+    id: 'p5',
+    name: 'Billiards Cue Bag - Pink',
+    description: 'Stylish pink cue bag designed to protect and conveniently carry your billiards cue.',
+    category: 'Bags & Cases',
+    price: 80,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Cue+Bag+Pink'
+  },
+  {
+    id: 'p6',
+    name: 'Billiards Cue Bag - White',
+    description: 'Clean and stylish white cue bag designed to safely store and carry your billiards cue.',
+    category: 'Bags & Cases',
+    price: 80,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Cue+Bag+White'
+  },
+  {
+    id: 'p7',
+    name: 'Dragon Carbon Fiber Billiards Cue',
+    description: 'High-performance carbon fiber billiards cue designed for durability, stability, and a smooth playing experience.',
+    category: 'Billiards Cues',
+    price: 350,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://images.unsplash.com/photo-1616429210967-0c1dfd42c38d?q=80&w=800&auto=format&fit=crop'
+  },
+  {
+    id: 'p8',
+    name: 'Predator Victory Billiards Cue Tip - S, M & H',
+    description: 'Premium Predator Victory cue tip available in Soft, Medium, and Hard options for different playing preferences and control.',
+    category: 'Billiards Cue Tips',
+    price: 50,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Predator+Victory+Tip'
+  },
+  {
+    id: 'p9',
+    name: 'Precal Billiards Cue',
+    description: 'Quality billiards cue designed for comfortable handling, reliable performance, and consistent shots.',
+    category: 'Billiards Cues',
+    price: 250,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Precal+Cue'
+  },
+  {
+    id: 'p10',
+    name: 'Supreme Billiards Cue',
+    description: 'Well-balanced billiards cue designed for smooth handling and consistent performance during play.',
+    category: 'Billiards Cues',
+    price: 200,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Supreme+Cue'
+  },
+  {
+    id: 'p11',
+    name: 'VanQ5 Billiards Cue - Red',
+    description: 'Stylish red VanQ5 billiards cue designed for comfortable handling and accurate, consistent play.',
+    category: 'Billiards Cues',
+    price: 200,
+    salePrice: 180,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=VanQ5+Red'
+  },
+  {
+    id: 'p12',
+    name: 'VanQ5 Billiards Cue - White',
+    description: 'Sleek white VanQ5 billiards cue offering comfortable handling and dependable performance.',
+    category: 'Billiards Cues',
+    price: 200,
+    salePrice: 180,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=VanQ5+White'
+  },
+  {
+    id: 'p13',
+    name: 'VanQ5 Billiards House Cue',
+    description: 'Durable and reliable house cue from VanQ5, suitable for everyday billiards play and club use.',
+    category: 'Billiards Cues',
+    price: 200,
+    salePrice: 180,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=VanQ5+House+Cue'
+  },
+  {
+    id: 'p14',
+    name: 'VanQ5 Carbon Fiber Cue',
+    description: 'Carbon fiber billiards cue designed for enhanced durability, stability, and consistent performance.',
+    category: 'Billiards Cues',
+    price: 300,
+    quantityInStock: 10,
+    stockStatus: 'In Stock',
+    status: 'Active',
+    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=VanQ5+Carbon+Fiber'
+  }
+];
