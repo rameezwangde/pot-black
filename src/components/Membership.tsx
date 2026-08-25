@@ -34,7 +34,7 @@ export default function Membership() {
   ];
 
   return (
-    <section id="membership" className="relative z-10 pt-24 md:pt-32 pb-12 md:pb-16 bg-[#0a0505]">
+    <section id="membership" className="relative z-10 pt-12 md:pt-16 pb-12 md:pb-16 bg-[#0a0505]">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 xl:grid-cols-[4fr_8fr] gap-16 lg:gap-24 items-center">
           
