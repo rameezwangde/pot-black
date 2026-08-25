@@ -24,8 +24,8 @@ export default function Navbar({ show = true }: { show?: boolean }) {
     { name: 'Products', href: '/products' },
     { name: 'Booking System', href: '/booking' },
     { name: 'Gallery', href: '/gallery' },
-    { name: 'Blogs', href: '/#blogs' },
-    { name: 'Contact Us', href: '/#contact' },
+    { name: 'Blogs', href: '/blogs' },
+    { name: 'Contact Us', href: '/contact' },
   ];
 
   const checkIsActive = (href: string) => {
