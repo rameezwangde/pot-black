@@ -72,7 +72,11 @@ export const products: Product[] = [
     quantityInStock: 10,
     stockStatus: 'In Stock',
     status: 'Active',
-    image: 'https://placehold.co/600x600/1A0E0E/D4AF37?text=Cue+Bag+Black'
+    image: '/images/products/billiards-cue-bag-black/01.jpg',
+    images: [
+      '/images/products/billiards-cue-bag-black/01.jpg',
+      '/images/products/billiards-cue-bag-black/02.jpg'
+    ]
   },
   {
     id: 'p5',
