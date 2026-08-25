@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Check, Plus, Minus } from 'lucide-react';
 import { Product } from '../data/products';
 import { useCart } from '../context/CartContext';
 
@@ -9,8 +9,16 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useCart();
+  const { addToCart, cartItems, updateQuantity } = useCart();
   const isOutOfStock = product.stockStatus === 'Out of Stock' || product.quantityInStock <= 0;
+
+  const cartItem = cartItems.find(item => item.id === product.id);
+  const quantityInCart = cartItem ? cartItem.cartQuantity : 0;
+
+  const handleAddToCart = () => {
+    if (isOutOfStock) return;
+    addToCart(product);
+  };
 
   return (
     <motion.div 
@@ -64,17 +72,41 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
           
-          <button
-            onClick={() => addToCart(product)}
-            disabled={isOutOfStock}
-            className={`p-3 rounded-full flex items-center justify-center transition-all duration-300 ${
-              isOutOfStock 
-                ? 'bg-white/5 text-white/30 cursor-not-allowed' 
-                : 'bg-white/5 hover:bg-[#D4AF37] text-white hover:text-black hover:scale-110'
-            }`}
-          >
-            <ShoppingCart size={20} />
-          </button>
+          {quantityInCart > 0 ? (
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-[10px] uppercase tracking-wider text-green-400 font-medium flex items-center gap-1">
+                <Check size={12} strokeWidth={3} /> In Cart
+              </span>
+              <div className="flex items-center bg-white/5 rounded-full border border-white/10 h-10">
+                <button 
+                  onClick={() => updateQuantity(product.id, quantityInCart - 1)}
+                  className="px-3 h-full text-white/70 hover:text-white transition-colors flex items-center justify-center"
+                >
+                  <Minus size={16} />
+                </button>
+                <span className="w-6 text-center text-sm font-medium">{quantityInCart}</span>
+                <button 
+                  onClick={() => updateQuantity(product.id, quantityInCart + 1)}
+                  className="px-3 h-full text-white/70 hover:text-white transition-colors flex items-center justify-center"
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={handleAddToCart}
+              disabled={isOutOfStock}
+              className={`px-4 py-2.5 h-10 rounded-full flex items-center justify-center gap-2 transition-all duration-300 min-w-[100px] ${
+                isOutOfStock 
+                  ? 'bg-white/5 text-white/30 cursor-not-allowed' 
+                  : 'bg-white/5 hover:bg-[#D4AF37] text-white hover:text-black'
+              }`}
+            >
+              <ShoppingCart size={18} />
+              <span className="text-sm font-medium tracking-wide hidden sm:block">Add</span>
+            </button>
+          )}
         </div>
       </div>
     </motion.div>
