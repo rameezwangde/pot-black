@@ -1,19 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { products } from '../data/products';
+import { type Product } from '../data/products';
+import { getStoredProducts } from '../services/productStorageService';
 import ProductCard from '../components/ProductCard';
 
-const CATEGORIES = ['All', 'Accessories', 'Bags & Cases', 'Billiards Cues', 'Billiards Cue Tips'];
-
 export default function Products() {
+  const [productList, setProductList] = useState<Product[]>(() => getStoredProducts());
   const [activeCategory, setActiveCategory] = useState('All');
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
+  useEffect(() => {
+    const handleUpdate = () => {
+      setProductList(getStoredProducts());
+    };
+    window.addEventListener('pot_black_products_updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+    return () => {
+      window.removeEventListener('pot_black_products_updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
+  }, []);
+
+  // Dynamically calculate category tabs from active inventory
+  const categories = ['All', ...Array.from(new Set(productList.filter(p => p.status === 'Active').map(p => p.category)))];
+
+  const activeProducts = productList.filter(p => p.status === 'Active');
   const filteredProducts = activeCategory === 'All' 
-    ? products 
-    : products.filter(product => product.category === activeCategory);
+    ? activeProducts 
+    : activeProducts.filter(product => product.category === activeCategory);
+
 
   const handleNextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -79,14 +96,14 @@ export default function Products() {
             transition={{ delay: 0.3 }}
             className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-16"
           >
-            {CATEGORIES.map((category) => (
+            {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2.5 rounded-full text-sm uppercase tracking-widest transition-all duration-300 border ${
+                className={`px-6 py-2.5 rounded-full text-xs font-semibold tracking-[0.15em] uppercase transition-all duration-300 ${
                   activeCategory === category
-                    ? 'bg-[#D4AF37] border-[#D4AF37] text-black font-semibold'
-                    : 'bg-transparent border-white/10 text-white/70 hover:border-[#D4AF37]/50 hover:text-white'
+                    ? 'bg-[#D4AF37] text-black shadow-[0_0_20px_rgba(212,175,55,0.4)]'
+                    : 'bg-[#140b0b] text-[#E2D2A4] border border-white/10 hover:border-[#D4AF37]/50'
                 }`}
               >
                 {category}

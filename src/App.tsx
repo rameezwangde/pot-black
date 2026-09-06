@@ -13,6 +13,7 @@ import AdminBookingsPage from './pages/admin/AdminBookingsPage';
 import AdminTablesPage from './pages/admin/AdminTablesPage';
 import AdminWalkInsPage from './pages/admin/AdminWalkInsPage';
 import AdminBlogsPage from './pages/admin/AdminBlogsPage';
+import AdminProductsPage from './pages/admin/AdminProductsPage';
 import Gallery from './pages/Gallery';
 import Blogs from './pages/Blogs';
 import ContactUs from './pages/ContactUs';
@@ -73,10 +74,12 @@ export default function App() {
         <Route path="tables" element={<AdminTablesPage />} />
         <Route path="walk-ins" element={<AdminWalkInsPage />} />
         <Route path="blogs" element={<AdminBlogsPage />} />
+        <Route path="products" element={<AdminProductsPage />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>;
   }
+
 
 
   return (
