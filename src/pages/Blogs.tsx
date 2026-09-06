@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Calendar, Clock, User, ArrowRight, Tag, Search, Sparkles, BookOpen, ChevronRight, X } from 'lucide-react';
-import { blogPosts, type BlogPost } from '../data/blogData';
+import { type BlogPost } from '../data/blogData';
+import { getStoredBlogs } from '../services/blogStorageService';
 
 export default function Blogs() {
+  const [blogs, setBlogs] = useState<BlogPost[]>(() => getStoredBlogs());
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 
+  useEffect(() => {
+    const handleUpdate = () => {
+      setBlogs(getStoredBlogs());
+    };
+    window.addEventListener('pot_black_blogs_updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+    return () => {
+      window.removeEventListener('pot_black_blogs_updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
+  }, []);
+
   const categories = ['All', 'Pro Tips & Technique', 'Game Guides', 'Lifestyle & Events', 'Behind The Scenes'];
 
-  const filteredPosts = blogPosts.filter((post) => {
+  const filteredPosts = blogs.filter((post) => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
     const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -19,8 +33,9 @@ export default function Blogs() {
     return matchesCategory && matchesSearch;
   });
 
-  const featuredPost = blogPosts.find(p => p.featured) || blogPosts[0];
+  const featuredPost = blogs.find(p => p.featured) || blogs[0];
   const regularPosts = filteredPosts.filter(p => (selectedCategory === 'All' && !searchQuery ? !p.featured : true));
+
 
   return (
     <>

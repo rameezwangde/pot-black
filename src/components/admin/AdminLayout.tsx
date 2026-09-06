@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CalendarDays, LayoutDashboard, LogOut, Menu, Table2, UserRoundPlus, X } from 'lucide-react';
+import { CalendarDays, LayoutDashboard, LogOut, Menu, Table2, UserRoundPlus, BookOpen, X } from 'lucide-react';
 import { DateTime } from 'luxon';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useAdminAuth } from '../../context/AdminAuthContext';
@@ -10,6 +10,7 @@ const navItems = [
   { label: 'Bookings', icon: CalendarDays, href: '/admin/bookings', enabled: true },
   { label: 'Tables', icon: Table2, href: '/admin/tables', enabled: true },
   { label: 'Walk-ins', icon: UserRoundPlus, href: '/admin/walk-ins', enabled: true },
+  { label: 'Blog CMS', icon: BookOpen, href: '/admin/blogs', enabled: true },
 ];
 
 export default function AdminLayout() {
@@ -34,7 +35,8 @@ export default function AdminLayout() {
     <div className="border-t border-white/10 p-5"><div className="mb-4 flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 text-xs text-[#F3E5AB]">{initials}</span><div className="min-w-0"><p className="truncate text-sm text-[#F3E5AB]">{admin?.name}</p><p className="mt-1 text-[8px] uppercase tracking-[.16em] text-gray-500">{admin?.role}</p></div></div><button type="button" onClick={handleLogout} className="flex w-full items-center justify-center gap-2 border border-white/10 py-3 text-[9px] uppercase tracking-[.16em] text-gray-400 hover:border-red-800/50 hover:text-red-300 focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"><LogOut size={14}/>Logout</button></div>
   </div>;
 
-  const pageTitle = isActivePath('/admin/bookings') ? 'Booking Management' : isActivePath('/admin/tables') ? 'Table Management' : isActivePath('/admin/walk-ins') ? 'Walk-In Management' : 'Overview';
+  const pageTitle = isActivePath('/admin/bookings') ? 'Booking Management' : isActivePath('/admin/tables') ? 'Table Management' : isActivePath('/admin/walk-ins') ? 'Walk-In Management' : isActivePath('/admin/blogs') ? 'Blog CMS & Content' : 'Overview';
+
   return <AdminToastProvider><div className="h-screen overflow-hidden bg-[#080605] text-white">
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-72 border-r border-[#D4AF37]/15 lg:block">{sidebar}</aside>
     {isDrawerOpen && <div className="fixed inset-0 z-50 lg:hidden"><button type="button" aria-label="Close navigation overlay" onClick={() => setIsDrawerOpen(false)} className="absolute inset-0 bg-black/75 backdrop-blur-sm"/><aside className="relative h-full w-[min(88vw,288px)] border-r border-[#D4AF37]/20 shadow-2xl">{sidebar}</aside></div>}

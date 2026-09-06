@@ -12,6 +12,7 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminBookingsPage from './pages/admin/AdminBookingsPage';
 import AdminTablesPage from './pages/admin/AdminTablesPage';
 import AdminWalkInsPage from './pages/admin/AdminWalkInsPage';
+import AdminBlogsPage from './pages/admin/AdminBlogsPage';
 import Gallery from './pages/Gallery';
 import Blogs from './pages/Blogs';
 import ContactUs from './pages/ContactUs';
@@ -71,10 +72,12 @@ export default function App() {
         <Route path="bookings" element={<AdminBookingsPage />} />
         <Route path="tables" element={<AdminTablesPage />} />
         <Route path="walk-ins" element={<AdminWalkInsPage />} />
+        <Route path="blogs" element={<AdminBlogsPage />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>;
   }
+
 
   return (
     <CartProvider>

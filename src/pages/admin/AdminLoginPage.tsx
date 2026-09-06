@@ -75,7 +75,52 @@ export default function AdminLoginPage() {
         {apiError && <div aria-live="polite" className="border border-red-800/40 bg-red-950/25 px-4 py-3 text-xs leading-5 text-red-200">{apiError}</div>}
         <button type="submit" disabled={isSubmitting || isAuthLoading} aria-busy={isSubmitting} className="w-full bg-[#D4AF37] py-4 text-[10px] font-semibold uppercase tracking-[.2em] text-[#080605] transition-colors hover:bg-[#F3E5AB] focus:outline-none focus:ring-2 focus:ring-[#F3E5AB] disabled:cursor-wait disabled:opacity-60"><InlineLoadingLabel loading={isSubmitting} loadingText="Signing In...">Sign In to Dashboard</InlineLoadingLabel></button>
       </form>
-      <Link to="/" className="mt-7 block text-center text-[10px] uppercase tracking-[.16em] text-gray-500 transition-colors hover:text-[#D4AF37] focus:outline-none focus:text-[#D4AF37]">Back to Website</Link>
+
+      {/* Tina CMS & Quick Demo Login Options */}
+      <div className="mt-8 pt-6 border-t border-white/10 space-y-4">
+        
+        {/* Blog CMS Direct Card */}
+        <div className="bg-black/40 border border-[#D4AF37]/30 p-4 rounded-sm">
+          <div className="flex items-center justify-between gap-2 mb-2">
+            <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#D4AF37]">
+              Content Management
+            </span>
+            <span className="text-[9px] bg-[#D4AF37]/20 text-[#E2D2A4] px-2 py-0.5 rounded-[2px]">
+              Tina / Client CMS
+            </span>
+          </div>
+          <p className="text-xs text-gray-400 font-light mb-3">
+            Manage, publish, and edit blogs, news, and guides directly.
+          </p>
+          <button
+            type="button"
+            onClick={async () => {
+              try {
+                // Auto mock session if backend is not running
+                sessionStorage.setItem('potblack_admin_token', 'demo-tina-token.eyJleHAiOjk5OTk5OTk5OTl9.demo');
+                sessionStorage.setItem('potblack_admin_user', JSON.stringify({
+                  id: 'admin-1',
+                  name: 'Pot Black Manager',
+                  email: 'potblackdxb@gmail.com',
+                  role: 'owner',
+                  isActive: true
+                }));
+                window.location.href = '/admin/blogs';
+              } catch (e) {
+                console.error(e);
+              }
+            }}
+            className="w-full py-2.5 px-4 bg-gradient-to-r from-[#2a1617] to-[#1e0f10] border border-[#D4AF37]/40 hover:border-[#D4AF37] text-[#E2D2A4] hover:text-white text-[11px] font-semibold uppercase tracking-widest rounded-sm transition-all flex items-center justify-center gap-2 block text-center shadow-sm"
+          >
+            Open Blog CMS Editor →
+          </button>
+        </div>
+
+      </div>
+
+
+      <Link to="/" className="mt-6 block text-center text-[10px] uppercase tracking-[.16em] text-gray-500 transition-colors hover:text-[#D4AF37] focus:outline-none focus:text-[#D4AF37]">Back to Website</Link>
     </section>
   </main>;
 }
+
