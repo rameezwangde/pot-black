@@ -308,7 +308,7 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
         <div className="absolute inset-0 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 z-40 w-full pointer-events-none flex justify-center items-start pt-8 md:pt-12 lg:pt-16 h-full text-center">
           <div className="max-w-5xl pointer-events-auto flex flex-col items-center">
             <motion.div
-              className="flex flex-wrap justify-center items-center gap-2 md:gap-4 text-[9px] md:text-[10px] tracking-[0.25em] uppercase text-[#D4AF37] mb-6 drop-shadow-lg mt-4 md:mt-8"
+              className="flex flex-wrap justify-center items-center gap-2 md:gap-4 text-[9px] md:text-[10px] tracking-[0.25em] uppercase text-[#D4AF37] mb-6 drop-shadow-lg mt-4 md:mt-8 invisible"
               style={{ opacity: textOpacity, y: textY }}
             >
               <span>PREMIUM BILLIARDS</span>
