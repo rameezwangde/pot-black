@@ -46,7 +46,7 @@ export default function RecommendedActivities() {
   ];
 
   return (
-    <section className="relative z-10 py-16 md:py-24 bg-gradient-to-b from-[#0a0505] via-[#120808] to-[#0a0505]">
+    <section className="relative z-10 pt-8 pb-8 md:pt-12 md:pb-12 bg-gradient-to-b from-[#0a0505] via-[#120808] to-[#0a0505]">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}

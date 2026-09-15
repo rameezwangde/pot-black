@@ -51,7 +51,7 @@ export default function ProTipsAndSuggestions() {
     : proTips.filter(t => t.category === activeCategory);
 
   return (
-    <section className="relative z-10 py-16 md:py-24 bg-[#0a0505] border-t border-white/5">
+    <section className="relative z-10 pt-16 pb-8 md:pt-24 md:pb-12 bg-[#0a0505] border-t border-white/5">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

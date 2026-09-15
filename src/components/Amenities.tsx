@@ -42,7 +42,7 @@ const LockIcon = () => (
 
 export default function Amenities() {
   return (
-    <section className="relative z-10 py-12 md:py-16 bg-[#0a0505]">
+    <section className="relative z-10 pt-4 pb-12 md:pt-8 md:pb-16 bg-[#0a0505]">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 md:mb-24">
           <span className="text-[#E2D2A4] uppercase tracking-[0.3em] text-[12px] font-medium block">PREMIUM AMENITIES</span>
