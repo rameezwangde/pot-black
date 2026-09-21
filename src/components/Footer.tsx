@@ -1,4 +1,5 @@
 import { Instagram, Facebook, MessageCircle, MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -34,9 +35,17 @@ export default function Footer() {
           <div>
             <h4 className="text-[#D4AF37] uppercase tracking-widest text-xs font-semibold mb-6">QUICK LINKS</h4>
             <ul className="flex flex-col gap-3">
-              {['Home', 'About Us', 'Tables', 'Membership', 'Events', 'Gallery', 'Contact'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-[#D4AF37] text-sm transition-colors">{link}</a>
+              {[
+                { name: 'Home', href: '/' },
+                { name: 'About Us', href: '/about' },
+                { name: 'Products', href: '/products' },
+                { name: 'Booking System', href: '/booking' },
+                { name: 'Gallery', href: '/gallery' },
+                { name: 'Blogs', href: '/blogs' },
+                { name: 'Contact Us', href: '/contact' },
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link to={link.href} className="text-gray-400 hover:text-[#D4AF37] text-sm transition-colors">{link.name}</Link>
                 </li>
               ))}
             </ul>

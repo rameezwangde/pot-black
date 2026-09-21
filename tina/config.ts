@@ -170,6 +170,35 @@ export default defineConfig({
           },
         ],
       },
+      {
+        name: 'gallery',
+        label: 'Gallery Categories',
+        path: 'content/gallery',
+        format: 'json',
+        fields: [
+          {
+            type: 'string',
+            name: 'title',
+            label: 'Category Title',
+            isTitle: true,
+            required: true,
+          },
+          {
+            type: 'string',
+            name: 'description',
+            label: 'Category Description (Optional)',
+            ui: {
+              component: 'textarea',
+            },
+          },
+          {
+            type: 'image',
+            name: 'images',
+            label: 'Gallery Images',
+            list: true,
+          },
+        ],
+      },
     ],
   },
 });
