@@ -18,10 +18,10 @@ export default function Footer() {
               Good times. Great shots.<br/>Unforgettable moments.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-              <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
+              <a href="https://www.instagram.com/potblack_dubai/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
                 <Instagram size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
+              <a href="https://www.facebook.com/PotBlackDubai/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
                 <Facebook size={18} />
               </a>
               <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
@@ -78,7 +78,7 @@ export default function Footer() {
                   </span>
                 </li>
               </ul>
-              <a href="#" className="inline-flex items-center gap-2 px-6 py-3 border border-[#D4AF37]/50 text-white text-[10px] uppercase tracking-widest hover:bg-[#D4AF37]/10 transition-colors mt-6">
+              <a href="https://wa.me/971566977607" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 border border-[#D4AF37]/50 text-white text-[10px] uppercase tracking-widest hover:bg-[#D4AF37]/10 transition-colors mt-6">
                 <MessageCircle size={14} className="text-[#D4AF37]" /> WHATSAPP US <ArrowRight size={14} className="ml-1 text-[#D4AF37]" />
               </a>
             </div>
@@ -103,10 +103,10 @@ export default function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-center text-xs text-gray-500 md:text-left">
           <p>© 2026 Pot Black Billiards Club. All rights reserved.</p>
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-gray-400">
+            <a href="/privacy" className="hover:text-[#D4AF37] transition-colors">Privacy Policy</a>
             <span>|</span>
-            <a href="#" className="hover:text-white transition-colors">Terms & Conditions</a>
+            <a href="/terms" className="hover:text-[#D4AF37] transition-colors">Terms & Conditions</a>
           </div>
         </div>
 

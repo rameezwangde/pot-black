@@ -17,10 +17,13 @@ import AdminProductsPage from './pages/admin/AdminProductsPage';
 import Gallery from './pages/Gallery';
 import Blogs from './pages/Blogs';
 import ContactUs from './pages/ContactUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
 import ProtectedAdminRoute from './components/admin/ProtectedAdminRoute';
 import AdminLayout from './components/admin/AdminLayout';
 import { CartProvider } from './context/CartContext';
 import CartSidebar from './components/CartSidebar';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 
 export default function App() {
   const [animationFinished, setAnimationFinished] = useState(() => sessionStorage.getItem('pot-black-intro-complete') === 'true');
@@ -102,9 +105,13 @@ export default function App() {
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/contact" element={<ContactUs />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsConditions />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
           <Footer />
+          <FloatingWhatsApp />
         </div>
       </div>
     </CartProvider>
