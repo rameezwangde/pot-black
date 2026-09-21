@@ -34,9 +34,6 @@ export default function CTA() {
             <button className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-[#CBA469] to-[#D4AF37] text-black font-bold uppercase tracking-[0.15em] text-sm transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] flex items-center justify-center gap-3 rounded-[2px]">
               Book a Table <ArrowRight className="w-5 h-5" />
             </button>
-            <button className="w-full sm:w-auto px-10 py-4 border border-[#CBA469] text-[#CBA469] hover:bg-[#CBA469]/10 font-bold uppercase tracking-[0.15em] text-sm transition-all hover:scale-105 flex items-center justify-center rounded-[2px] backdrop-blur-sm">
-              Explore Memberships
-            </button>
           </div>
         </motion.div>
       </div>
