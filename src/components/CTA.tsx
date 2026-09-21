@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 
 export default function CTA() {
   return (
-    <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden bg-black">
+    <section className="relative py-10 sm:py-16 md:py-20 overflow-hidden bg-black">
       {/* Background with overlay */}
       <div className="absolute inset-0">
         <img 
