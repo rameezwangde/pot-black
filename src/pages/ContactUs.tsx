@@ -27,7 +27,7 @@ export default function ContactUs() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   // Pot Black WhatsApp Number (International format for wa.me URL)
-  const whatsappNumber = '971566977607'; // +971 56 697 7607
+  const whatsappNumber = '971503577687'; // +971 50 357 7687
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -226,11 +226,11 @@ export default function ContactUs() {
                     </div>
                     <div>
                       <span className="text-[11px] text-gray-400 uppercase tracking-widest block font-medium">Telephone & Bookings</span>
-                      <a href="tel:+97143975737" className="text-white hover:text-[#D4AF37] font-medium transition-colors">
-                        (+971) 4 397 5737
+                      <a href="tel:+971503577687" className="text-white hover:text-[#D4AF37] font-medium transition-colors">
+                        (+971) 50 357 7687
                       </a>
                       <div className="text-xs text-gray-400 mt-0.5">
-                        WhatsApp: <a href="https://wa.me/971566977607" target="_blank" rel="noopener noreferrer" className="text-[#25D366] hover:underline">(+971) 56 697 7607</a>
+                        WhatsApp: <a href="https://wa.me/971503577687" target="_blank" rel="noopener noreferrer" className="text-[#25D366] hover:underline">(+971) 50 357 7687</a>
                       </div>
                     </div>
                   </li>
@@ -296,7 +296,7 @@ export default function ContactUs() {
                       <Facebook size={16} />
                     </a>
                     <a
-                      href="https://wa.me/971566977607"
+                      href="https://wa.me/971503577687"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#25D366] hover:border-[#25D366]/50 transition-colors"
