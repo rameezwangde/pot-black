@@ -20,7 +20,7 @@ const TermsConditions = () => {
         <section>
           <h2 className="text-xl font-semibold text-white mb-3">2. Club Rules and Etiquette</h2>
           <p>
-            Members and guests are expected to conduct themselves appropriately while on the premises. This includes respecting staff and other patrons, taking care of equipment, and adhering to our dress code and house rules. Management reserves the right to refuse service or revoke membership for violations.
+            Patrons and guests are expected to conduct themselves appropriately while on the premises. This includes respecting staff and other patrons, taking care of equipment, and adhering to our dress code and house rules. Management reserves the right to refuse service or ban patrons for violations.
           </p>
         </section>
 

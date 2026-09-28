@@ -72,7 +72,7 @@ export default function Testimonials() {
     {
       name: "William Davis",
       role: "Frequent Visitor",
-      text: "The membership perks are totally worth it. Priority booking and exclusive events are a big plus for regulars like me.",
+      text: "The VIP experience is totally worth it. The private lounge and exclusive events are a big plus for regulars like me.",
       initial: "W"
     },
     {

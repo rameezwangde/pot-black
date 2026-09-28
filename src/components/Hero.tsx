@@ -340,7 +340,7 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
 
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md"
+              className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-xs"
               style={{ opacity: textOpacity, y: textY }}
             >
               <Link to="/booking"
@@ -348,12 +348,6 @@ export default function Hero({ initiallyFinished = false, onAnimationComplete }:
               >
                 Book A Table
               </Link>
-              <a
-                href="#membership"
-                className="flex-1 flex items-center justify-center px-6 py-3.5 border border-white/40 text-white font-semibold uppercase tracking-[0.15em] text-[10px] hover:border-[#CBA469] hover:text-[#CBA469] transition-all duration-300"
-              >
-                Explore Membership
-              </a>
             </motion.div>
           </div>
           </div>

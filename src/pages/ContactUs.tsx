@@ -85,7 +85,7 @@ export default function ContactUs() {
             transition={{ delay: 0.2 }}
             className="text-gray-400 max-w-xl mx-auto text-sm sm:text-base font-light leading-relaxed"
           >
-            Have a question about table reservations, membership plans, tournaments, or private VIP lounge events? Our team is ready to assist you.
+            Have a question about table reservations, tournaments, or private VIP lounge events? Our team is ready to assist you.
           </motion.p>
         </div>
       </section>
@@ -176,7 +176,6 @@ export default function ContactUs() {
                   >
                     <option value="Table Reservation">Table Reservation (Pool / Snooker)</option>
                     <option value="VIP Lounge & Private Suite">VIP Lounge & Private Suite Booking</option>
-                    <option value="Club Membership Plans">Club Membership Inquiry</option>
                     <option value="Tournament Registration">Tournament & League Entry</option>
                     <option value="General Inquiry">General Inquiry / Feedback</option>
                   </select>

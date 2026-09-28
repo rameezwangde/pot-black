@@ -31,7 +31,7 @@ export default function Contact() {
           >
             <AnimatedHeading className="text-4xl md:text-5xl lg:text-6xl font-serif mb-6 leading-tight">Connect <br/><span className="italic gold-text-gradient">with Us</span></AnimatedHeading>
             <p className="text-gray-400 font-light mb-12 leading-relaxed max-w-md">
-              Have a question about private events, membership, or just want to chat? Reach out to our concierge team.
+              Have a question about private events or just want to chat? Reach out to our concierge team.
             </p>
 
             <div className="space-y-10 mb-14">
@@ -100,7 +100,6 @@ export default function Contact() {
                   <option value="" disabled selected>Subject Inquiry</option>
                   <option value="booking">Table Booking</option>
                   <option value="events">Private Events</option>
-                  <option value="membership">Membership</option>
                   <option value="other">Other</option>
                 </select>
               </div>
