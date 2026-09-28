@@ -29,8 +29,21 @@ export default function ContactUs() {
   // Pot Black WhatsApp Number (International format for wa.me URL)
   const whatsappNumber = '971503577687'; // +971 50 357 7687
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // 1. Server-side fallback (DB record / Email notification)
+    // Ensures inquiry is recorded even if WhatsApp handoff fails or is blocked
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://pot-black-api.vercel.app/api';
+      await fetch(`${apiUrl}/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, source: 'website_contact' })
+      });
+    } catch (error) {
+      console.warn('Server-side recording failed, proceeding to WhatsApp handoff', error);
+    }
 
     // Construct the formatted WhatsApp message
     const formattedText = 
@@ -44,7 +57,13 @@ export default function ContactUs() {
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${formattedText}`;
 
     // Open WhatsApp in new tab
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    
+    // Fallback if popup blocker intervenes
+    if (!newWindow) {
+      window.location.href = `mailto:potblackdxb@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${formattedText}`;
+    }
+    
     setIsSubmitted(true);
   };
 
