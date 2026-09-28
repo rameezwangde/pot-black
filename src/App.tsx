@@ -19,6 +19,7 @@ import Blogs from './pages/Blogs';
 import ContactUs from './pages/ContactUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
+import NotFound from './pages/NotFound';
 import ProtectedAdminRoute from './components/admin/ProtectedAdminRoute';
 import AdminLayout from './components/admin/AdminLayout';
 import { CartProvider } from './context/CartContext';
@@ -107,7 +108,7 @@ export default function App() {
               <Route path="/contact" element={<ContactUs />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsConditions />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
