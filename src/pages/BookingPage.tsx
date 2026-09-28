@@ -266,7 +266,14 @@ export default function BookingPage() {
 
     const next: FormErrors = {};
     if (!customerDetails.fullName.trim()) next.fullName = 'Full name is required.';
-    if (!customerDetails.mobile.trim()) next.mobile = 'Mobile number is required.';
+    
+    const mobileTrimmed = customerDetails.mobile.trim();
+    if (!mobileTrimmed) {
+      next.mobile = 'Mobile number is required.';
+    } else if (!/^\+?[0-9\s\-()]+$/.test(mobileTrimmed) || mobileTrimmed.replace(/\D/g, '').length < 7) {
+      next.mobile = 'Enter a valid mobile number.';
+    }
+
     if (!customerDetails.email.trim()) next.email = 'Email is required.';
     else if (!/^\S+@\S+\.\S+$/.test(customerDetails.email)) next.email = 'Enter a valid email address.';
     if (customerDetails.players < 1 || customerDetails.players > selectedTable.capacity) next.players = `Enter between 1 and ${selectedTable.capacity} players.`;
