@@ -195,6 +195,7 @@ export default function ContactUs() {
                   >
                     <option value="Table Reservation">Table Reservation (Pool / Snooker)</option>
                     <option value="VIP Lounge & Private Suite">VIP Lounge & Private Suite Booking</option>
+                    <option value="Membership Inquiry">Membership Inquiry (Gold / Silver)</option>
                     <option value="Tournament Registration">Tournament & League Entry</option>
                     <option value="General Inquiry">General Inquiry / Feedback</option>
                   </select>

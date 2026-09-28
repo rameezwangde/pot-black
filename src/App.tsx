@@ -19,6 +19,7 @@ import Blogs from './pages/Blogs';
 import ContactUs from './pages/ContactUs';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
+import Membership from './pages/Membership';
 import NotFound from './pages/NotFound';
 import ProtectedAdminRoute from './components/admin/ProtectedAdminRoute';
 import AdminLayout from './components/admin/AdminLayout';
@@ -106,6 +107,7 @@ export default function App() {
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/contact" element={<ContactUs />} />
+              <Route path="/membership" element={<Membership />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsConditions />} />
               <Route path="*" element={<NotFound />} />
