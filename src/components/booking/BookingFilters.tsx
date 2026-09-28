@@ -1,4 +1,5 @@
 import { Search } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { getDubaiToday } from '../../utils/bookingTime';
 
 interface Props { date: string; players: number; duration: string; loading: boolean; onDate: (v: string) => void; onPlayers: (v: number) => void; onDuration: (v: string) => void; onSearch: () => void; }
@@ -13,5 +14,11 @@ export default function BookingFilters({ date, players, duration, loading, onDat
       <label className="text-[10px] uppercase tracking-[.18em] text-gray-400">Preferred Duration<select value={duration} onChange={e => onDuration(e.target.value)} className={`${field} mt-2`}><option>30 Minutes</option><option>1 Hour</option><option>1 Hour 30 Minutes</option><option>2 Hours</option></select></label>
       <button type="button" disabled={loading} onClick={onSearch} className="min-h-[48px] bg-[#D4AF37] text-[#080605] px-5 py-3 uppercase tracking-[.18em] text-[10px] font-semibold hover:bg-[#F3E5AB] focus:outline-none focus:ring-2 focus:ring-[#F3E5AB] disabled:opacity-60 flex items-center justify-center gap-2"><Search size={15} />{loading ? 'Checking...' : 'Check Availability'}</button>
     </div>
+    {players >= 5 && (
+      <div className="mt-5 text-xs text-[#E2D2A4] bg-[#D4AF37]/10 p-3.5 rounded-sm border border-[#D4AF37]/20 flex items-start gap-3">
+        <span className="text-[#D4AF37] text-lg leading-none mt-0.5">ⓘ</span>
+        <p className="leading-relaxed">Single tables accommodate a maximum of 6 players. For larger parties or corporate events (7+ players), please <Link to="/contact" className="text-[#D4AF37] underline underline-offset-2 hover:text-[#F3E5AB] font-medium">contact us directly</Link> for VIP group bookings.</p>
+      </div>
+    )}
   </section>;
 }
