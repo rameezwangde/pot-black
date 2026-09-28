@@ -39,28 +39,41 @@ export const formatUtcToDubaiDate = (isoDate: string) =>
   DateTime.fromISO(isoDate, { setZone: true }).setZone(CAFE_TIMEZONE).toFormat('d LLLL yyyy');
 
 export const generateDubaiTimeSlots = (durationMinutes: number, selectedDateIso?: string) => {
-  const openingMinutes = 10 * 60;
-  const closingMinutes = 23 * 60;
+  const targetDate = selectedDateIso 
+    ? DateTime.fromISO(selectedDateIso, { zone: CAFE_TIMEZONE }) 
+    : DateTime.now().setZone(CAFE_TIMEZONE);
+    
+  const weekday = targetDate.weekday; // 1 = Mon, 7 = Sun
+  const isWeekend = weekday === 6 || weekday === 7;
+
+  // Mon-Fri 2 PM-12 AM / Sat-Sun 12 PM-2 AM
+  const openingMinutes = isWeekend ? 12 * 60 : 14 * 60;
+  const closingMinutes = isWeekend ? 26 * 60 : 24 * 60;
+
   const slots: Array<{ id: string; start: string; end: string }> = [];
   const now = DateTime.now().setZone(CAFE_TIMEZONE);
+  const startOfDay = targetDate.startOf('day');
+
   for (let startMinutes = openingMinutes; startMinutes + durationMinutes <= closingMinutes; startMinutes += 30) {
     let includeSlot = true;
-    const start = DateTime.fromObject(
-      { hour: Math.floor(startMinutes / 60), minute: startMinutes % 60 },
-      { zone: CAFE_TIMEZONE },
-    );
-    const end = start.plus({ minutes: durationMinutes });
+    
+    const slotStartDateTime = startOfDay.plus({ minutes: startMinutes });
+    const end = slotStartDateTime.plus({ minutes: durationMinutes });
     
     if (selectedDateIso) {
-      const slotStartIso = `${selectedDateIso}T${start.toFormat('HH:mm:ss')}`;
-      const slotStartDateTime = DateTime.fromISO(slotStartIso, { zone: CAFE_TIMEZONE });
       if (slotStartDateTime <= now) {
         includeSlot = false;
       }
     }
     
     if (includeSlot) {
-      slots.push({ id: start.toFormat('HH:mm'), start: start.toFormat('h:mm a'), end: end.toFormat('h:mm a') });
+      // Use HH:mm for ID. Wait, if it crosses midnight, id might overlap if it was possible, but since a day's slots are unique, it's fine.
+      // But let's keep id format as HH:mm. If we want to represent 25:00 as 01:00, toFormat('HH:mm') does exactly that.
+      slots.push({ 
+        id: slotStartDateTime.toFormat('HH:mm'), 
+        start: slotStartDateTime.toFormat('h:mm a'), 
+        end: end.toFormat('h:mm a') 
+      });
     }
   }
   return slots;
