@@ -10,13 +10,17 @@ export default function Navbar({ show = true }: { show?: boolean }) {
   const location = useLocation();
   const { toggleCart, cartCount } = useCart();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    useEffect(() => {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 50);
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+  
+    useEffect(() => {
+      setIsMobileMenuOpen(false);
+    }, [location.pathname]);
 
   const navLinks = [
     { name: 'Home Page', href: '/' },
@@ -102,10 +106,11 @@ export default function Navbar({ show = true }: { show?: boolean }) {
 
       {/* Mobile Nav */}
       <motion.div 
-        className={`xl:hidden absolute top-full left-0 w-full max-h-[calc(100dvh-5rem)] overflow-y-auto bg-[#1A0E0E]/95 backdrop-blur-xl border-t border-white/5 overscroll-contain ${isMobileMenuOpen ? 'block' : 'hidden'}`}
+        className={`xl:hidden absolute top-full left-0 w-full overflow-y-auto bg-[#1A0E0E]/95 backdrop-blur-xl border-t border-white/5 overscroll-contain ${isMobileMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
         initial={{ height: 0, opacity: 0 }}
         animate={{ height: isMobileMenuOpen ? 'auto' : 0, opacity: isMobileMenuOpen ? 1 : 0 }}
         transition={{ duration: 0.3 }}
+        style={{ maxHeight: 'calc(100dvh - 5rem)' }}
       >
         <div className="flex flex-col items-center gap-3 px-4 py-5 sm:gap-5 sm:px-6 sm:py-7">
           {navLinks.map((link) => {
