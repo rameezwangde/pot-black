@@ -82,7 +82,7 @@ export default function Blogs() {
       {/* Main Content Area */}
       <div className="min-h-[50vh] pb-24 relative z-10 bg-[#0a0505]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           {/* Controls: Search & Categories */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 py-8 border-y border-white/10 mb-12">
             {/* Category Filter Pills */}
@@ -91,11 +91,10 @@ export default function Blogs() {
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 text-xs font-medium uppercase tracking-[0.15em] transition-all rounded-full border ${
-                    selectedCategory === cat
+                  className={`px-4 py-2 text-xs font-medium uppercase tracking-[0.15em] transition-all rounded-full border ${selectedCategory === cat
                       ? 'bg-[#D4AF37] text-black border-[#D4AF37] shadow-[0_0_15px_rgba(212,175,55,0.3)]'
                       : 'bg-black/40 text-gray-400 border-white/10 hover:border-[#D4AF37]/40 hover:text-white'
-                  }`}
+                    }`}
                 >
                   {cat}
                 </button>
