@@ -80,6 +80,7 @@ export default function Navbar({ show = true }: { show?: boolean }) {
         <div className="flex items-center gap-6">
           <button
             onClick={toggleCart}
+            aria-label="Open Cart"
             className="relative text-white hover:text-[#D4AF37] transition-colors"
           >
             <ShoppingBag size={24} strokeWidth={1.5} />
@@ -97,6 +98,8 @@ export default function Navbar({ show = true }: { show?: boolean }) {
           </Link>
           <button 
             className="text-white hover:text-[#D4AF37] transition-colors"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={32} strokeWidth={1} /> : <Menu size={32} strokeWidth={1} />}
