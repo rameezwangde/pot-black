@@ -38,17 +38,30 @@ export const formatUtcToDubaiTime = (isoDate: string) =>
 export const formatUtcToDubaiDate = (isoDate: string) =>
   DateTime.fromISO(isoDate, { setZone: true }).setZone(CAFE_TIMEZONE).toFormat('d LLLL yyyy');
 
-export const generateDubaiTimeSlots = (durationMinutes: number) => {
+export const generateDubaiTimeSlots = (durationMinutes: number, selectedDateIso?: string) => {
   const openingMinutes = 10 * 60;
   const closingMinutes = 23 * 60;
   const slots: Array<{ id: string; start: string; end: string }> = [];
+  const now = DateTime.now().setZone(CAFE_TIMEZONE);
   for (let startMinutes = openingMinutes; startMinutes + durationMinutes <= closingMinutes; startMinutes += 30) {
+    let includeSlot = true;
     const start = DateTime.fromObject(
       { hour: Math.floor(startMinutes / 60), minute: startMinutes % 60 },
       { zone: CAFE_TIMEZONE },
     );
     const end = start.plus({ minutes: durationMinutes });
-    slots.push({ id: start.toFormat('HH:mm'), start: start.toFormat('h:mm a'), end: end.toFormat('h:mm a') });
+    
+    if (selectedDateIso) {
+      const slotStartIso = `${selectedDateIso}T${start.toFormat('HH:mm:ss')}`;
+      const slotStartDateTime = DateTime.fromISO(slotStartIso, { zone: CAFE_TIMEZONE });
+      if (slotStartDateTime <= now) {
+        includeSlot = false;
+      }
+    }
+    
+    if (includeSlot) {
+      slots.push({ id: start.toFormat('HH:mm'), start: start.toFormat('h:mm a'), end: end.toFormat('h:mm a') });
+    }
   }
   return slots;
 };

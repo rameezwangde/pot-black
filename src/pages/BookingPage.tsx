@@ -113,11 +113,11 @@ export default function BookingPage() {
     [availableTables, selectedPlayers],
   );
   const slots = useMemo<TimeSlot[]>(
-    () => generateDubaiTimeSlots(durationMinutes).map(slot => ({
+    () => generateDubaiTimeSlots(durationMinutes, selectedDate).map(slot => ({
       ...slot,
       status: unavailableSlotIds.has(slot.id) ? 'booked' : 'available',
     })),
-    [durationMinutes, unavailableSlotIds],
+    [durationMinutes, unavailableSlotIds, selectedDate],
   );
   const readableDate = useMemo(
     () => new Date(`${selectedDate}T12:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
