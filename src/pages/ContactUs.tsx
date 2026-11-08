@@ -287,8 +287,7 @@ export default function ContactUs() {
                     <div>
                       <span className="text-[11px] text-gray-400 uppercase tracking-widest block font-medium">Operating Hours</span>
                       <div className="text-white text-xs space-y-1 mt-1 font-light">
-                        <p><strong className="font-medium text-[#E2D2A4]">Monday – Friday:</strong> 2:00 PM – 12:00 AM</p>
-                        <p><strong className="font-medium text-[#E2D2A4]">Saturday – Sunday:</strong> 12:00 PM – 2:00 AM</p>
+                        <p><strong className="font-medium text-[#E2D2A4]">Every Day:</strong> 12:00 PM – 3:00 AM</p>
                       </div>
                     </div>
                   </li>

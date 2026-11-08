@@ -29,20 +29,51 @@ const convertCafeTimeToUtc = (value) => {
   return new Date(dateTime.toUTC().toISO());
 };
 
-const buildCafeBusinessWindow = (bookingDateTime, openingHour, closingHour) => ({
-  openingDateTime: bookingDateTime.set({
-    hour: openingHour,
-    minute: 0,
-    second: 0,
-    millisecond: 0,
-  }),
-  closingDateTime: bookingDateTime.set({
-    hour: closingHour,
-    minute: 0,
-    second: 0,
-    millisecond: 0,
-  }),
-});
+const buildCafeBusinessWindow = (bookingDateTime, openingHour, closingHour) => {
+  const isOvernight = closingHour <= openingHour;
+  let operatingDayStart;
+
+  if (isOvernight) {
+    // If the booking begins during the early morning hours before closingHour,
+    // it belongs to the previous calendar day's business session.
+    if (bookingDateTime.hour < closingHour) {
+      operatingDayStart = bookingDateTime.minus({ days: 1 }).startOf('day');
+    } else {
+      operatingDayStart = bookingDateTime.startOf('day');
+    }
+
+    return {
+      openingDateTime: operatingDayStart.set({
+        hour: openingHour,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+      }),
+      closingDateTime: operatingDayStart.plus({ days: 1 }).set({
+        hour: closingHour,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+      }),
+    };
+  }
+
+  operatingDayStart = bookingDateTime.startOf('day');
+  return {
+    openingDateTime: operatingDayStart.set({
+      hour: openingHour,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
+    closingDateTime: operatingDayStart.set({
+      hour: closingHour,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+    }),
+  };
+};
 
 module.exports = {
   buildCafeBusinessWindow,

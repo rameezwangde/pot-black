@@ -87,12 +87,8 @@ export default function Footer() {
               <h4 className="text-[#D4AF37] uppercase tracking-widest text-xs font-semibold mb-6">HOURS</h4>
               <ul className="flex flex-col gap-3 text-xs text-gray-400 tracking-wider">
                 <li className="flex flex-wrap gap-x-4 gap-y-1">
-                  <span className="w-24 shrink-0">Mon - Fri :</span>
-                  <span>2:00 PM - 12:00 AM</span>
-                </li>
-                <li className="flex flex-wrap gap-x-4 gap-y-1">
-                  <span className="w-24 shrink-0">Sat - Sun :</span>
-                  <span>12:00 PM - 2:00 AM</span>
+                  <span className="w-24 shrink-0">Every Day :</span>
+                  <span>12:00 PM - 3:00 AM</span>
                 </li>
               </ul>
             </div>

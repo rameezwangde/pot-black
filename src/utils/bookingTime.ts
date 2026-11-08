@@ -23,12 +23,28 @@ export const durationToMinutes = (duration: string) => {
 };
 
 export const createDubaiStartDateTime = ({ date, time }: { date: string; time: string }) => {
-  const timeFormat = /[AP]M$/i.test(time.trim()) ? 'h:mm a' : 'HH:mm';
-  const dubaiDateTime = DateTime.fromFormat(`${date} ${time}`, `yyyy-MM-dd ${timeFormat}`, {
+  const is12Hour = /[AP]M$/i.test(time.trim());
+  const timeFormat = is12Hour ? 'h:mm a' : 'HH:mm';
+  let targetDate = DateTime.fromISO(date, { zone: CAFE_TIMEZONE });
+  const parsedTime = DateTime.fromFormat(time.trim(), timeFormat, {
     zone: CAFE_TIMEZONE,
     locale: 'en',
   });
-  if (!dubaiDateTime.isValid) throw new Error('The selected Dubai booking date or time is invalid.');
+  if (!parsedTime.isValid) throw new Error('The selected Dubai booking date or time is invalid.');
+
+  // Overnight hours (12:00 PM to 3:00 AM): slots in the early morning (< 6:00 AM)
+  // belong to the operating session that began on 'date' at 12:00 PM.
+  if (parsedTime.hour < 6) {
+    targetDate = targetDate.plus({ days: 1 });
+  }
+
+  const dubaiDateTime = targetDate.set({
+    hour: parsedTime.hour,
+    minute: parsedTime.minute,
+    second: 0,
+    millisecond: 0,
+  });
+
   return dubaiDateTime.toUTC().toISO();
 };
 
@@ -42,13 +58,10 @@ export const generateDubaiTimeSlots = (durationMinutes: number, selectedDateIso?
   const targetDate = selectedDateIso 
     ? DateTime.fromISO(selectedDateIso, { zone: CAFE_TIMEZONE }) 
     : DateTime.now().setZone(CAFE_TIMEZONE);
-    
-  const weekday = targetDate.weekday; // 1 = Mon, 7 = Sun
-  const isWeekend = weekday === 6 || weekday === 7;
 
-  // Mon-Fri 2 PM-12 AM / Sat-Sun 12 PM-2 AM
-  const openingMinutes = isWeekend ? 12 * 60 : 14 * 60;
-  const closingMinutes = isWeekend ? 26 * 60 : 24 * 60;
+  // Daily operating hours: 12:00 PM to 3:00 AM (next day)
+  const openingMinutes = 12 * 60; // 12:00 PM
+  const closingMinutes = 27 * 60; // 3:00 AM next day (27 * 60)
 
   const slots: Array<{ id: string; start: string; end: string }> = [];
   const now = DateTime.now().setZone(CAFE_TIMEZONE);
@@ -67,10 +80,8 @@ export const generateDubaiTimeSlots = (durationMinutes: number, selectedDateIso?
     }
     
     if (includeSlot) {
-      // Use HH:mm for ID. Wait, if it crosses midnight, id might overlap if it was possible, but since a day's slots are unique, it's fine.
-      // But let's keep id format as HH:mm. If we want to represent 25:00 as 01:00, toFormat('HH:mm') does exactly that.
       slots.push({ 
-        id: slotStartDateTime.toFormat('HH:mm'), 
+        id: slotStartDateTime.toFormat('yyyy-MM-dd_HH:mm'), 
         start: slotStartDateTime.toFormat('h:mm a'), 
         end: end.toFormat('h:mm a') 
       });

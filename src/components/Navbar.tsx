@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Menu, X, ShoppingBag, ShieldCheck } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
@@ -10,17 +10,17 @@ export default function Navbar({ show = true }: { show?: boolean }) {
   const location = useLocation();
   const { toggleCart, cartCount } = useCart();
 
-    useEffect(() => {
-      const handleScroll = () => {
-        setIsScrolled(window.scrollY > 50);
-      };
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-  
-    useEffect(() => {
-      setIsMobileMenuOpen(false);
-    }, [location.pathname]);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const navLinks = [
     { name: 'Home Page', href: '/' },
@@ -78,7 +78,7 @@ export default function Navbar({ show = true }: { show?: boolean }) {
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 sm:gap-6">
           <button
             onClick={toggleCart}
             aria-label="Open Cart"
@@ -91,6 +91,16 @@ export default function Navbar({ show = true }: { show?: boolean }) {
               </span>
             )}
           </button>
+
+          {/* Staff / Admin Portal Button */}
+          <Link 
+            to="/admin"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 border border-[#D4AF37]/50 text-[#D4AF37] hover:bg-[#D4AF37]/15 uppercase tracking-[0.15em] text-[10px] font-semibold transition-colors"
+            title="Staff / Admin Portal"
+          >
+            <ShieldCheck size={14} />
+            <span>Staff</span>
+          </Link>
           
           <Link to="/booking"
             className="hidden md:flex px-6 py-2.5 bg-gradient-to-r from-[#b38b4d] to-[#d4b075] text-black font-medium uppercase tracking-[0.15em] text-[10px] hover:scale-105 transition-transform duration-300"
@@ -136,11 +146,15 @@ export default function Navbar({ show = true }: { show?: boolean }) {
           >
             Book A Table
           </Link>
+          <Link to="/admin"
+            className="w-full flex items-center justify-center gap-2 py-3.5 border border-[#D4AF37]/50 text-[#D4AF37] hover:bg-[#D4AF37]/15 uppercase tracking-widest text-xs font-semibold transition-colors mt-2"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <ShieldCheck size={16} />
+            <span>Staff Portal</span>
+          </Link>
         </div>
       </motion.div>
     </header>
   );
 }
-
-
-
