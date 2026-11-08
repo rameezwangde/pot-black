@@ -23,6 +23,7 @@ import {
   resetProductsToDefault 
 } from '../../services/productStorageService';
 import { useAdminToast } from '../../context/AdminToastContext';
+import ImageUploadField from '../../components/admin/ImageUploadField';
 
 const DEFAULT_CATEGORIES = [
   'Accessories',
@@ -445,22 +446,17 @@ export default function AdminProductsPage() {
               </div>
 
               {/* Image Inputs */}
-              <div>
-                <label className="block text-[#E2D2A4] uppercase tracking-wider mb-1 font-medium">
-                  Primary Cover Image (URL or /images path) *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="/images/products/3-in-1-tip-shaper/01.jpg"
-                  value={formData.image}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  className="w-full px-3.5 py-2.5 bg-black/60 border border-white/15 focus:border-[#D4AF37] text-white rounded-sm focus:outline-none"
-                />
-              </div>
+              <ImageUploadField
+                label="Primary Cover Image"
+                required
+                value={formData.image}
+                placeholder="/images/products/3-in-1-tip-shaper/01.jpg"
+                onChange={(newImg) => setFormData({ ...formData, image: newImg })}
+                helpText="Upload a primary cover image from your device, or enter an image URL/path below."
+              />
 
               <div>
-                <label className="block text-[#E2D2A4] uppercase tracking-wider mb-1 font-medium">
+                <label className="block text-[#E2D2A4] uppercase tracking-wider mb-1 text-xs font-medium">
                   Additional Gallery Images (Comma separated URLs)
                 </label>
                 <input
@@ -468,7 +464,7 @@ export default function AdminProductsPage() {
                   placeholder="/images/products/3-in-1-tip-shaper/02.jpg, /images/products/3-in-1-tip-shaper/03.jpg"
                   value={formData.additionalImages}
                   onChange={(e) => setFormData({ ...formData, additionalImages: e.target.value })}
-                  className="w-full px-3.5 py-2.5 bg-black/60 border border-white/15 focus:border-[#D4AF37] text-white rounded-sm focus:outline-none"
+                  className="w-full px-3.5 py-2 bg-black/60 border border-white/15 focus:border-[#D4AF37] text-white text-xs rounded-sm focus:outline-none"
                 />
               </div>
 

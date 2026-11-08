@@ -23,6 +23,7 @@ import {
   resetBlogsToDefault 
 } from '../../services/blogStorageService';
 import { useAdminToast } from '../../context/AdminToastContext';
+import ImageUploadField from '../../components/admin/ImageUploadField';
 
 export default function AdminBlogsPage() {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
@@ -370,21 +371,16 @@ export default function AdminBlogsPage() {
               </div>
 
               {/* Cover Image & Featured Checkbox */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-[#E2D2A4] uppercase tracking-wider mb-1 font-medium">
-                    Cover Image URL or Path
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="/expert_coaching.png"
-                    value={formData.image}
-                    onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-black/60 border border-white/15 focus:border-[#D4AF37] text-white rounded-sm focus:outline-none"
-                  />
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+                <ImageUploadField
+                  label="Cover Image"
+                  value={formData.image}
+                  placeholder="/expert_coaching.png"
+                  onChange={(newImg) => setFormData({ ...formData, image: newImg })}
+                  helpText="Upload a featured photo from your device, or enter an image URL/path below."
+                />
 
-                <div className="flex items-center gap-3 pt-6">
+                <div className="flex items-center gap-3 pt-8">
                   <input
                     type="checkbox"
                     id="featured"
@@ -392,7 +388,7 @@ export default function AdminBlogsPage() {
                     onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
                     className="w-4 h-4 accent-[#D4AF37] cursor-pointer"
                   />
-                  <label htmlFor="featured" className="text-gray-300 font-medium cursor-pointer">
+                  <label htmlFor="featured" className="text-gray-300 text-sm font-medium cursor-pointer">
                     Display as Featured Hero Post
                   </label>
                 </div>
